@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/weekday_text"
+        android:layout_width="@dimen/weekday_text_width"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.GridLayout
+        android:id="@+id/weekday_timetable"
+        android:layout_toRightOf="@id/weekday_text"
+        android:layout_alignParentRight="true"
+        app:columnCount="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+</RelativeLayout>

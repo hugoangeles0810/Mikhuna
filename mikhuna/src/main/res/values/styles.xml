@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.Base.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/default_windows_background</item>
+    </style>
+
+    <style name="LoginFormContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">@style/ButtonBar</item>
+        <item name="metaButtonBarButtonStyle">@style/ButtonBarButton</item>
+    </style>
+
+    <style name="ButtonBar">
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:background">@android:drawable/bottom_bar</item>
+    </style>
+
+    <style name="ButtonBarButton" />
+
+    <style name="default_separator_line">
+        <item name="android:background">@color/apptheme_color_tenuous</item>
+    </style>
+    <style name="emphasis_separator_line">
+        <item name="android:background">@color/apptheme_color_actionbar</item>
+    </style>
+    <style name="default_horizontal_separator_line" parent="default_separator_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_marginTop">@dimen/default_separator_margin_1</item>
+        <item name="android:layout_marginBottom">@dimen/default_separator_margin_1</item>
+    </style>
+    <style name="emphasis_horizontal_separator_line" parent="emphasis_separator_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_marginTop">@dimen/default_separator_margin_1</item>
+        <item name="android:layout_marginBottom">@dimen/default_separator_margin_1</item>
+    </style>
+    <style name="emphasis_vertical_separator_line" parent="emphasis_separator_line">
+        <item name="android:layout_width">2dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginLeft">@dimen/default_separator_margin_1</item>
+        <item name="android:layout_marginRight">@dimen/default_separator_margin_1</item>
+    </style>
+
+    <style name="restaurant_list_item_vertical">
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:paddingTop">7dp</item>
+    </style>
+
+    <style name="restaurant_list_item_title">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+    </style>
+
+    <style name="restaurant_promotion_listitem_title">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+    
+    <style name="default_rating_bar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_default</item>
+        <item name="android:minHeight">16dip</item>
+        <item name="android:maxHeight">16dip</item>
+    </style>
+
+    <style name="restaurant_list_vertical">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <style name="restaurant_openclosed_parent">
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="restaurant_open" parent="restaurant_openclosed_parent">
+        <item name="android:textColor">#20aa20</item>
+    </style>
+    <style name="restaurant_closed" parent="restaurant_openclosed_parent">
+        <item name="android:textColor">#ff5500</item>
+    </style>
+
+</resources>

@@ -1,0 +1,38 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        >
+
+        <ImageView
+            android:id="@+id/restaurant_call_action"
+            android:layout_width="@dimen/image_small"
+            android:layout_height="@dimen/image_small"
+            android:src="@drawable/action_call"
+            />
+
+        <ImageView
+            android:id="@+id/restaurant_map_action"
+            android:layout_width="@dimen/image_small"
+            android:layout_height="@dimen/image_small"
+            android:src="@drawable/googlemaps_button"
+            />
+
+        <ImageView
+            android:id="@+id/restaurant_carte_action"
+            android:layout_width="@dimen/image_small"
+            android:layout_height="@dimen/image_small"
+            android:src="@drawable/restaurant_default_icon_10"
+            />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item android:id="@+id/action_report_problem"
+        android:title="@string/action_report_problem"
+        app:showAsAction="never" />
+
+
+    <item android:id="@+id/action_contact"
+        android:title="@string/action_contact"
+        app:showAsAction="never" />
+
+    <!--<item android:id="@+id/action_exit"-->
+        <!--android:title="@string/action_exit"-->
+        <!--app:showAsAction="never" />-->
+
+</menu>

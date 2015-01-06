@@ -1,0 +1,114 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:context="com.jasoftsolutions.mikhuna.activity.fragment.RestaurantDetailFragment">
+
+
+    <ImageView android:id="@+id/restaurant_detail_logo"
+        android:layout_width="@dimen/image_small"
+        android:layout_height="@dimen/image_small"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_launcher"
+        android:contentDescription="@string/restaurant_logo_description"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/restaurant_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/restaurant_list_item_title"
+            android:text="{Nombre del restaurant}"
+            />
+
+        <RatingBar
+            android:id="@+id/restaurant_detail_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:isIndicator="true"
+            style="@style/default_rating_bar"
+            />
+
+        <LinearLayout
+            android:id="@+id/restaurant_minamount_and_delivery_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <LinearLayout
+                android:id="@+id/restaurant_detail_min_amount_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/default_text_margin"
+                android:gravity="left"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/restaurant_min_amount"
+                    android:textColor="@color/default_text_data_label"
+                    />
+
+                <TextView
+                    android:id="@+id/restaurant_detail_min_amount"
+                    android:layout_marginLeft="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="{Mínimo}"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/restaurant_detail_shipping_cost_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/restaurant_shipping_cost"
+                    android:textColor="@color/black_overlay"
+                    />
+
+                <TextView
+                    android:id="@+id/restaurant_detail_shipping_cost"
+                    android:layout_marginLeft="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="{Envío}"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/restaurant_detail_service_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="{Delivery/Reservas}"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.jasoftsolutions.mikhuna.activity.RestaurantListActivity" >
+
+    <item android:id="@+id/action_refresh"
+        android:icon="@android:drawable/ic_popup_sync"
+        android:title="@string/action_refresh"
+        app:showAsAction="always"
+        />
+
+    <item android:id="@+id/action_search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="@string/action_search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always"
+        />
+
+    <!--<item android:id="@+id/action_filter"-->
+        <!--android:icon="@drawable/filter"-->
+        <!--android:title="@string/action_filter"-->
+        <!--app:showAsAction="always"-->
+        <!--/>-->
+
+    <!--<item android:id="@+id/action_settings"-->
+        <!--android:title="@string/action_settings"-->
+        <!--android:orderInCategory="100"-->
+        <!--app:showAsAction="never" />-->
+</menu>
