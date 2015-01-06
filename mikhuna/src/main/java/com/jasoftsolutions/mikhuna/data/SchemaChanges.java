@@ -135,6 +135,9 @@ public class SchemaChanges {
                             Schema.RestaurantDish.liked + " integer," +
                             Schema.RestaurantDish.likeCount + " integer" +
                             ")",
+                    "alter table "+ Schema.Restaurant._tableName + " add " +
+                            Schema.Restaurant.numberProductCategory +  " integer "
+
             }
     };
 

@@ -37,7 +37,7 @@ public final class Schema {
             weight = "weight",
             serviceTypeId = "service_type_id",
             timetableDescription = "timetable_description",
-
+            numberProductCategory = "number_product_category",
             ubigeoServerId = "ubigeo_server_id"
         ;
     }

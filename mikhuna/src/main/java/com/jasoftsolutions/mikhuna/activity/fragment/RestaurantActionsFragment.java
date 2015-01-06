@@ -2,6 +2,7 @@ package com.jasoftsolutions.mikhuna.activity.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,8 @@ public class RestaurantActionsFragment extends Fragment {
                     carteButton.setTag(R.id.tag_restaurant_server_id, restaurant.getServerId());
                     carteButton.setOnClickListener(new CarteButtonActionListener());
                 }
+
+                if (restaurant.getNumberProductCategory() <= 0){ carteButton.setVisibility(View.GONE); }
             }
         } catch (Exception e) {
             ExceptionUtil.handleException(e);

@@ -70,6 +70,9 @@ public class Restaurant extends AbstractModel {
     @SerializedName("dtt")
     private String timetableDescription;
 
+    @SerializedName("npc")
+    private Integer numberProductCategory;
+
     @SerializedName("__local_restaurantCategoryAssigns")    // reemplazo de "exclude"
     private List<RestaurantCategory> restaurantCategories;
 
@@ -248,6 +251,11 @@ public class Restaurant extends AbstractModel {
     }
     public void setTimetableDescription(String timetableDescription) {
         this.timetableDescription = timetableDescription;
+    }
+
+    public Integer getNumberProductCategory() { return numberProductCategory; }
+    public void setNumberProductCategory(Integer numberProductCategory) {
+        this.numberProductCategory = numberProductCategory;
     }
 
     public boolean isDelivery() {

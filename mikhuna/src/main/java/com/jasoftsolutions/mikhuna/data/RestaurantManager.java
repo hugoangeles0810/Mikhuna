@@ -51,7 +51,8 @@ public class RestaurantManager {
                 Schema.Restaurant.address, Schema.Restaurant.shippingCost, Schema.Restaurant.serverId,
                 Schema.Restaurant.lastUpdate, Schema.Restaurant.logoUrl, Schema.Restaurant.smallLogoUrl,
                 Schema.Restaurant.weight, Schema.Restaurant.serviceTypeId, Schema.Restaurant.ubigeoServerId,
-                Schema.Restaurant.timetableDescription
+                Schema.Restaurant.timetableDescription,
+                Schema.Restaurant.numberProductCategory
         }, selection, selectionArgs, groupBy, having, orderBy);
     }
 
@@ -79,6 +80,7 @@ public class RestaurantManager {
         r.setServiceTypeId(cursor.getInt(19));
         if (!cursor.isNull(20)) r.setUbigeoServerId(cursor.getLong(20));
         r.setTimetableDescription(cursor.getString(21));
+        r.setNumberProductCategory(cursor.getInt(22));
 //        if (!cursor.isNull(1)) r.setName(cursor.getString(1));
 //        if (!cursor.isNull(2)) r.setDescription(cursor.getString(2));
 //        if (!cursor.isNull(3)) r.setPhoneNumber(cursor.getString(3));
@@ -592,6 +594,7 @@ public class RestaurantManager {
                 val.put(Schema.Restaurant.serviceTypeId, r.getServiceTypeId());
                 val.put(Schema.Restaurant.ubigeoServerId, r.getUbigeoServerId());
                 val.put(Schema.Restaurant.timetableDescription, r.getTimetableDescription());
+                val.put(Schema.Restaurant.numberProductCategory, r.getNumberProductCategory());
 
                 try {
                     r.setId(db.insertOrThrow(Schema.Restaurant._tableName, null, val));
