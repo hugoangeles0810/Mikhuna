@@ -20,18 +20,19 @@
             />
 
         <ImageView
+            android:id="@+id/restaurant_carte_action"
+            android:layout_width="@dimen/image_small"
+            android:layout_height="@dimen/image_small"
+            android:src="@drawable/action_carte"
+            />
+
+        <ImageView
             android:id="@+id/restaurant_map_action"
             android:layout_width="@dimen/image_small"
             android:layout_height="@dimen/image_small"
             android:src="@drawable/googlemaps_button"
             />
 
-        <ImageView
-            android:id="@+id/restaurant_carte_action"
-            android:layout_width="@dimen/image_small"
-            android:layout_height="@dimen/image_small"
-            android:src="@drawable/restaurant_default_icon_10"
-            />
 
     </LinearLayout>
 

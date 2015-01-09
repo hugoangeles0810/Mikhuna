@@ -139,10 +139,17 @@ public class CurrentSchema {
                     Schema.RestaurantDish.name + " text," +
                     Schema.RestaurantDish.description + " text," +
                     Schema.RestaurantDish.position + " integer," +
-                    Schema.RestaurantDish.price + " float," +
+                    Schema.RestaurantDish.price + " float" +
                     Schema.RestaurantDish.liked + " integer," +
                     Schema.RestaurantDish.likeCount + " integer" +
             ")",
+            "create table " + Schema.RestaurantDishPresentation._tableName+" (" +
+                    Schema.RestaurantDishPresentation.id + " integer primary key," +
+                    Schema.RestaurantDishPresentation.restaurantDishServerId + " integer," +
+                    Schema.RestaurantDishPresentation.name + " text, " +
+                    Schema.RestaurantDishPresentation.position + " integer," +
+                    Schema.RestaurantDishPresentation.cost + " float" +
+                    ")",
     };
 
 }

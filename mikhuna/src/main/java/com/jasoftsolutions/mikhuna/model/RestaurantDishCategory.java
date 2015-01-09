@@ -1,5 +1,7 @@
 package com.jasoftsolutions.mikhuna.model;
 
+import java.util.List;
+
 /**
  * Created by pc07 on 20/10/2014.
  */
@@ -9,6 +11,7 @@ public class RestaurantDishCategory extends AbstractModel {
     private String name;
     private Integer position;
     private Long dishesLastUpdate;
+    private List<RestaurantDish> restaurantDishes;
 
     public RestaurantDishCategory() {}
 
@@ -55,6 +58,11 @@ public class RestaurantDishCategory extends AbstractModel {
     }
     public void setDishesLastUpdate(Long dishesLastUpdate) {
         this.dishesLastUpdate = dishesLastUpdate;
+    }
+
+    public List<RestaurantDish> getRestaurantDishes() { return restaurantDishes; }
+    public void setRestaurantDishes(List<RestaurantDish> restaurantDishes) {
+        this.restaurantDishes = restaurantDishes;
     }
 
     @Override

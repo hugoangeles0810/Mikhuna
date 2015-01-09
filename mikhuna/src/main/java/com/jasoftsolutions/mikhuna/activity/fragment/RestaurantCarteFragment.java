@@ -31,7 +31,7 @@ public class RestaurantCarteFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_restaurant_carte, container, false);
+        rootView = inflater.inflate(R.layout.fragment_restaurant_carte_categories, container, false);
 
         if (savedInstanceState == null) {
             checkExtraData(getArguments());

@@ -69,16 +69,16 @@ public final class Schema {
             likeCount = "like_count"
         ;
     }
-//
-//    public static final class RestaurantDishPresentation extends BaseTable {
-//        public static final String
-//            _tableName = "restaurant_dish_presentation",
-//            //
-//            name = "name",
-//            position = "position",
-//            cost = "cost"
-//        ;
-//    }
+
+    public static final class RestaurantDishPresentation extends BaseTable {
+        public static final String
+            _tableName = "restaurant_dish_presentation",
+           restaurantDishServerId = "restaurant_dish_server_id",
+           name = "name",
+           position = "position",
+           cost = "cost"
+        ;
+    }
 
     public static final class RestaurantTimeTable extends BaseTable {
         public static final String

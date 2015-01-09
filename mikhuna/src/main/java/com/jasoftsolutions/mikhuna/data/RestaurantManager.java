@@ -11,6 +11,7 @@ import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.model.RestaurantCategoryAssign;
 import com.jasoftsolutions.mikhuna.model.RestaurantDish;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
+import com.jasoftsolutions.mikhuna.model.RestaurantDishPresentation;
 import com.jasoftsolutions.mikhuna.model.RestaurantPromotion;
 import com.jasoftsolutions.mikhuna.model.RestaurantTimetable;
 import com.jasoftsolutions.mikhuna.util.ArrayUtil;
@@ -683,14 +684,25 @@ public class RestaurantManager {
                         new String[] { rdc.getServerId().toString() });
             }
 
+            if(rdc.getRestaurantDishes()!=null){
+                saveRestaurantDishes(rdc.getRestaurantDishes(), db);
+            }
+
         }
+
+    }
+
+    public void saveRestaurantDishCategories(List<RestaurantDishCategory> restaurantDishCategoryList){
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getWritableDatabase();
+        saveRestaurantDishCategories(restaurantDishCategoryList, db);
+        MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
     }
 
     public void cleanRestaurantDishesCategoriesByRestaurantServerId(SQLiteDatabase db,
-                                                                    long restarantServerId) {
+                                                                    Long restaurantServerId) {
         db.delete(Schema.RestaurantDishCategory._tableName,
                 Schema.RestaurantDishCategory.restaurantServerId + "=?",
-                new String[] { String.valueOf(restarantServerId) } );
+                new String[] { String.valueOf(restaurantServerId) } );
     }
 
     public void saveRestaurantDishes(List<RestaurantDish> restaurantDishList, SQLiteDatabase db) {
@@ -710,12 +722,34 @@ public class RestaurantManager {
             val.put(Schema.RestaurantDish.likeCount, rd.getLikeCount());
 
             try {
-                if (db.update(Schema.RestaurantDish._tableName, val, Schema.RestaurantDish.serverId+"=?",
-                        new String[] { rd.getServerId().toString() }) == 0) {
-                    db.insertOrThrow(Schema.RestaurantDish._tableName, null, val);
-                }
+                db.insertOrThrow(Schema.RestaurantDish._tableName, null, val);
             } catch (Exception e) {
                 ExceptionUtil.handleException(e);
+                db.update(Schema.RestaurantDish._tableName, val, Schema.RestaurantDish.serverId+"=?",
+                        new String[] { rd.getServerId().toString() });
+            }
+
+            if (rd.getDishPresentations()!=null){
+                saveRestaurantDishPresentations(rd.getDishPresentations(), db);
+            }
+        }
+    }
+
+    private void saveRestaurantDishPresentations(List<RestaurantDishPresentation> dishPresentations, SQLiteDatabase db) {
+        for (RestaurantDishPresentation dp : dishPresentations){
+            ContentValues val = new ContentValues();
+            val.put(Schema.RestaurantDishPresentation.serverId, dp.getServerId());
+            val.put(Schema.RestaurantDishPresentation.name, dp.getName());
+            val.put(Schema.RestaurantDishPresentation.position, dp.getPosition());
+            val.put(Schema.RestaurantDishPresentation.cost, dp.getCost());
+            val.put(Schema.RestaurantDishPresentation.restaurantDishServerId, dp.getRestaurantDishServerId());
+
+            try {
+                    db.insertOrThrow(Schema.RestaurantDishPresentation._tableName, null, val);
+            }catch(Exception e){
+                ExceptionUtil.handleException(e);
+                db.update(Schema.RestaurantDishPresentation._tableName, val, Schema.RestaurantDishPresentation.serverId+"=?",
+                        new String[] { dp.getServerId().toString() });
             }
         }
     }

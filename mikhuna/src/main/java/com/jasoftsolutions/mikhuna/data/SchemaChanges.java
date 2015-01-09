@@ -117,7 +117,7 @@ public class SchemaChanges {
             new String[] {  // Version 6
                     "create table "+ Schema.RestaurantDishCategory._tableName+" (" +
                             Schema.RestaurantDishCategory.id + " integer primary key," +
-                            Schema.RestaurantDishCategory.serverId + " integer," +
+                            Schema.RestaurantDishCategory.serverId + " integer unique," +
                             Schema.RestaurantDishCategory.restaurantServerId + " integer," +
                             Schema.RestaurantDishCategory.name + " text," +
                             Schema.RestaurantDishCategory.position + " integer," +
@@ -125,7 +125,7 @@ public class SchemaChanges {
                             ")",
                     "create table "+ Schema.RestaurantDish._tableName+" (" +
                             Schema.RestaurantDish.id + " integer primary key," +
-                            Schema.RestaurantDish.serverId + " integer," +
+                            Schema.RestaurantDish.serverId + " integer unique," +
                             Schema.RestaurantDish.restaurantServerId + " integer," +
                             Schema.RestaurantDish.restaurantDishCategoryServerId + " integer," +
                             Schema.RestaurantDish.name + " text," +
@@ -134,6 +134,14 @@ public class SchemaChanges {
                             Schema.RestaurantDish.price + " float," +
                             Schema.RestaurantDish.liked + " integer," +
                             Schema.RestaurantDish.likeCount + " integer" +
+                            ")",
+                    "create table " + Schema.RestaurantDishPresentation._tableName+" (" +
+                            Schema.RestaurantDishPresentation.id + " integer primary key," +
+                            Schema.RestaurantDishPresentation.serverId + " integer unique," +
+                            Schema.RestaurantDishPresentation.restaurantDishServerId + " integer," +
+                            Schema.RestaurantDishPresentation.name + " text, " +
+                            Schema.RestaurantDishPresentation.position + " integer," +
+                            Schema.RestaurantDishPresentation.cost + " float" +
                             ")",
                     "alter table "+ Schema.Restaurant._tableName + " add " +
                             Schema.Restaurant.numberProductCategory +  " integer "

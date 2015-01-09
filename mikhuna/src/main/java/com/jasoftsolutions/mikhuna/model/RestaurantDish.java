@@ -1,5 +1,7 @@
 package com.jasoftsolutions.mikhuna.model;
 
+import java.util.List;
+
 /**
  * Created by pc07 on 20/10/2014.
  */
@@ -13,6 +15,7 @@ public class RestaurantDish extends AbstractModel {
     private Double price;
     private Boolean liked;
     private Long likeCount;
+    private List<RestaurantDishPresentation> dishPresentations;
 
     private String priceText;
 
@@ -88,9 +91,8 @@ public class RestaurantDish extends AbstractModel {
         this.position = position;
     }
 
-    public Boolean getLiked() {
-        return liked;
-    }
+    public Integer getLikedIntegerValue(){ return liked==null?0:liked?1:0; }
+    public Boolean getLiked() { return liked; }
     public void setLiked(Boolean liked) {
         this.liked = liked;
     }
@@ -100,6 +102,11 @@ public class RestaurantDish extends AbstractModel {
     }
     public void setLikeCount(Long likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public List<RestaurantDishPresentation> getDishPresentations() { return dishPresentations; }
+    public void setDishPresentations(List<RestaurantDishPresentation> dishPresentations) {
+        this.dishPresentations = dishPresentations;
     }
 
     @Override
