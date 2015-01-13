@@ -26,8 +26,8 @@ public class RestaurantCarteActivity extends BaseActivity
 
         restaurantServerId = getIntent().getLongExtra(ArgKeys.RESTAURANT_SERVER_ID, 0);
 
-        restaurantCarteFragment = (RestaurantCarteFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.carte_fragment);
+//        restaurantCarteFragment = (RestaurantCarteFragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.carte_fragment);
 
         if (restaurantCarteFragment != null) {
             restaurantCarteFragment.setRestaurantServerId(restaurantServerId);

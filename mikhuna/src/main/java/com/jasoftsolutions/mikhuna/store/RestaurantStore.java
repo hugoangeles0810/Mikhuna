@@ -1,11 +1,15 @@
 package com.jasoftsolutions.mikhuna.store;
 
+import android.util.Log;
+
 import com.jasoftsolutions.mikhuna.data.RestaurantManager;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.model.RestaurantDish;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
 import com.jasoftsolutions.mikhuna.remote.Const;
 import com.jasoftsolutions.mikhuna.remote.RestaurantRemote;
+import com.jasoftsolutions.mikhuna.remote.json.DishCategoriesResponseData;
+import com.jasoftsolutions.mikhuna.util.ContextUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 
 import java.util.ArrayList;
@@ -218,18 +222,85 @@ public class RestaurantStore extends AbstractStore {
         localRequest.start();
     }
 
-    public void requestRestaurantDishCategoriesOf(final Long restaurantServerId, final StoreListener listener) {
-        Thread localRequest = new Thread(new Runnable() {
+    public void requestRestaurantDishCategoriesOf(final Restaurant restaurant, final StoreListener listener) {
+        Thread request = new Thread(new Runnable() {
             @Override
             public void run() {
+                final RestaurantRemote rr = new RestaurantRemote();
                 final RestaurantManager rm = new RestaurantManager();
-                ArrayList<RestaurantDishCategory> dishCategories =
-                        rm.getRestaurantDishCategoriesOf(restaurantServerId);
+                final ArrayList<RestaurantDishCategory> rdc;
+                DishCategoriesResponseData responseData;
+                final Map<String, Boolean> status = new HashMap<String, Boolean>();
+                status.put("failed", false);
+                status.put("ready", false);
 
-                notifyOnReady(RestaurantStore.this, dishCategories, listener);
+                try {
+                    responseData = rr.getRestaurantDishCategoryList(restaurant.getServerId(), restaurant.getCategoryLastUpdate());
+                }catch (Exception e){
+                    status.put("failed", true);
+                    responseData = null;
+                }
+
+                if (!status.get("failed") && restaurant.getCategoryLastUpdate() < responseData.getLastUpdate()){
+                    rm.saveRestaurantDishCategories(responseData.getCategories());
+                    rm.updateRestaurantCategoryLastUpdate(restaurant.getServerId(), responseData.getLastUpdate());
+                    notifyOnUpdate(RestaurantStore.this, responseData.getLastUpdate(), listener);
+                }
+
+                rdc = rm.getRestaurantDishCategoriesOf(restaurant.getServerId());
+
+                if (status.get("failed")){
+                    notifyOnFailedConnection(RestaurantStore.this, rdc, listener);
+                }else{
+                    notifyOnReady(RestaurantStore.this, rdc, listener);
+                }
+
+
             }
         });
-        localRequest.start();
+        request.start();
+//        Thread localRequest = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//            final RestaurantManager rm = new RestaurantManager();
+//            final Map<String, Boolean> status = new HashMap<String, Boolean>();
+//            status.put("failed", false);
+//            status.put("ready", false);
+//            final ArrayList<RestaurantDishCategory> dishCategories =
+//                    rm.getRestaurantDishCategoriesOf(restaurantServerId);
+//            if (dishCategories!=null && !dishCategories.isEmpty()){
+//                notifyOnReady(RestaurantStore.this, dishCategories, listener);
+//                status.put("ready", true);
+//            }else{
+//                Thread remoteRequest = new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            RestaurantRemote rr = new RestaurantRemote();
+//                            ArrayList<RestaurantDishCategory> rdc;
+//                            rdc = rr.getRestaurantDishCategoryList(restaurantServerId, lastUpdate).getCategories();
+//
+//                            if (rdc == null || rdc.isEmpty()){
+//                                status.put("failed", true);
+//                                if (!status.get("ready")){
+//                                    notifyOnFailedConnection(RestaurantStore.this, rdc, listener);
+//                                }
+//                            }else{
+//                                rm.saveRestaurantDishCategories(rdc);
+//                                rdc = rm.getRestaurantDishCategoriesOf(restaurantServerId);
+//                                notifyOnReady(RestaurantStore.this, rdc, listener);
+//                            }
+//                        }catch (Exception e){
+//                            ExceptionUtil.handleException(e);
+//                        }
+//                    }
+//                });
+//                remoteRequest.start();
+//            }
+//
+//            }
+//        });
+//        localRequest.start();
     }
 
     public void requestRestaurantDishesOf(final Long dishCategoryServerId, final StoreListener listener) {

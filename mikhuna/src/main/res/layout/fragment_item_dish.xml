@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/restaurant_item_dish">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_dish_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/abc_action_mode_done"
             android:layout_weight="2"
-            style="@style/restaurant_list_item_title"/>
+            style="@style/restaurant_list_item_title"
+            android:textAppearance="?android:attr/textAppearance"
+            android:textColor="@color/dish_name"/>
+
         <TextView
             android:id="@+id/tv_dish_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/weekday_friday"
             android:layout_weight="1"
-            android:textColor="@color/black_overlay"/>
+            android:textColor="@color/dish_price"
+            android:textAlignment="textEnd"
+            android:gravity="end" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_dish_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_overlay"
+        android:textSize="@dimen/dish_description_size"/>
+
+    <View style="@style/default_horizontal_separator_line" />
 </LinearLayout>

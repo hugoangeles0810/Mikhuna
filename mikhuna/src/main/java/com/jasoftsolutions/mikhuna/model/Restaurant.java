@@ -73,6 +73,8 @@ public class Restaurant extends AbstractModel {
     @SerializedName("npc")
     private Integer numberProductCategory;
 
+    private Long categoryLastUpdate;
+
     @SerializedName("__local_restaurantCategoryAssigns")    // reemplazo de "exclude"
     private List<RestaurantCategory> restaurantCategories;
 
@@ -256,6 +258,13 @@ public class Restaurant extends AbstractModel {
     public Integer getNumberProductCategory() { return numberProductCategory; }
     public void setNumberProductCategory(Integer numberProductCategory) {
         this.numberProductCategory = numberProductCategory;
+    }
+
+    public Long getCategoryLastUpdate() {
+        return categoryLastUpdate;
+    }
+    public void setCategoryLastUpdate(Long categoryLastUpdate) {
+        this.categoryLastUpdate = categoryLastUpdate;
     }
 
     public boolean isDelivery() {

@@ -68,15 +68,15 @@ public class RestaurantCarteCategoriesFragment extends Fragment {
         if (restaurantServerId == null || categoryList == null) {
             return;
         }
-        RestaurantStore.getInstance().requestRestaurantDishCategoriesOf(restaurantServerId,
-                new StoreAdapter() {
-                    @Override
-                    public void onSuccess(Object sender, Object data) {
-                        data = getData();
-                        categoryList.setAdapter(new ArrayAdapter<RestaurantDishCategory>(getActivity(),
-                                android.R.layout.simple_list_item_activated_1, (List<RestaurantDishCategory>)data));
-                    }
-                });
+//        RestaurantStore.getInstance().requestRestaurantDishCategoriesOf(restaurantServerId,
+//                new StoreAdapter() {
+//                    @Override
+//                    public void onSuccess(Object sender, Object data) {
+//                        data = getData();
+//                        categoryList.setAdapter(new ArrayAdapter<RestaurantDishCategory>(getActivity(),
+//                                android.R.layout.simple_list_item_activated_1, (List<RestaurantDishCategory>)data));
+//                    }
+//                });
     }
 
     private static ArrayList<RestaurantDishCategory> getData() {

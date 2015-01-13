@@ -144,7 +144,9 @@ public class SchemaChanges {
                             Schema.RestaurantDishPresentation.cost + " float" +
                             ")",
                     "alter table "+ Schema.Restaurant._tableName + " add " +
-                            Schema.Restaurant.numberProductCategory +  " integer "
+                            Schema.Restaurant.numberProductCategory +  " integer ",
+                    "alter table "+ Schema.Restaurant._tableName + " add " +
+                            Schema.Restaurant.categoryLastUpdate +  " integer default 0",
 
             }
     };

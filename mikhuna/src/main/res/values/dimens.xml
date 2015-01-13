@@ -34,4 +34,6 @@
 
     <dimen name="normal_listitem_margin">8dp</dimen>
 
+    <dimen name="dish_description_size">15dp</dimen>
+
 </resources>

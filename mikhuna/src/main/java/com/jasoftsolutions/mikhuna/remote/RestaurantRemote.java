@@ -1,5 +1,7 @@
 package com.jasoftsolutions.mikhuna.remote;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -9,6 +11,7 @@ import com.jasoftsolutions.mikhuna.model.RestaurantDish;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishPresentation;
 import com.jasoftsolutions.mikhuna.model.RestaurantUri;
+import com.jasoftsolutions.mikhuna.remote.json.DishCategoriesResponseData;
 import com.jasoftsolutions.mikhuna.remote.json.RestaurantListJsonResponse;
 import com.jasoftsolutions.mikhuna.remote.json.RestaurantPromotionListJsonResponse;
 
@@ -42,7 +45,7 @@ public class RestaurantRemote {
         Restaurant result=null;
 
         RemoteHandler sh= RemoteHandler.getInstance();
-        result=sh.getResourceFromUrl("/restaurants/id/"+id+"/", lastUpdate, Restaurant.class);
+        result=sh.getResourceFromUrl("/restaurants/id/"+id+"/v/18", lastUpdate, Restaurant.class);
 
         return result;
     }
@@ -88,32 +91,42 @@ public class RestaurantRemote {
         return result;
     }
 
-    public List<RestaurantDishCategory> getRestaurantDishCategoryList(Long restaurantServerId, Long lastUpdate){
-        JsonArray result;
+    public DishCategoriesResponseData getRestaurantDishCategoryList(Long restaurantServerId, Long lastUpdate){
+        JsonElement result;
         RemoteHandler sh = RemoteHandler.getInstance();
 
-        result = sh.getResourceFromUrl("/products/id/" + restaurantServerId + "/lupd/" + lastUpdate, JsonArray.class);
+        result = sh.getResourceFromUrl("/products/id/" + restaurantServerId + "/lupd/"+lastUpdate, JsonElement.class);
 
-        return getRestaurantDishCategoryList(restaurantServerId, result);
+        return getDishCategoryResponseData(restaurantServerId, result);
     }
 
-    public List<RestaurantDishCategory> getRestaurantDishCategoryList(Long restaurantServerId, JsonArray categories) {
-        List<RestaurantDishCategory> dishCategories = new ArrayList<RestaurantDishCategory>();
+    private DishCategoriesResponseData getDishCategoryResponseData(Long restaurantServerId, JsonElement result) {
+        DishCategoriesResponseData responseData = new DishCategoriesResponseData();
         Gson gson = new Gson();
-        for (JsonElement element : categories){
-            RestaurantDishCategory dishCategory = gson.fromJson(element.getAsJsonArray().get(0).toString(), RestaurantDishCategory.class);
+        responseData.setLastUpdate(gson.fromJson(result.getAsJsonObject().get("lastUpdate"), Long.class));
+        responseData.setCount(gson.fromJson(result.getAsJsonObject().get("count"), Integer.class));
+        responseData.setCategories(getRestaurantDishCategoryList(restaurantServerId, result.getAsJsonObject().get("results")));
+        return responseData;
+    }
+
+    public ArrayList<RestaurantDishCategory> getRestaurantDishCategoryList(Long restaurantServerId, JsonElement categories) {
+        if (categories == null || categories.isJsonNull() ) { return null; }
+        ArrayList<RestaurantDishCategory> dishCategories = new ArrayList<RestaurantDishCategory>();
+        Gson gson = new Gson();
+        for (JsonElement element : categories.getAsJsonArray()){
+            RestaurantDishCategory dishCategory = gson.fromJson(element.getAsJsonArray().get(0), RestaurantDishCategory.class);
             dishCategory.setRestaurantServerId(restaurantServerId);
-            List<RestaurantDish> restaurantDishes = new ArrayList<RestaurantDish>();
+            ArrayList<RestaurantDish> restaurantDishes = new ArrayList<RestaurantDish>();
             for (JsonElement elementDish : element.getAsJsonArray().get(1).getAsJsonArray()){
                 RestaurantDish dish = gson.fromJson(elementDish.getAsJsonArray().get(0), RestaurantDish.class);
-                dish.setDishCategoryServerId(dishCategory.getId());
+                dish.setDishCategoryServerId(dishCategory.getServerId());
                 dish.setRestaurantServerId(restaurantServerId);
                 JsonElement pJson = elementDish.getAsJsonArray().get(1);
                 if (pJson.isJsonArray()) {
                     List<RestaurantDishPresentation> presentations = gson.fromJson(pJson, new TypeToken<List<RestaurantDishPresentation>>(){}.getType());
                     if (presentations!=null){
                         for (RestaurantDishPresentation p : presentations){
-                            p.setRestaurantDishServerId(dish.getId());
+                            p.setRestaurantDishServerId(dish.getServerId());
                         }
                     }
                     dish.setDishPresentations(presentations);

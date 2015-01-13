@@ -86,6 +86,11 @@
         <item name="android:paddingBottom">5dp</item>
     </style>
 
+    <style name="restaurant_item_dish">
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+    </style>
+
     <style name="restaurant_openclosed_parent">
         <item name="android:layout_marginBottom">20dp</item>
         <item name="android:textStyle">bold</item>

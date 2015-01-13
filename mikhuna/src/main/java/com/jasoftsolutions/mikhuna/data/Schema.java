@@ -10,7 +10,7 @@ public final class Schema {
     public static class BaseTable {
         public static final String
             id = BaseColumns._ID,
-            serverId = "sever_id",
+            serverId = "server_id",
             lastUpdate = "last_update"
         ;
     }
@@ -38,7 +38,8 @@ public final class Schema {
             serviceTypeId = "service_type_id",
             timetableDescription = "timetable_description",
             numberProductCategory = "number_product_category",
-            ubigeoServerId = "ubigeo_server_id"
+            ubigeoServerId = "ubigeo_server_id",
+            categoryLastUpdate = "category_last_update"
         ;
     }
 

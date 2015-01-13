@@ -76,7 +76,7 @@ public class RestaurantActionsFragment extends Fragment {
                 ImageView carteButton=(ImageView)rootView.findViewById(R.id.restaurant_carte_action);
                 if (carteButton.getTag(R.id.tag_restaurant_server_id) == null) {
                     carteButton.setTag(R.id.tag_restaurant_server_id, restaurant.getServerId());
-                    carteButton.setOnClickListener(new CarteButtonActionListener());
+                    carteButton.setOnClickListener(new CarteButtonActionListener(restaurant));
                 }
 
                 if (restaurant.getNumberProductCategory() <= 0){ carteButton.setVisibility(View.GONE); }

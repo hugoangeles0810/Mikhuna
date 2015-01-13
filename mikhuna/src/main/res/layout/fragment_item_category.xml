@@ -1,7 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/list_item_category"
+<TwoLineListItem xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/weekday_friday"
-    style="@style/restaurant_list_item_title"/>
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:paddingTop="2dip"
+    android:paddingBottom="2dip"
+    android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+    android:paddingStart="?android:attr/expandableListPreferredItemPaddingLeft"
+    android:mode="twoLine"
+    >
+
+    <TextView android:id="@+id/list_item_category_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dip"
+        android:gravity="start"
+        android:textAlignment="viewStart"
+        style="@style/restaurant_list_item_title"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+
+    <TextView android:id="@+id/list_item_category_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@android:id/text1"
+        android:layout_alignLeft="@id/list_item_category_name"
+        android:layout_alignStart="@id/list_item_category_name"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:gravity="start"
+        android:textAlignment="viewStart"
+        />
+
+</TwoLineListItem>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:gravity="center">-->
+
+    <!--<CheckedTextView-->
+        <!--android:id="@+id/list_item_category"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:text="@string/weekday_friday"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:gravity="center_vertical|left"-->
+        <!--android:paddingLeft="32dp"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--style="@style/restaurant_list_item_title"/>-->
+
+    <!--&lt;!&ndash;<View style="@style/emphasis_horizontal_separator_line" />&ndash;&gt;-->
+<!--</LinearLayout>-->
+

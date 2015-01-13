@@ -94,6 +94,12 @@
         </activity>
 
         <activity
+            android:name="com.jasoftsolutions.mikhuna.activity.RestaurantDishCategoryActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_restaurant_carte" >
+        </activity>
+
+        <activity
             android:name="com.jasoftsolutions.mikhuna.activity.RestaurantCarteActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_restaurant_carte" >

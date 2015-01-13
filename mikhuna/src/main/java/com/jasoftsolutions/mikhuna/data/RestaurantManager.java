@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.jasoftsolutions.mikhuna.domain.RestaurantListFilter;
 import com.jasoftsolutions.mikhuna.domain.Weekday;
@@ -53,7 +54,8 @@ public class RestaurantManager {
                 Schema.Restaurant.lastUpdate, Schema.Restaurant.logoUrl, Schema.Restaurant.smallLogoUrl,
                 Schema.Restaurant.weight, Schema.Restaurant.serviceTypeId, Schema.Restaurant.ubigeoServerId,
                 Schema.Restaurant.timetableDescription,
-                Schema.Restaurant.numberProductCategory
+                Schema.Restaurant.numberProductCategory,
+                Schema.Restaurant.categoryLastUpdate
         }, selection, selectionArgs, groupBy, having, orderBy);
     }
 
@@ -82,6 +84,7 @@ public class RestaurantManager {
         if (!cursor.isNull(20)) r.setUbigeoServerId(cursor.getLong(20));
         r.setTimetableDescription(cursor.getString(21));
         r.setNumberProductCategory(cursor.getInt(22));
+        r.setCategoryLastUpdate(cursor.getLong(23));
 //        if (!cursor.isNull(1)) r.setName(cursor.getString(1));
 //        if (!cursor.isNull(2)) r.setDescription(cursor.getString(2));
 //        if (!cursor.isNull(3)) r.setPhoneNumber(cursor.getString(3));
@@ -384,7 +387,6 @@ public class RestaurantManager {
 
     public ArrayList<RestaurantDish> getRestaurantDishesOf(long dishCategoryServerId) {
         SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getReadableDatabase();
-
         Cursor cursor = db.query(Schema.RestaurantDish._tableName, new String[] {
                         Schema.RestaurantDish.id, Schema.RestaurantDish.serverId,
                         Schema.RestaurantDish.restaurantDishCategoryServerId, Schema.RestaurantDish.name,
@@ -417,6 +419,15 @@ public class RestaurantManager {
         cursor.close();
 
         return result;
+    }
+
+    public ArrayList<RestaurantDishPresentation> getDishPresentationsOf(long dishServerId){
+        ArrayList<RestaurantDishPresentation> presentations;
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getReadableDatabase();
+
+        presentations = new ArrayList<RestaurantDishPresentation>();
+        
+        return presentations;
     }
 
     public void loadRestaurantDishCategories(Restaurant restaurant, SQLiteDatabase db) {
@@ -706,7 +717,7 @@ public class RestaurantManager {
     }
 
     public void saveRestaurantDishes(List<RestaurantDish> restaurantDishList, SQLiteDatabase db) {
-        if (restaurantDishList==null) { return; }
+//        if (restaurantDishList==null) { return; }
 
         for (RestaurantDish rd : restaurantDishList) {
             ContentValues val=new ContentValues();
@@ -724,7 +735,7 @@ public class RestaurantManager {
             try {
                 db.insertOrThrow(Schema.RestaurantDish._tableName, null, val);
             } catch (Exception e) {
-                ExceptionUtil.handleException(e);
+                val.remove(Schema.RestaurantDish.serverId);
                 db.update(Schema.RestaurantDish._tableName, val, Schema.RestaurantDish.serverId+"=?",
                         new String[] { rd.getServerId().toString() });
             }
@@ -732,6 +743,17 @@ public class RestaurantManager {
             if (rd.getDishPresentations()!=null){
                 saveRestaurantDishPresentations(rd.getDishPresentations(), db);
             }
+        }
+    }
+
+    public void updateRestaurantCategoryLastUpdate(Long restaurantServerId, Long lastUpdate){
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getWritableDatabase();
+        ContentValues val = new ContentValues();
+        val.put(Schema.Restaurant.categoryLastUpdate, lastUpdate);
+        try {
+            db.update(Schema.Restaurant._tableName, val, Schema.Restaurant.serverId+"=?",
+                    new String[]{restaurantServerId.toString()});
+        }catch(Exception e){
         }
     }
 
@@ -747,7 +769,7 @@ public class RestaurantManager {
             try {
                     db.insertOrThrow(Schema.RestaurantDishPresentation._tableName, null, val);
             }catch(Exception e){
-                ExceptionUtil.handleException(e);
+                val.remove(Schema.RestaurantDishPresentation.serverId);
                 db.update(Schema.RestaurantDishPresentation._tableName, val, Schema.RestaurantDishPresentation.serverId+"=?",
                         new String[] { dp.getServerId().toString() });
             }

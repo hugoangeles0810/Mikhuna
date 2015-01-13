@@ -45,21 +45,21 @@ public class RestaurantCarteDishesFragment extends Fragment {
         if (dishList == null || dishCategoryServerId == null) {
             return;
         }
-        RestaurantStore.getInstance().requestRestaurantDishCategoriesOf(dishCategoryServerId,
-                new StoreAdapter() {
-                    @Override
-                    public void onSuccess(Object sender, Object data) {
-                        data = getData();
-                        final Object finalData = data;
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                dishList.setAdapter(new RestaurantDishListAdapter(getActivity(),
-                                        (List<RestaurantDish>) finalData));
-                            }
-                        });
-                    }
-                });
+//        RestaurantStore.getInstance().requestRestaurantDishCategoriesOf(dishCategoryServerId,
+//                new StoreAdapter() {
+//                    @Override
+//                    public void onSuccess(Object sender, Object data) {
+//                        data = getData();
+//                        final Object finalData = data;
+//                        getActivity().runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                dishList.setAdapter(new RestaurantDishListAdapter(getActivity(),
+//                                        (List<RestaurantDish>) finalData));
+//                            }
+//                        });
+//                    }
+//                });
     }
 
     public Long getDishCategoryServerId() {
