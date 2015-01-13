@@ -10,7 +10,7 @@ public final class Schema {
     public static class BaseTable {
         public static final String
             id = BaseColumns._ID,
-            serverId = "server_id",
+            serverId = "sever_id",
             lastUpdate = "last_update"
         ;
     }
