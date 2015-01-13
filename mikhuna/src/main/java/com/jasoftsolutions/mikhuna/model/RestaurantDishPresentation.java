@@ -1,5 +1,7 @@
 package com.jasoftsolutions.mikhuna.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Hugo on 08/01/2015.
  */
@@ -9,6 +11,7 @@ public class RestaurantDishPresentation extends AbstractModel {
     private Long dishPresentationServerId;
     private String name;
     private Integer position;
+    @SerializedName("price")
     private Double cost;
     private String costText;
 

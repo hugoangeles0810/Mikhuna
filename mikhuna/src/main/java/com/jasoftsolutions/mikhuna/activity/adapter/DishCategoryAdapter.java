@@ -7,12 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jasoftsolutions.mikhuna.R;
 import com.jasoftsolutions.mikhuna.data.RestaurantManager;
 import com.jasoftsolutions.mikhuna.model.RestaurantDish;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
+import com.jasoftsolutions.mikhuna.model.RestaurantDishPresentation;
 
 import java.util.ArrayList;
 
@@ -25,14 +27,17 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
 
     private Long restaurantServerId;
     private ArrayList<RestaurantDishCategory> dishCategories;
+    private Context context;
     private LayoutInflater inflater;
 
     public DishCategoryAdapter(Context context, ArrayList<RestaurantDishCategory> dishCategories) {
-         inflater = LayoutInflater.from(context);
+        inflater = LayoutInflater.from(context);
+        this.context = context;
         this.dishCategories = dishCategories;
         getDishByCategory(dishCategories);
 
     }
+
 
     @Override
     public void onGroupExpanded(int groupPosition) {
@@ -48,6 +53,9 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
         RestaurantManager rm = new RestaurantManager();
         for (RestaurantDishCategory rdc : dishCategories){
             rdc.setRestaurantDishes(rm.getRestaurantDishesOf(rdc.getServerId()));
+            for (RestaurantDish rd : rdc.getRestaurantDishes()){
+                rd.setDishPresentations(rm.getDishPresentationsOf(rd.getServerId()));
+            }
         }
     }
 
@@ -119,6 +127,7 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
             holder.dishName = (TextView)view.findViewById(R.id.tv_dish_name);
             holder.dishPrice = (TextView)view.findViewById(R.id.tv_dish_price);
             holder.dishDescription = (TextView)view.findViewById(R.id.tv_dish_description);
+            holder.listPresentations = (ListView)view.findViewById(R.id.list_presentations);
 
             view.setTag(holder);
         }else{
@@ -126,14 +135,29 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
         }
 
         holder.dishName.setText(dish.getName());
-        Log.i(TAG, "price: " + dish.getPrice());
+
         if (dish.getPrice()!=null && dish.getPrice()>0){
             holder.dishPrice.setVisibility(View.VISIBLE);
             holder.dishPrice.setText(String.format("S/. %.2f", dish.getPrice()));
         }else{
             holder.dishPrice.setVisibility(View.GONE);
         }
-        holder.dishDescription.setText(dish.getDescription());
+
+        if(dish.getDescription()!=null){
+            holder.dishDescription.setText(dish.getDescription());
+            holder.dishDescription.setVisibility(View.VISIBLE);
+        }else{
+            holder.dishDescription.setVisibility(View.GONE);
+        }
+
+
+        if (dish.getDishPresentations()!=null && !dish.getDishPresentations().isEmpty()){
+            holder.listPresentations.setAdapter(new DishPresentationAdapter(inflater, dish.getDishPresentations()));
+            holder.listPresentations.setVisibility(View.VISIBLE);
+        }else{
+            holder.listPresentations.setVisibility(View.GONE);
+        }
+
 
         return view;
     }
@@ -146,6 +170,7 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
         TextView dishName;
         TextView dishPrice;
         TextView dishDescription;
+        ListView listPresentations;
     }
 
     @Override

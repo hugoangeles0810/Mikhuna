@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/restaurant_item_dish">
+
+    <TextView
+        android:id="@+id/tv_presentation_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        style="@style/restaurant_presentation_name"/>
+
+    <TextView
+        android:id="@+id/tv_presentation_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        style="@style/restaurant_presentation_price"
+        android:textAlignment="textEnd"
+        android:gravity="end" />
+</LinearLayout>

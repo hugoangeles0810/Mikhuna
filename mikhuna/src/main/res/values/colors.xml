@@ -8,4 +8,5 @@
     <color name="default_text_data_value">@android:color/primary_text_light</color>
     <color name="dish_name">#47689d</color>
     <color name="dish_price">#f45435</color>
+    <color name="presentation_name">#525252</color>
 </resources>

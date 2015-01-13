@@ -424,8 +424,28 @@ public class RestaurantManager {
     public ArrayList<RestaurantDishPresentation> getDishPresentationsOf(long dishServerId){
         ArrayList<RestaurantDishPresentation> presentations;
         SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getReadableDatabase();
+        Cursor cursor = db.query(Schema.RestaurantDishPresentation._tableName, new String[]{
+                    Schema.RestaurantDishPresentation.id, Schema.RestaurantDishPresentation.serverId,
+                    Schema.RestaurantDishPresentation.restaurantDishServerId, Schema.RestaurantDishPresentation.name,
+                    Schema.RestaurantDishPresentation.cost, Schema.RestaurantDishPresentation.position
+            }, Schema.RestaurantDishPresentation.restaurantDishServerId + "=?",
+            new String[]{ String.valueOf(dishServerId) }, null, null,
+                Schema.RestaurantDishPresentation.position + ", " + Schema.RestaurantDishPresentation.name);
 
         presentations = new ArrayList<RestaurantDishPresentation>();
+
+        if (cursor.moveToFirst()){
+            do {
+                RestaurantDishPresentation p = new RestaurantDishPresentation();
+                p.setId(cursor.getLong(0));
+                p.setServerId(cursor.getLong(1));
+                p.setRestaurantDishServerId(cursor.getLong(2));
+                p.setName(cursor.getString(3));
+                p.setCost(cursor.getDouble(4));
+                p.setPosition(cursor.getInt(5));
+                presentations.add(p);
+            }while(cursor.moveToNext());
+        }
         
         return presentations;
     }
