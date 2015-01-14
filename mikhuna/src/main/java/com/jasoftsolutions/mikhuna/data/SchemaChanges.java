@@ -169,6 +169,11 @@ public class SchemaChanges {
             new String[] {  // De 6 a 5
                     "drop table if exists "+ Schema.RestaurantDishCategory._tableName,
                     "drop table if exists "+ Schema.RestaurantDish._tableName,
+                    "drop table if exists "+ Schema.RestaurantDishPresentation._tableName,
+                    "alter table "+ Schema.Restaurant._tableName + " drop " +
+                            Schema.Restaurant.numberProductCategory,
+                    "alter table "+ Schema.Restaurant._tableName + " drop " +
+                            Schema.Restaurant.categoryLastUpdate
             }
     };
 

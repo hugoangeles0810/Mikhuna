@@ -32,7 +32,9 @@ public class RestaurantDishCategoryActivity extends BaseActivity implements
 
     private static final String TAG = RestaurantDishCategoryActivity.class.getSimpleName();
 
-    private Restaurant restaurant;
+    private String restaurantName;
+    private Long restaurantServerId;
+    private Long categoryLastUpdate;
 
     private RestaurantDishCategoryFragment dishCategoryFragment;
 
@@ -40,11 +42,19 @@ public class RestaurantDishCategoryActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_carte);
-        restaurant = (Restaurant) getIntent().getExtras().get(ArgKeys.RESTAURANT);
-        this.setTitle(getResources().getString(R.string.title_activity_restaurant_carte) + " - " + restaurant.getName());
+
+        if (savedInstanceState == null){
+            restaurantServerId = getIntent().getExtras().getLong(ArgKeys.RESTAURANT_SERVER_ID);
+            categoryLastUpdate = getIntent().getExtras().getLong(ArgKeys.CATEGORY_LAST_UPDATE);
+            restaurantName = getIntent().getExtras().getString(ArgKeys.RESTAURANT_NAME);
+        }else{
+            restaurantServerId = savedInstanceState.getLong(ArgKeys.RESTAURANT_SERVER_ID);
+            categoryLastUpdate = savedInstanceState.getLong(ArgKeys.CATEGORY_LAST_UPDATE);
+            restaurantName = savedInstanceState.getString(ArgKeys.RESTAURANT_NAME);
+        }
+
+        this.setTitle(getResources().getString(R.string.title_activity_restaurant_carte) + " - " + restaurantName);
         loadRestaurantDishCategory();
-
-
 
     }
 
@@ -52,7 +62,7 @@ public class RestaurantDishCategoryActivity extends BaseActivity implements
         UiUtil.removeAllFragmentsAndAddLoadingFragment(this);
         RestaurantStore rs = RestaurantStore.getInstance();
         rs.addListener(this);
-        rs.requestRestaurantDishCategoriesOf(restaurant, this);
+        rs.requestRestaurantDishCategoriesOf(restaurantServerId, categoryLastUpdate, this);
     }
 
     private void showDishCategories(ArrayList<RestaurantDishCategory> dc, Boolean withRetry) {
@@ -102,7 +112,7 @@ public class RestaurantDishCategoryActivity extends BaseActivity implements
     @Override
     public void onUpdate(Object sender, Object data) {
         if (data!=null){
-            restaurant.setCategoryLastUpdate((Long) data);
+            categoryLastUpdate = (Long) data;
         }
     }
 
@@ -135,6 +145,22 @@ public class RestaurantDishCategoryActivity extends BaseActivity implements
             showDishCategories((ArrayList<RestaurantDishCategory>) data, true);
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putLong(ArgKeys.RESTAURANT_SERVER_ID, restaurantServerId);
+        outState.putLong(ArgKeys.CATEGORY_LAST_UPDATE, categoryLastUpdate);
+        outState.putString(ArgKeys.RESTAURANT_NAME, restaurantName);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onBackPressed() {
+//        Intent data = new Intent();
+//        data.putExtra("lupd", categoryLastUpdate);
+//        setResult(1, data);
+        super.onBackPressed();
     }
 
     private void showRetryDialog() {

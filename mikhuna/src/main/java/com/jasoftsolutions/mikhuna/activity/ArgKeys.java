@@ -8,6 +8,8 @@ public class ArgKeys {
     public static final String RESTAURANT = "restaurant";
     public static final String RESTAURANT_ID = "restaurant_id";
     public static final String RESTAURANT_SERVER_ID = "restaurant_server_id";
+    public static final String CATEGORY_LAST_UPDATE = "category_last_update";
+    public static final String RESTAURANT_NAME = "restaurant_name";
     public static final String RESTAURANT_URI = "restaurant_uri";
     public static final String CITY = "city";
     public static final String MESSAGE = "message";
