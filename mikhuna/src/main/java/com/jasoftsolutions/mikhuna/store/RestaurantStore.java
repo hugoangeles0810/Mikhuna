@@ -21,6 +21,8 @@ import java.util.Map;
  */
 public class RestaurantStore extends AbstractStore {
 
+    private static final String TAG = RestaurantStore.class.getSimpleName();
+
     private static RestaurantStore instance;
 
     private boolean remoteRequesting;
@@ -241,7 +243,7 @@ public class RestaurantStore extends AbstractStore {
                     responseData = null;
                 }
 
-                if (!status.get("failed") && lastUpdate < responseData.getLastUpdate()){
+                if (!status.get("failed") && responseData.getCategories()!=null){
                     rm.saveRestaurantDishCategories(responseData.getCategories());
                     rm.updateRestaurantCategoryLastUpdate(restaurantServerId, responseData.getLastUpdate());
                     notifyOnUpdate(RestaurantStore.this, responseData.getLastUpdate(), listener);

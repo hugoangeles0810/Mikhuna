@@ -25,8 +25,10 @@ public class RestaurantDishCategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView =  inflater.inflate(R.layout.fragment_restaurant_carte_categories, container, false);
-        ExpandableListView listView = (ExpandableListView) rootView.findViewById(R.id.category_list);
-        listView.setAdapter(new DishCategoryAdapter(getActivity(), restaurantDishCategories));
+
+        if (savedInstanceState == null ){
+            render(rootView);
+        }
         return rootView;
     }
 
@@ -37,12 +39,13 @@ public class RestaurantDishCategoryFragment extends Fragment {
 
     public void refresh() {
         View rootView = getView();
-        if (rootView == null) {
+        if (rootView != null) {
             render(rootView);
         }
     }
 
     public void render(View rootView) {
-
+        ExpandableListView listView = (ExpandableListView) rootView.findViewById(R.id.category_list);
+        listView.setAdapter(new DishCategoryAdapter(getActivity(), restaurantDishCategories));
     }
 }

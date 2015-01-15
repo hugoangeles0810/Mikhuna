@@ -430,7 +430,8 @@ public class RestaurantManager {
                     Schema.RestaurantDishPresentation.cost, Schema.RestaurantDishPresentation.position
             }, Schema.RestaurantDishPresentation.restaurantDishServerId + "=?",
             new String[]{ String.valueOf(dishServerId) }, null, null,
-                Schema.RestaurantDishPresentation.position + ", " + Schema.RestaurantDishPresentation.name);
+                Schema.RestaurantDishPresentation.position + ", " + Schema.RestaurantDishPresentation.name
+        );
 
         presentations = new ArrayList<RestaurantDishPresentation>();
 
