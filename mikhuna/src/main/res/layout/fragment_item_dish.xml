@@ -37,9 +37,10 @@
         android:textColor="@color/black_overlay"
         android:textSize="@dimen/dish_description_size"/>
 
-    <ListView
+    <LinearLayout
         android:id="@+id/list_presentations"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
 
 </LinearLayout>

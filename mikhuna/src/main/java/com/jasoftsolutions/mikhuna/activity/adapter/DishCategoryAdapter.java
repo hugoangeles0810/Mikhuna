@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishPresentation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Hugo on 11/01/2015.
@@ -127,7 +129,7 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
             holder.dishName = (TextView)view.findViewById(R.id.tv_dish_name);
             holder.dishPrice = (TextView)view.findViewById(R.id.tv_dish_price);
             holder.dishDescription = (TextView)view.findViewById(R.id.tv_dish_description);
-            holder.listPresentations = (ListView)view.findViewById(R.id.list_presentations);
+            holder.listPresentations = (LinearLayout)view.findViewById(R.id.list_presentations);
 
             view.setTag(holder);
         }else{
@@ -152,7 +154,8 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
 
 
         if (dish.getDishPresentations()!=null && !dish.getDishPresentations().isEmpty()){
-            holder.listPresentations.setAdapter(new DishPresentationAdapter(inflater, dish.getDishPresentations()));
+            holder.listPresentations.removeAllViews();
+            setPresentationViewOnLinearLayout(holder.listPresentations, dish.getDishPresentations());
             holder.listPresentations.setVisibility(View.VISIBLE);
         }else{
             holder.listPresentations.setVisibility(View.GONE);
@@ -160,6 +163,18 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
 
 
         return view;
+    }
+
+    private void setPresentationViewOnLinearLayout(LinearLayout listPresentations, List<RestaurantDishPresentation> dishPresentations) {
+        for (RestaurantDishPresentation presentation : dishPresentations){
+            View view;
+            view = inflater.inflate(R.layout.fragment_item_presentation, null);
+            TextView name = (TextView) view.findViewById(R.id.tv_presentation_name);
+            TextView price = (TextView) view.findViewById(R.id.tv_presentation_price);
+            name.setText(presentation.getName());
+            price.setText(String.format("S/.%.2f",presentation.getCost()));
+            listPresentations.addView(view);
+        }
     }
 
     private static final class ViewHolderGroup{
@@ -170,7 +185,7 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
         TextView dishName;
         TextView dishPrice;
         TextView dishDescription;
-        ListView listPresentations;
+        LinearLayout listPresentations;
     }
 
     @Override

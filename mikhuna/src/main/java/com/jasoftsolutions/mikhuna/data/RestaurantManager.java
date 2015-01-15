@@ -413,8 +413,6 @@ public class RestaurantManager {
                 rd.setLiked(DbUtil.getCursorBoolean(cursor, 7));
                 rd.setLikeCount(cursor.getLong(8));
 
-                Log.i(TAG, rd.getPosition() + rd.getName());
-
                 result.add(rd);
             } while (cursor.moveToNext());
         }
