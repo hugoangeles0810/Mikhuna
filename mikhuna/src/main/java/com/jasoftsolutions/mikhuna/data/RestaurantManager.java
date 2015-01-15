@@ -413,6 +413,8 @@ public class RestaurantManager {
                 rd.setLiked(DbUtil.getCursorBoolean(cursor, 7));
                 rd.setLikeCount(cursor.getLong(8));
 
+                Log.i(TAG, rd.getPosition() + rd.getName());
+
                 result.add(rd);
             } while (cursor.moveToNext());
         }
@@ -748,7 +750,7 @@ public class RestaurantManager {
             val.put(Schema.RestaurantDish.restaurantDishCategoryServerId, rd.getDishCategoryServerId());
             val.put(Schema.RestaurantDish.name, rd.getName());
             val.put(Schema.RestaurantDish.description, rd.getDescription());
-            val.put(Schema.RestaurantDish.position, rd.getDescription());
+            val.put(Schema.RestaurantDish.position, rd.getPosition());
             val.put(Schema.RestaurantDish.price, rd.getPrice());
             val.put(Schema.RestaurantDish.liked, rd.getLiked());
             val.put(Schema.RestaurantDish.likeCount, rd.getLikeCount());
