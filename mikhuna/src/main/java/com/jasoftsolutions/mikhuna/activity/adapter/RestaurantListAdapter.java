@@ -78,14 +78,16 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
         if (restaurant.getMinAmount()!=null) {
             minAmount=restaurant.getMinAmount();
         }
+
+
         if (restaurant.isDelivery()) {
             holder.estimatedArrivalTimeTextViewLayout.setVisibility(View.VISIBLE);
             holder.minAmountTextViewLayout.setVisibility(View.VISIBLE);
             holder.minAmountTextView.setText(StringUtil.currencyFormat(restaurant.getCurrency(), minAmount));
             holder.estimatedArrivalTimeTextView.setText(RestaurantViewUtil.getStandardDeliveryTime(restaurant));
         } else {
-            holder.estimatedArrivalTimeTextViewLayout.setVisibility(View.GONE);
-            holder.minAmountTextViewLayout.setVisibility(View.GONE);
+            holder.estimatedArrivalTimeTextViewLayout.setVisibility(View.INVISIBLE);
+            holder.minAmountTextViewLayout.setVisibility(View.INVISIBLE);
         }
 
         RestaurantViewUtil.displaySmallLogo(restaurant, holder.logoImageView);
