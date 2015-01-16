@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="mikhuna_hostname">mikhuna.com</string>
-    <string name="mikhuna_hostname_www">www.mikhuna.com</string>
+    <string name="mikhuna_hostname">mikuna.co</string>
+    <string name="mikhuna_hostname_www">www.mikuna.co</string>
 
     <string name="msg_ok">Ok</string>
     <string name="msg_cancel">Cancelar</string>
