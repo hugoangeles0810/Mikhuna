@@ -86,7 +86,7 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
             holder.minAmountTextView.setText(StringUtil.currencyFormat(restaurant.getCurrency(), minAmount));
             holder.estimatedArrivalTimeTextView.setText(RestaurantViewUtil.getStandardDeliveryTime(restaurant));
         } else {
-            holder.estimatedArrivalTimeTextViewLayout.setVisibility(View.INVISIBLE);
+            holder.estimatedArrivalTimeTextViewLayout.setVisibility(View.GONE);
             holder.minAmountTextViewLayout.setVisibility(View.INVISIBLE);
         }
 
