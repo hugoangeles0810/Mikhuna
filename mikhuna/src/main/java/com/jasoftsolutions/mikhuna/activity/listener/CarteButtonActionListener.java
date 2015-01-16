@@ -8,6 +8,7 @@ import com.jasoftsolutions.mikhuna.R;
 import com.jasoftsolutions.mikhuna.activity.ArgKeys;
 import com.jasoftsolutions.mikhuna.activity.RestaurantCarteActivity;
 import com.jasoftsolutions.mikhuna.activity.RestaurantDishCategoryActivity;
+import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 
@@ -28,9 +29,11 @@ public class CarteButtonActionListener implements View.OnClickListener {
 
         try {
             Context context=view.getContext();
+
+            new AuditHelper(view.getContext()).registerViewProductsOf(restaurantServerId);
+
             Intent i = RestaurantDishCategoryActivity.getLauncherIntent(context, restaurant);
             i.putExtra(ArgKeys.RESTAURANT_SERVER_ID, restaurant.getServerId());
-            i.putExtra(ArgKeys.CATEGORY_LAST_UPDATE, restaurant.getCategoryLastUpdate());
             i.putExtra(ArgKeys.RESTAURANT_NAME, restaurant.getName());
             context.startActivity(i);
         } catch (Exception e) {

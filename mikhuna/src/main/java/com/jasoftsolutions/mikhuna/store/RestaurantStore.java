@@ -224,7 +224,7 @@ public class RestaurantStore extends AbstractStore {
         localRequest.start();
     }
 
-    public void requestRestaurantDishCategoriesOf(final Long restaurantServerId, final Long lastUpdate , final StoreListener listener) {
+    public void requestRestaurantDishCategoriesOf(final Long restaurantServerId , final StoreListener listener) {
         Thread request = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -236,9 +236,12 @@ public class RestaurantStore extends AbstractStore {
                 status.put("failed", false);
                 status.put("ready", false);
 
+                final Restaurant r = rm.getRestaurantByServerId(restaurantServerId);
+
                 try {
-                    responseData = rr.getRestaurantDishCategoryList(restaurantServerId, lastUpdate);
+                    responseData = rr.getRestaurantDishCategoryList(restaurantServerId, r.getCategoryLastUpdate());
                 }catch (Exception e){
+                    ExceptionUtil.handleException(e);
                     status.put("failed", true);
                     responseData = null;
                 }
@@ -246,7 +249,6 @@ public class RestaurantStore extends AbstractStore {
                 if (!status.get("failed") && responseData.getCategories()!=null){
                     rm.saveRestaurantDishCategories(responseData.getCategories());
                     rm.updateRestaurantCategoryLastUpdate(restaurantServerId, responseData.getLastUpdate());
-                    notifyOnUpdate(RestaurantStore.this, responseData.getLastUpdate(), listener);
                 }
 
                 rdc = rm.getRestaurantDishCategoriesOf(restaurantServerId);
@@ -256,7 +258,6 @@ public class RestaurantStore extends AbstractStore {
                 }else{
                     notifyOnReady(RestaurantStore.this, rdc, listener);
                 }
-
 
             }
         });

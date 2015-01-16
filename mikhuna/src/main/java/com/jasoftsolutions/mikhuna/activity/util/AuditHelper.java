@@ -20,6 +20,10 @@ public class AuditHelper {
         this.am = new AuditManager();
     }
 
+    public void registerViewProductsOf(Long restaurantServerId){
+        registerAuditById(AuditAction.VIEW_PRODUCTS, restaurantServerId);
+    }
+
     public void registerViewDetailOf(Long restaurantServerId) {
         registerAuditById(AuditAction.VIEW_DETAIL_FROM_RESTAURANT_LIST, restaurantServerId);
     }

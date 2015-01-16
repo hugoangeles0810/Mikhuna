@@ -18,6 +18,7 @@ public enum AuditAction {
     CONTACT(11),
     VIEW_DETAIL_FROM_HTTP_URI(12),
     INSTALL_GCM(15),
+    VIEW_PRODUCTS(16)
     ;
 
     private int actionId;

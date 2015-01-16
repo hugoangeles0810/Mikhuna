@@ -150,6 +150,10 @@ public class CurrentSchema {
                     Schema.RestaurantDishPresentation.position + " integer," +
                     Schema.RestaurantDishPresentation.cost + " float" +
                     ")",
+            "alter table "+ Schema.Restaurant._tableName + " add " +
+                    Schema.Restaurant.numberProductCategory +  " integer ",
+            "alter table "+ Schema.Restaurant._tableName + " add " +
+                    Schema.Restaurant.categoryLastUpdate +  " integer default 0"
     };
 
 }
