@@ -40,7 +40,7 @@ public class CommonMenuHandler {
 
     private static void showAbout(Context context) {
         try {
-            String url = Const.BACKEND_BASE_URL + "/Contact/mobile/email/"
+            String url = Const.BACKEND_BASE_URL_ABOUT + "/Contact/mobile/email/"
                     + AccountUtil.getDefaultGoogleAccount(context);
             ContextUtil.navigateWebUrl(context, url);
         } catch (Exception e) {

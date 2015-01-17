@@ -39,6 +39,8 @@ public final class Const {
 
 
     public static final String BACKEND_BASE_URL;
+    public static final String BACKEND_BASE_URL_ABOUT = "http://www.mikuna.co";
+
     static {
         if (BuildConfig.DEBUG) {
             BACKEND_BASE_URL = "http://www.mikhuna.com";
@@ -51,6 +53,8 @@ public final class Const {
             BACKEND_BASE_URL = "http://www.mikhuna.com";
         }
     }
+
+
 
     public static final String BACKEND_REST_BASE_URL = BACKEND_BASE_URL + "/Rest";
 
