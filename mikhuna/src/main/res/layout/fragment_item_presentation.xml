@@ -3,7 +3,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/restaurant_item_dish">
+    style="@style/restaurant_item_dish"
+    android:paddingRight="0dp">
 
     <TextView
         android:id="@+id/tv_presentation_name"

@@ -1,13 +1,11 @@
 package com.jasoftsolutions.mikhuna.activity.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-
 import com.jasoftsolutions.mikhuna.R;
 import com.jasoftsolutions.mikhuna.activity.adapter.DishCategoryAdapter;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
@@ -22,7 +20,7 @@ public class RestaurantDishCategoryFragment extends Fragment {
     private ArrayList<RestaurantDishCategory> restaurantDishCategories;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView =  inflater.inflate(R.layout.fragment_restaurant_carte_categories, container, false);
 

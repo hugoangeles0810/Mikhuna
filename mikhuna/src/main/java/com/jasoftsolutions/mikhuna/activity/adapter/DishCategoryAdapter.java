@@ -140,7 +140,7 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
 
         if (dish.getPrice()!=null && dish.getPrice()>0){
             holder.dishPrice.setVisibility(View.VISIBLE);
-            holder.dishPrice.setText(String.format("S/. %.2f", dish.getPrice()));
+            holder.dishPrice.setText(String.format("S/. %.1f", dish.getPrice()));
         }else{
             holder.dishPrice.setVisibility(View.GONE);
         }
@@ -172,7 +172,7 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
             TextView name = (TextView) view.findViewById(R.id.tv_presentation_name);
             TextView price = (TextView) view.findViewById(R.id.tv_presentation_price);
             name.setText(presentation.getName());
-            price.setText(String.format("S/.%.2f",presentation.getCost()));
+            price.setText(String.format("S/. %.1f",presentation.getCost()));
             listPresentations.addView(view);
         }
     }

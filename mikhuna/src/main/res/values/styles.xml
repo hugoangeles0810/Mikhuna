@@ -99,7 +99,6 @@
     </style>
 
     <style name="restaurant_presentation_price">
-        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/dish_price</item>
     </style>
 
