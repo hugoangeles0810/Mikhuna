@@ -51,6 +51,7 @@ public final class Schema {
             //
             restaurantServerId = "restaurant_server_id",
             name = "name",
+            description = "description",
             position = "position",
             dishesLastUpdate = "dishes_last_update"
         ;

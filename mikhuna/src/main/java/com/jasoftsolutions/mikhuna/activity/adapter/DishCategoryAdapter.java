@@ -106,6 +106,7 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
 
             holder = new ViewHolderGroup();
             holder.categoryName = (TextView)view.findViewById(R.id.list_item_category_name);
+            holder.categoryDescription = (TextView)view.findViewById((R.id.list_item_category_description));
 
             view.setTag(holder);
         }else{
@@ -113,7 +114,15 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
         }
 
         RestaurantDishCategory rdc = (RestaurantDishCategory) getGroup(groupPosition);
+
         holder.categoryName.setText(rdc.getName());
+
+        if (rdc.getDescription()!=null){
+            holder.categoryDescription.setText(rdc.getDescription());
+            holder.categoryDescription.setVisibility(View.VISIBLE);
+        }else{
+            holder.categoryDescription.setVisibility(View.GONE);
+        }
         return view;
     }
 
@@ -149,7 +158,7 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
             holder.dishDescription.setText(dish.getDescription());
             holder.dishDescription.setVisibility(View.VISIBLE);
         }else{
-            holder.dishDescription.setVisibility(View.GONE);
+            holder.dishDescription.setVisibility(View.INVISIBLE);
         }
 
 
@@ -179,6 +188,7 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
 
     private static final class ViewHolderGroup{
         TextView categoryName;
+        TextView categoryDescription;
     }
 
     private static final class ViewHolderChild{

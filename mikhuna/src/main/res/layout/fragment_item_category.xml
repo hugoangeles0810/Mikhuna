@@ -2,33 +2,37 @@
 <TwoLineListItem xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:paddingTop="2dip"
-    android:paddingBottom="2dip"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
     android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
     android:paddingStart="?android:attr/expandableListPreferredItemPaddingLeft"
     android:mode="twoLine"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
     >
 
-    <TextView android:id="@+id/list_item_category_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dip"
-        android:gravity="start"
-        android:textAlignment="viewStart"
-        style="@style/restaurant_list_item_title"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        />
 
-    <TextView android:id="@+id/list_item_category_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@android:id/text1"
-        android:layout_alignLeft="@id/list_item_category_name"
-        android:layout_alignStart="@id/list_item_category_name"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:gravity="start"
-        android:textAlignment="viewStart"
-        />
+        <TextView android:id="@+id/list_item_category_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="start"
+            android:textAlignment="viewStart"
+            style="@style/restaurant_list_item_title"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            />
+
+        <TextView android:id="@+id/list_item_category_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/list_item_category_name"
+            android:layout_alignLeft="@id/list_item_category_name"
+            android:layout_alignStart="@id/list_item_category_name"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:gravity="start"
+            android:textAlignment="viewStart"
+            />
+
 
 </TwoLineListItem>
 <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->

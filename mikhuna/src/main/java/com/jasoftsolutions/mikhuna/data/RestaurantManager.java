@@ -359,6 +359,7 @@ public class RestaurantManager {
         Cursor cursor = db.query(Schema.RestaurantDishCategory._tableName, new String[] {
                         Schema.RestaurantDishCategory.id, Schema.RestaurantDishCategory.serverId,
                         Schema.RestaurantDishCategory.restaurantServerId, Schema.RestaurantDishCategory.name,
+                        Schema.RestaurantDishCategory.description,
                         Schema.RestaurantDishCategory.position, Schema.RestaurantDishCategory.dishesLastUpdate
                 }, Schema.RestaurantDishCategory.restaurantServerId + "=?",
                 new String[] { String.valueOf(restaurantServerId) }, null, null,
@@ -374,8 +375,9 @@ public class RestaurantManager {
                 rdc.setServerId(cursor.getLong(1));
                 rdc.setRestaurantServerId(cursor.getLong(2));
                 rdc.setName(cursor.getString(3));
-                rdc.setPosition(cursor.getInt(4));
-                rdc.setDishesLastUpdate(cursor.getLong(5));
+                rdc.setDescription(cursor.getString(4));
+                rdc.setPosition(cursor.getInt(5));
+                rdc.setDishesLastUpdate(cursor.getLong(6));
 
                 result.add(rdc);
             } while (cursor.moveToNext());
@@ -706,6 +708,7 @@ public class RestaurantManager {
             val.put(Schema.RestaurantDishCategory.serverId, rdc.getServerId());
             val.put(Schema.RestaurantDishCategory.restaurantServerId, rdc.getRestaurantServerId());
             val.put(Schema.RestaurantDishCategory.name, rdc.getName());
+            val.put(Schema.RestaurantDishCategory.description, rdc.getDescription());
             val.put(Schema.RestaurantDishCategory.position, rdc.getPosition());
             val.put(Schema.RestaurantDishCategory.dishesLastUpdate, rdc.getDishesLastUpdate());
 

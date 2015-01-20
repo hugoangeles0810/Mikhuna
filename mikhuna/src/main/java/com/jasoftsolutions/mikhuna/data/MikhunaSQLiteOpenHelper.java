@@ -23,7 +23,8 @@ public class MikhunaSQLiteOpenHelper extends SQLiteOpenHelper {
 //    public static final int CURRENT_VERSION = 3;     // v6
 //    public static final int CURRENT_VERSION = 4;     // v9
 //    public static final int CURRENT_VERSION = 5;     // v15
-    public static final int CURRENT_VERSION = 6;       // v18
+//    public static final int CURRENT_VERSION = 6;     // v18
+    public static final int CURRENT_VERSION = 7;       // v19
 
     private static MikhunaSQLiteOpenHelper singletonInstance;
 

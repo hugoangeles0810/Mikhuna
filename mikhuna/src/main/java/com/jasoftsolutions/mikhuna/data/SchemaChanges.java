@@ -148,6 +148,10 @@ public class SchemaChanges {
                     "alter table "+ Schema.Restaurant._tableName + " add " +
                             Schema.Restaurant.categoryLastUpdate +  " integer default 0",
 
+            },
+            new String[]{ //Version 7
+                    "alter table "+ Schema.RestaurantDishCategory._tableName + " add " +
+                            Schema.RestaurantDishCategory.description + " text",
             }
     };
 
@@ -174,6 +178,10 @@ public class SchemaChanges {
                             Schema.Restaurant.numberProductCategory,
                     "alter table "+ Schema.Restaurant._tableName + " drop " +
                             Schema.Restaurant.categoryLastUpdate
+            },
+            new String[]{ // De 7 a 6
+                    "alter table "+ Schema.RestaurantDishCategory._tableName + " drop " +
+                            Schema.RestaurantDishCategory.description
             }
     };
 

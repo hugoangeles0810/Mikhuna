@@ -153,7 +153,10 @@ public class CurrentSchema {
             "alter table "+ Schema.Restaurant._tableName + " add " +
                     Schema.Restaurant.numberProductCategory +  " integer ",
             "alter table "+ Schema.Restaurant._tableName + " add " +
-                    Schema.Restaurant.categoryLastUpdate +  " integer default 0"
+                    Schema.Restaurant.categoryLastUpdate +  " integer default 0",
+            //Version 7
+            "alter table"+ Schema.RestaurantDishCategory._tableName + " add " +
+                    Schema.RestaurantDishCategory.description + " text"
     };
 
 }
