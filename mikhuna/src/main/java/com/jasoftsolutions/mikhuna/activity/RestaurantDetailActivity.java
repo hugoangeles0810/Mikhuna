@@ -23,6 +23,8 @@ import com.jasoftsolutions.mikhuna.remote.Const;
 import com.jasoftsolutions.mikhuna.store.RestaurantStore;
 import com.jasoftsolutions.mikhuna.store.StoreAdapter;
 import com.jasoftsolutions.mikhuna.store.StoreListener;
+import com.jasoftsolutions.mikhuna.util.AnalyticsConst;
+import com.jasoftsolutions.mikhuna.util.AnalyticsUtil;
 import com.jasoftsolutions.mikhuna.util.ContextUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 import com.jasoftsolutions.mikhuna.util.UiUtil;
@@ -269,6 +271,8 @@ public class RestaurantDetailActivity extends BaseActivity implements
                             R.string.dialog_share_restaurant);
 
                     new AuditHelper(RestaurantDetailActivity.this).registerShareRestaurantActionOf(restaurant);
+                    AnalyticsUtil.registerEvent(RestaurantDetailActivity.this, AnalyticsConst.Category.ENGAGEMENT,
+                            AnalyticsConst.Action.SHARE_RESTAURANT, restaurant.getServerId().toString());
                 }
 
                 @Override

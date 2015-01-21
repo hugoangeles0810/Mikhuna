@@ -25,6 +25,8 @@ import com.jasoftsolutions.mikhuna.domain.RestaurantListFilter;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.remote.Const;
 import com.jasoftsolutions.mikhuna.remote.RestaurantsUpdaterTask;
+import com.jasoftsolutions.mikhuna.util.AnalyticsConst;
+import com.jasoftsolutions.mikhuna.util.AnalyticsUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 
 import java.util.List;
@@ -88,6 +90,8 @@ public class RestaurantListFragment extends Fragment {
                 startActivity(detailIntent);
 
                 new AuditHelper(view.getContext()).registerViewDetailOf(restaurant);
+                AnalyticsUtil.registerEvent(view.getContext(), AnalyticsConst.Category.DETAIL_RESTAURANT,
+                        AnalyticsConst.Action.VIEW_DETAIL_FROM_RESTAURANT_LIST, restaurant.getServerId().toString());
             }
         });
         restaurantListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -121,6 +125,8 @@ public class RestaurantListFragment extends Fragment {
 //                .setup(listViewContainerFrame);
 
         new AuditHelper(getActivity()).registerRestaurantListAction();
+        AnalyticsUtil.registerEvent(getActivity(), AnalyticsConst.Category.LIST_RESTAURANT,
+                AnalyticsConst.Action.RESTAURANT_LIST);
 
         refreshRestaurantList();
 

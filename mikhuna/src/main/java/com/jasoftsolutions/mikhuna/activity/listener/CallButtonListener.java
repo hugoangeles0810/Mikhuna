@@ -6,6 +6,8 @@ import android.view.View;
 import com.jasoftsolutions.mikhuna.R;
 import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
+import com.jasoftsolutions.mikhuna.util.AnalyticsConst;
+import com.jasoftsolutions.mikhuna.util.AnalyticsUtil;
 import com.jasoftsolutions.mikhuna.util.PhoneCall;
 
 /**
@@ -19,6 +21,8 @@ public class CallButtonListener implements View.OnClickListener {
         Restaurant restaurant=(Restaurant)view.getTag(R.id.tag_restaurant);
 
         new AuditHelper(view.getContext()).registerDialIntentOf(restaurant);
+        AnalyticsUtil.registerEvent(view.getContext(), AnalyticsConst.Category.DETAIL_RESTAURANT,
+                AnalyticsConst.Action.DIAL_INTENT, restaurant.getServerId().toString());
 
         PhoneCall.makeDialCall(context, restaurant.getPhoneNumber());
     }

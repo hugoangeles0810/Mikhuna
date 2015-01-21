@@ -22,6 +22,8 @@ import com.jasoftsolutions.mikhuna.activity.listener.ApplyActionListener;
 import com.jasoftsolutions.mikhuna.activity.preferences.RestaurantListFilterPreferences;
 import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
 import com.jasoftsolutions.mikhuna.domain.RestaurantListFilter;
+import com.jasoftsolutions.mikhuna.util.AnalyticsConst;
+import com.jasoftsolutions.mikhuna.util.AnalyticsUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 
 public class RestaurantListActivity extends BaseActivity
@@ -281,6 +283,8 @@ public class RestaurantListActivity extends BaseActivity
                 Log.i(TAG, "invocando las promociones");
                 promotionListAudited = true;
                 new AuditHelper(this).registerPromotionListAction();
+                AnalyticsUtil.registerEvent(this, AnalyticsConst.Category.LIST_RESTAURANT,
+                        AnalyticsConst.Action.PROMOTION_LIST);
             }
         } catch (Exception e) {
             ExceptionUtil.handleException(e);

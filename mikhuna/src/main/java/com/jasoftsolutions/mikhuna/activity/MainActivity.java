@@ -18,6 +18,8 @@ import com.jasoftsolutions.mikhuna.remote.Const;
 import com.jasoftsolutions.mikhuna.remote.LastResourceUpdatePreferences;
 import com.jasoftsolutions.mikhuna.remote.ManagementUpdaterThread;
 import com.jasoftsolutions.mikhuna.routing.RoutingHandler;
+import com.jasoftsolutions.mikhuna.util.AnalyticsConst;
+import com.jasoftsolutions.mikhuna.util.AnalyticsUtil;
 import com.jasoftsolutions.mikhuna.util.ContextUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 import com.jasoftsolutions.mikhuna.util.ThreadUtil;
@@ -85,6 +87,8 @@ public class MainActivity extends BaseActivity {
                     restaurantId = restaurant.getId();
                     if (intentSource == ArgKeys.SOURCE_GCM) {
                         new AuditHelper(this).registerViewGCM(restaurant);
+                        AnalyticsUtil.registerEvent(this, AnalyticsConst.Category.ENGAGEMENT,
+                                AnalyticsConst.Action.VIEW_GCM, restaurant.getServerId().toString());
                     }
                 }
             }
@@ -125,6 +129,8 @@ public class MainActivity extends BaseActivity {
 
             if (intentSource == ArgKeys.SOURCE_GCM && restaurant != null) {
                 new AuditHelper(this).registerGCMViewDetailOf(restaurant);
+                AnalyticsUtil.registerEvent(this, AnalyticsConst.Category.ENGAGEMENT,
+                        AnalyticsConst.Action.VIEW_DETAIL_FROM_GCM, restaurant.getServerId().toString());
             }
         } else {
             if (new RestaurantManager().countAllRestaurants() == 0

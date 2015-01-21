@@ -23,6 +23,8 @@ import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.model.RestaurantPromotion;
 import com.jasoftsolutions.mikhuna.remote.Const;
 import com.jasoftsolutions.mikhuna.remote.RestaurantPromotionsUpdaterTask;
+import com.jasoftsolutions.mikhuna.util.AnalyticsConst;
+import com.jasoftsolutions.mikhuna.util.AnalyticsUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 
 import java.util.ArrayList;
@@ -70,6 +72,8 @@ public class RestaurantPromotionsListFragment extends Fragment {
                 startActivity(detailIntent);
 
                 new AuditHelper(view.getContext()).registerPromotionListViewDetailActionOf(restaurant);
+                AnalyticsUtil.registerEvent(view.getContext(), AnalyticsConst.Category.LIST_RESTAURANT,
+                        AnalyticsConst.Action.VIEW_DETAIL_FROM_PROMOTION_LIST, restaurant.getServerId().toString());
             }
         });
 
