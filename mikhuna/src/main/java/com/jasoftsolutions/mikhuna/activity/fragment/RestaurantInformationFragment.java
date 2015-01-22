@@ -1,6 +1,7 @@
 package com.jasoftsolutions.mikhuna.activity.fragment;
 
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayout;
@@ -10,6 +11,7 @@ import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,9 +19,11 @@ import com.jasoftsolutions.mikhuna.R;
 import com.jasoftsolutions.mikhuna.activity.util.RestaurantViewUtil;
 import com.jasoftsolutions.mikhuna.data.RestaurantManager;
 import com.jasoftsolutions.mikhuna.domain.Weekday;
+import com.jasoftsolutions.mikhuna.model.Pay;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.util.DateUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
+import com.jasoftsolutions.mikhuna.util.ResourcesUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -143,6 +147,22 @@ public class RestaurantInformationFragment extends Fragment {
                         timetableRows.addView(v, linearLayoutParams);
                     }
                 }
+
+                LinearLayout containerPayments = (LinearLayout) rootView.findViewById(R.id.container_payments_methods);
+                if (restaurant.getPayMethods() != null && !restaurant.getPayMethods().isEmpty()){
+                    containerPayments.setVisibility(View.VISIBLE);
+                    LinearLayout layoutPayments = (LinearLayout) rootView.findViewById(R.id.list_img_payments_methods);
+
+                    for (Pay p : restaurant.getPayMethods()){
+                        ImageView img = new ImageView(rootView.getContext());
+                        Drawable d = ResourcesUtil.getDrawableByName(rootView.getContext(), p.getNameFile());
+                        img.setImageDrawable(d);
+                        layoutPayments.addView(img);
+                    }
+                }else{
+                    containerPayments.setVisibility(View.GONE);
+                }
+
 
             }
         } catch (Exception e) {

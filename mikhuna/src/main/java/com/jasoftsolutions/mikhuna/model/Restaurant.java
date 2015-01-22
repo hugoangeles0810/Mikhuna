@@ -86,6 +86,15 @@ public class Restaurant extends AbstractModel {
     @SerializedName("rdc")
     private List<RestaurantDishCategory> restaurantDishCategories;
 
+    @SerializedName("link")
+    private List<Link> links;
+
+    @SerializedName("pay")
+    private List<Pay> payMethods;
+
+    @SerializedName("servi")
+    private List<Service> services;
+
 
     public String getName() {
 		return name;
@@ -265,6 +274,30 @@ public class Restaurant extends AbstractModel {
     }
     public void setCategoryLastUpdate(Long categoryLastUpdate) {
         this.categoryLastUpdate = categoryLastUpdate;
+    }
+
+    public List<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(List<Link> links) {
+        this.links = links;
+    }
+
+    public List<Pay> getPayMethods() {
+        return payMethods;
+    }
+
+    public void setPayMethods(List<Pay> payMethods) {
+        this.payMethods = payMethods;
+    }
+
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
     }
 
     public boolean isDelivery() {

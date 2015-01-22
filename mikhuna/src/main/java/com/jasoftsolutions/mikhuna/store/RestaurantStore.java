@@ -48,7 +48,7 @@ public class RestaurantStore extends AbstractStore {
             @Override
             public void run() {
                 RestaurantManager rm = new RestaurantManager();
-                Restaurant r = rm.getRestaurantByServerId(serverId);
+                Restaurant r = rm.getRestaurantWithFullDataByServerId(serverId);
                 if (r != null) {
                     notifyOnReady(RestaurantStore.this, r, listener);
 //                    if (r.getLastUpdate() > 0) {
@@ -79,7 +79,7 @@ public class RestaurantStore extends AbstractStore {
             @Override
             public void run() {
                 final RestaurantManager rm = new RestaurantManager();
-                final Restaurant r = rm.getRestaurantByServerId(serverId);
+                final Restaurant r = rm.getRestaurantWithFullDataByServerId(serverId);
 
                 final Map<String, Boolean> status = new HashMap<String, Boolean>();
                 status.put("failed", false);
@@ -112,7 +112,7 @@ public class RestaurantStore extends AbstractStore {
                                 else if (retrieved.getLastUpdate() > lastUpdate) {
                                     rm.saveRestaurant(retrieved);
                                     // recargar desde el manager para que calcule todos los datos necesarios
-                                    retrieved = rm.getRestaurantByServerId(retrieved.getServerId());
+                                    retrieved = rm.getRestaurantWithFullDataByServerId(retrieved.getServerId());
                                     notifyOnUpdate(RestaurantStore.this, retrieved);
                                 }
                             } finally {

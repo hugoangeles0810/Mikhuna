@@ -82,6 +82,50 @@ public final class Schema {
         ;
     }
 
+    public static final class Service extends BaseTable{
+        public  static final String
+            _tableName = "service",
+            name = "name",
+            position = "position",
+            state = "state";
+
+    }
+
+    public static final class Pay extends BaseTable{
+        public static final String
+            _tableName = "pay",
+            nameFile = "name_file",
+            position = "position",
+            state = "state";
+
+    }
+
+    public static final class Links extends BaseTable{
+        public static final String
+            _tableName = "links",
+            link = "link",
+            typeLink = "type_link",
+            state = "state",
+            restaurantId = "restaurant_id";
+
+    }
+
+    public static final class RestaurantService extends BaseTable{
+        public  static final String
+                _tableName = "restaurant_service",
+                restaurantId = "restaurant_id",
+                serviceId = "service_id";
+    }
+
+    public static final class RestaurantPay extends BaseTable{
+        public static final String
+                _tableName = "restaurant_pay",
+                restaurantId = "restaurant_id",
+                payId = "pay_id";
+    }
+
+
+
     public static final class RestaurantTimeTable extends BaseTable {
         public static final String
             _tableName = "restaurant_timetable",

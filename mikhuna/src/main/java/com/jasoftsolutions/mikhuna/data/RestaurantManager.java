@@ -8,6 +8,8 @@ import android.util.Log;
 
 import com.jasoftsolutions.mikhuna.domain.RestaurantListFilter;
 import com.jasoftsolutions.mikhuna.domain.Weekday;
+import com.jasoftsolutions.mikhuna.model.Link;
+import com.jasoftsolutions.mikhuna.model.Pay;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.model.RestaurantCategoryAssign;
 import com.jasoftsolutions.mikhuna.model.RestaurantDish;
@@ -15,6 +17,7 @@ import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishPresentation;
 import com.jasoftsolutions.mikhuna.model.RestaurantPromotion;
 import com.jasoftsolutions.mikhuna.model.RestaurantTimetable;
+import com.jasoftsolutions.mikhuna.model.Service;
 import com.jasoftsolutions.mikhuna.util.ArrayUtil;
 import com.jasoftsolutions.mikhuna.util.DateUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
@@ -85,24 +88,6 @@ public class RestaurantManager {
         r.setTimetableDescription(cursor.getString(21));
         r.setNumberProductCategory(cursor.getInt(22));
         r.setCategoryLastUpdate(cursor.getLong(23));
-//        if (!cursor.isNull(1)) r.setName(cursor.getString(1));
-//        if (!cursor.isNull(2)) r.setDescription(cursor.getString(2));
-//        if (!cursor.isNull(3)) r.setPhoneNumber(cursor.getString(3));
-//        if (!cursor.isNull(4)) r.setCurrency(cursor.getString(4));
-//        if (!cursor.isNull(5)) r.setMinAmount(cursor.getFloat(5));
-//        if (!cursor.isNull(6)) r.setRating(cursor.getFloat(6));
-//        if (!cursor.isNull(7)) r.setImageId(cursor.getInt(7));
-//        if (!cursor.isNull(8)) r.setMinDeliveryTime(cursor.getInt(8));
-//        if (!cursor.isNull(9)) r.setMaxDeliveryTime(cursor.getInt(9));
-//        if (!cursor.isNull(10)) r.setLatitude(cursor.getDouble(10));
-//        if (!cursor.isNull(11)) r.setLongitude(cursor.getDouble(11));
-//        if (!cursor.isNull(12)) r.setAddress(cursor.getString(12));
-//        if (!cursor.isNull(13)) r.setShippingCost(cursor.getFloat(13));
-//        if (!cursor.isNull(14)) r.setServerId(cursor.getLong(14));
-//        if (!cursor.isNull(15)) r.setLastUpdate(cursor.getLong(15));
-//        if (!cursor.isNull(16)) r.setLogoUrl(cursor.getString(16));
-//        if (!cursor.isNull(17)) r.setSmallLogoUrl(cursor.getString(17));
-//        if (!cursor.isNull(18)) r.setWeight(cursor.getInt(18));
 
         return r;
     }
@@ -294,6 +279,165 @@ public class RestaurantManager {
         }
     }
 
+    public void saveRestaurantLinks(List<Link> links, Long restaurantServerId){
+
+        if (links == null || links.isEmpty()){ return;}
+
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getWritableDatabase();
+        for (Link l : links){
+            ContentValues val = new ContentValues();
+            val.put(Schema.Links.serverId, l.getServerId());
+            val.put(Schema.Links.link, l.getLink());
+            val.put(Schema.Links.typeLink, l.getTypeLink());
+            val.put(Schema.Links.restaurantId, restaurantServerId);
+
+            try {
+                db.insertOrThrow(Schema.Links._tableName, null, val);
+            }catch (Exception e){
+                ExceptionUtil.ignoreException(e);
+                val.remove(Schema.Links.serverId);
+                db.update(Schema.Links._tableName, val, Schema.Links.serverId+"=?", new String[]{l.getServerId().toString()});
+            }
+        }
+        MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
+    }
+
+    public void saveRestaurantPayments(List<Pay> payments, Long restaurantServerId){
+        if (payments == null || payments.isEmpty()){ return;}
+
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getWritableDatabase();
+
+        for (Pay p : payments){
+            ContentValues val = new ContentValues();
+            val.put(Schema.RestaurantPay.payId, p.getServerId());
+            val.put(Schema.RestaurantPay.restaurantId, restaurantServerId);
+
+            try{
+                db.insertOrThrow(Schema.RestaurantPay._tableName, null, val);
+            }catch (Exception e){
+                ExceptionUtil.ignoreException(e);
+            }
+        }
+
+        MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
+    }
+
+    public void saveRestaurantService(List<Service> services, Long restaurantServerId){
+        if (services == null || services.isEmpty()){ return;}
+
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getWritableDatabase();
+
+        for (Service s : services){
+            ContentValues val = new ContentValues();
+            val.put(Schema.RestaurantService.serviceId, s.getServerId());
+            val.put(Schema.RestaurantService.restaurantId, restaurantServerId);
+
+            try{
+                db.insertOrThrow(Schema.RestaurantService._tableName, null, val);
+            }catch (Exception e){
+                ExceptionUtil.ignoreException(e);
+            }
+            MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
+        }
+
+    }
+
+    public void cleanRestaurantLinksByRestaurantServerId(SQLiteDatabase db, Long restaurantServerId){
+        db.delete(Schema.Links._tableName, Schema.Links.restaurantId + "=?", new String[]{restaurantServerId.toString()});
+    }
+
+    public void cleanPayMethodsByRestaurantServerId(SQLiteDatabase db, Long restaurantServerId) {
+        db.delete(Schema.RestaurantPay._tableName, Schema.RestaurantPay.restaurantId+"=?", new String[]{restaurantServerId.toString()});
+    }
+
+    public void cleanServicesByRestaurantServerId(SQLiteDatabase db, Long restaurantServerId) {
+        db.delete(Schema.RestaurantService._tableName, Schema.RestaurantService.restaurantId+"=?", new String[]{restaurantServerId.toString()});
+    }
+
+    public Restaurant getRestaurantWithFullDataByServerId(Long serverId){
+        Restaurant r = getRestaurantByServerId(serverId);
+        r.setLinks(getLinksByRestaurantServerId(serverId));
+        r.setServices(getServicesByRestaurantServerId(serverId));
+        r.setPayMethods(getPayMethodsByRestaurantServerId(serverId));
+        return r;
+    }
+
+    public List<Service> getServicesByRestaurantServerId(Long restaurantServerId){
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getReadableDatabase();
+
+        String query = "select s."+Schema.Service.id+", "+
+                              "s."+Schema.Service.serverId+", "+
+                              "s."+Schema.Service.name + " " +
+                       "from "+Schema.RestaurantService._tableName + " rs "+
+                       "inner join "+Schema.Service._tableName+" s on s."+Schema.Service.serverId+"=rs."+Schema.RestaurantService.serviceId+" "+
+                       "where rs."+Schema.RestaurantService.restaurantId+"=?";
+        Cursor cursor = db.rawQuery(query, new String[]{restaurantServerId.toString()});
+
+        List<Service> services = new ArrayList<Service>();
+
+        if (cursor.moveToFirst()){
+            do {
+                Service s = new Service();
+                s.setId(cursor.getLong(0));
+                s.setServerId(cursor.getLong(1));
+                s.setName(cursor.getString(2));
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
+        return  services;
+    }
+
+    public List<Pay> getPayMethodsByRestaurantServerId(Long restaurantServerId){
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getReadableDatabase();
+        String query = "select p." +Schema.Pay.id +", "+
+                              "p." +Schema.Pay.serverId+", "+
+                              "p." +Schema.Pay.nameFile+" "+
+                       "from " + Schema.RestaurantPay._tableName+ " rp "+
+                       "inner join "+ Schema.Pay._tableName + " p on p."+Schema.Pay.serverId + "=rp."+Schema.RestaurantPay.payId +" "+
+                       "where rp."+Schema.RestaurantPay.restaurantId+"=?";
+        Cursor cursor = db.rawQuery(query, new String[]{restaurantServerId.toString()});
+        List<Pay> payments = new ArrayList<Pay>();
+
+        if (cursor.moveToFirst()){
+            do {
+                Pay pay = new Pay();
+                pay.setId(cursor.getLong(0));
+                pay.setServerId(cursor.getLong(1));
+                pay.setNameFile(cursor.getString(2));
+                payments.add(pay);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
+        return payments;
+    }
+
+    public List<Link> getLinksByRestaurantServerId(Long restaurantServerId){
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getReadableDatabase();
+        Cursor cursor = db.query(Schema.Links._tableName, new String[]{
+                Schema.Links.id , Schema.Links.serverId, Schema.Links.link, Schema.Links.typeLink,
+                Schema.Links.restaurantId
+        }, Schema.Links.restaurantId + "=?", new String[]{restaurantServerId.toString()}, null, null, null);
+
+        List<Link> links = new ArrayList<Link>();
+
+        if (cursor.moveToFirst()){
+            do {
+                Link link = new Link();
+                link.setId(cursor.getLong(0));
+                link.setServerId(cursor.getLong(1));
+                link.setLink(cursor.getString(2));
+                link.setTypeLink(cursor.getInt(3));
+                link.setRestaurantServerId(cursor.getLong(4));
+                links.add(link);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
+        return links;
+    }
+
     public void loadRestaurantTimetable(List<Restaurant> restaurantList, SQLiteDatabase db) {
         if (restaurantList == null || restaurantList.size()==0) return;
 
@@ -449,7 +593,7 @@ public class RestaurantManager {
                 presentations.add(p);
             }while(cursor.moveToNext());
         }
-        
+        cursor.close();
         return presentations;
     }
 
@@ -660,6 +804,24 @@ public class RestaurantManager {
                 if (r.getRestaurantDishCategories() != null) {
                     cleanRestaurantDishesCategoriesByRestaurantServerId(db, r.getServerId());
                     saveRestaurantDishCategories(r.getRestaurantDishCategories(), db);
+                }
+
+                if (r.getLinks() != null){
+                    Log.i(TAG, "Links No es null: " + r.getLinks().size());
+                    cleanRestaurantLinksByRestaurantServerId(db, r.getServerId());
+                    saveRestaurantLinks(r.getLinks(), r.getServerId());
+                }
+
+                if (r.getServices() != null){
+                    Log.i(TAG, "Services No es null: " + r.getServices().size());
+                    cleanServicesByRestaurantServerId(db, r.getServerId());
+                    saveRestaurantService(r.getServices(), r.getServerId());
+                }
+
+                if (r.getPayMethods() != null){
+                    Log.i(TAG, "Payments No es null: " + r.getPayMethods().size());
+                    cleanPayMethodsByRestaurantServerId(db, r.getServerId());
+                    saveRestaurantPayments(r.getPayMethods(), r.getServerId());
                 }
             }
             db.setTransactionSuccessful();

@@ -151,8 +151,41 @@ public class SchemaChanges {
             },
             new String[]{ //Version 7
                     "alter table "+ Schema.RestaurantDishCategory._tableName + " add " +
-                            Schema.RestaurantDishCategory.description + " text",
-            }
+                            Schema.RestaurantDishCategory.description + " text ",
+                    "create table "+ Schema.Service._tableName+" (" +
+                            Schema.Service.id + " integer primary key," +
+                            Schema.Service.serverId + " integer unique,"+
+                            Schema.Service.name + " text,"+
+                            Schema.Service.position + " integer," +
+                            Schema.Service.state + " integer" +
+                            ")",
+                    "create table "+ Schema.Pay._tableName+" (" +
+                            Schema.Pay.id + " integer primary key," +
+                            Schema.Pay.serverId + " integer unique," +
+                            Schema.Pay.nameFile + " text," +
+                            Schema.Pay.position + " integer," +
+                            Schema.Pay.state + " integer" +
+                            ")",
+                    "create table "+ Schema.RestaurantService._tableName+" (" +
+                            Schema.RestaurantService.id + " integer primary key," +
+                            Schema.RestaurantService.serverId + " integer unique," +
+                            Schema.RestaurantService.restaurantId + " integer," +
+                            Schema.RestaurantService.serviceId + " integer" +
+                            ")",
+                    "create table "+ Schema.RestaurantPay._tableName+" (" +
+                            Schema.RestaurantPay.id + " integer primary key,"+
+                            Schema.RestaurantPay.serverId + " integer unique,"+
+                            Schema.RestaurantPay.restaurantId + " integer,"+
+                            Schema.RestaurantPay.payId + " integer" +
+                    ")",
+                    "create table "+ Schema.Links._tableName+" (" +
+                            Schema.Links.id + " integer primary key,"+
+                            Schema.Links.serverId + " integer unique,"+
+                            Schema.Links.link + " text,"+
+                            Schema.Links.typeLink + " integer," +
+                            Schema.Links.restaurantId + " integer" +
+                            ")",
+}
     };
 
     public static final String[][] DOWNGRADES = new String[][] {
@@ -181,7 +214,12 @@ public class SchemaChanges {
             },
             new String[]{ // De 7 a 6
                     "alter table "+ Schema.RestaurantDishCategory._tableName + " drop " +
-                            Schema.RestaurantDishCategory.description
+                            Schema.RestaurantDishCategory.description,
+                    "drop table if exists "+ Schema.RestaurantService._tableName,
+                    "drop table if exists "+ Schema.RestaurantPay._tableName,
+                    "drop table if exists "+ Schema.Service._tableName,
+                    "drop table if exists "+ Schema.Pay._tableName,
+                    "drop table if exists "+ Schema.Links._tableName
             }
     };
 

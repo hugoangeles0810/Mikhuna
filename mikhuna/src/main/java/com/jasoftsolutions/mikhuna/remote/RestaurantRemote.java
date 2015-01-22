@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+import com.jasoftsolutions.mikhuna.BuildConfig;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.model.RestaurantDish;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
@@ -45,7 +46,7 @@ public class RestaurantRemote {
         Restaurant result=null;
 
         RemoteHandler sh= RemoteHandler.getInstance();
-        result=sh.getResourceFromUrl("/restaurants/id/"+id+"/v/18", lastUpdate, Restaurant.class);
+        result=sh.getResourceFromUrl("/restaurants/id/"+id+"/v/"+ BuildConfig.VERSION_CODE, lastUpdate, Restaurant.class);
 
         return result;
     }
