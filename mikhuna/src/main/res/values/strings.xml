@@ -83,6 +83,7 @@ Por favor intente reinstalar la aplicación.
     <string name="restaurant_shipping_cost">Envío:</string>
     <string name="restaurant_phone">Teléfono:</string>
     <string name="restaurant_payments_title">Puede usar en el local:</string>
+    <string name="restaurant_networks_title">Redes:</string>
     <string name="title_activity_restaurant_detail">Información sobre el restaurante</string>
     <string name="message_dialog_no_server_response">No ha sido posible la conexión al servidor, verifique su conexión a internet por favor.</string>
     <string name="dialog_button_retry">Reintentar</string>

@@ -1,7 +1,9 @@
 package com.jasoftsolutions.mikhuna.activity.fragment;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayout;
@@ -19,6 +21,7 @@ import com.jasoftsolutions.mikhuna.R;
 import com.jasoftsolutions.mikhuna.activity.util.RestaurantViewUtil;
 import com.jasoftsolutions.mikhuna.data.RestaurantManager;
 import com.jasoftsolutions.mikhuna.domain.Weekday;
+import com.jasoftsolutions.mikhuna.model.Link;
 import com.jasoftsolutions.mikhuna.model.Pay;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.util.DateUtil;
@@ -163,11 +166,62 @@ public class RestaurantInformationFragment extends Fragment {
                     containerPayments.setVisibility(View.GONE);
                 }
 
+                LinearLayout containerNetworks = (LinearLayout) rootView.findViewById(R.id.container_networks);
+                if (restaurant.getLinks() != null && !restaurant.getLinks().isEmpty()){
+                    containerNetworks.setVisibility(View.VISIBLE);
+                    LinearLayout layoutNetworks = (LinearLayout) rootView.findViewById(R.id.list_img_networks);
+
+                    for (final Link l : restaurant.getLinks()){
+                        ImageView img = new ImageView(rootView.getContext());
+                        Drawable d = getIconOfLink(l.getTypeLink());
+                        img.setImageDrawable(d);
+                        layoutNetworks.addView(img);
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(l.getLink()));
+                                startActivity(i);
+                            }
+                        });
+                    }
+                }else{
+                    containerNetworks.setVisibility(View.GONE);
+                }
 
             }
         } catch (Exception e) {
             ExceptionUtil.handleException(e);
         }
+    }
+
+    public Drawable getIconOfLink(Integer typeLink){
+        Drawable d;
+
+        switch (typeLink){
+            case 1:
+                d = getResources().getDrawable(R.drawable.website);
+                break;
+            case 2:
+                d = getResources().getDrawable(R.drawable.facebook1);
+                break;
+            case 3:
+                d = getResources().getDrawable(R.drawable.twitter1);
+                break;
+            case 4:
+                d = getResources().getDrawable(R.drawable.email);
+                break;
+            case 5:
+                d = getResources().getDrawable(R.drawable.instagram);
+                break;
+            case 6:
+                d = getResources().getDrawable(R.drawable.youtube1);
+                break;
+            default:
+                d = getResources().getDrawable(R.drawable.website);
+                break;
+
+        }
+        return d;
     }
 
 }
