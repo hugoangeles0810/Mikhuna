@@ -335,7 +335,7 @@ public class RestaurantManager {
             try{
                 db.insertOrThrow(Schema.RestaurantService._tableName, null, val);
             }catch (Exception e){
-                ExceptionUtil.ignoreException(e);
+                ExceptionUtil.handleException(e);
             }
             MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
         }
@@ -381,6 +381,7 @@ public class RestaurantManager {
                 s.setId(cursor.getLong(0));
                 s.setServerId(cursor.getLong(1));
                 s.setName(cursor.getString(2));
+                services.add(s);
             }while(cursor.moveToNext());
         }
         cursor.close();

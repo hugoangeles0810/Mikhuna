@@ -8,7 +8,8 @@
     <TextView
         android:id="@+id/weekday_text"
         android:layout_width="@dimen/weekday_text_width"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
 
     <android.support.v7.widget.GridLayout
         android:id="@+id/weekday_timetable"

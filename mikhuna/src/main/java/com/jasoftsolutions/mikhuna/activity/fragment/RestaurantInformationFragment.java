@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayout;
 import android.text.Editable;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
@@ -24,9 +25,11 @@ import com.jasoftsolutions.mikhuna.domain.Weekday;
 import com.jasoftsolutions.mikhuna.model.Link;
 import com.jasoftsolutions.mikhuna.model.Pay;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
+import com.jasoftsolutions.mikhuna.model.Service;
 import com.jasoftsolutions.mikhuna.util.DateUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 import com.jasoftsolutions.mikhuna.util.ResourcesUtil;
+import com.jasoftsolutions.mikhuna.util.StringUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -154,7 +157,7 @@ public class RestaurantInformationFragment extends Fragment {
                 LinearLayout containerPayments = (LinearLayout) rootView.findViewById(R.id.container_payments_methods);
                 if (restaurant.getPayMethods() != null && !restaurant.getPayMethods().isEmpty()){
                     containerPayments.setVisibility(View.VISIBLE);
-                    LinearLayout layoutPayments = (LinearLayout) rootView.findViewById(R.id.list_img_payments_methods);
+                    GridLayout layoutPayments = (GridLayout) rootView.findViewById(R.id.list_img_payments_methods);
 
                     for (Pay p : restaurant.getPayMethods()){
                         ImageView img = new ImageView(rootView.getContext());
@@ -187,6 +190,19 @@ public class RestaurantInformationFragment extends Fragment {
                 }else{
                     containerNetworks.setVisibility(View.GONE);
                 }
+
+                LinearLayout containerServices = (LinearLayout) rootView.findViewById(R.id.container_services);
+                if (restaurant.getServices() != null && !restaurant.getServices().isEmpty()){
+                    containerServices.setVisibility(View.VISIBLE);
+                    LinearLayout layoutServices = (LinearLayout) rootView.findViewById(R.id.list_tv_services);
+                    TextView textView = new TextView(rootView.getContext());
+                    textView.setText(StringUtil.getServicesOfRestaurant(restaurant.getServices()));
+                    layoutServices.addView(textView);
+
+                }else{
+                    containerServices.setVisibility(View.GONE);
+                }
+
 
             }
         } catch (Exception e) {
