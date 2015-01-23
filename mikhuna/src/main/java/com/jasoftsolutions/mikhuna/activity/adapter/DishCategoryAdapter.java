@@ -158,7 +158,7 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
             holder.dishDescription.setText(dish.getDescription());
             holder.dishDescription.setVisibility(View.VISIBLE);
         }else{
-            holder.dishDescription.setVisibility(View.INVISIBLE);
+            holder.dishDescription.setVisibility(View.GONE);
         }
 
 

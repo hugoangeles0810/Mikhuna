@@ -157,12 +157,17 @@ public class RestaurantInformationFragment extends Fragment {
                 LinearLayout containerPayments = (LinearLayout) rootView.findViewById(R.id.container_payments_methods);
                 if (restaurant.getPayMethods() != null && !restaurant.getPayMethods().isEmpty()){
                     containerPayments.setVisibility(View.VISIBLE);
-                    GridLayout layoutPayments = (GridLayout) rootView.findViewById(R.id.list_img_payments_methods);
-
+                    LinearLayout layoutPayments = (LinearLayout) rootView.findViewById(R.id.list_img_payments_methods);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    float den = rootView.getContext().getResources().getDisplayMetrics().density;
+                    lp.height=(int)(40*den);
+                    lp.width=(int)(45*den);
+//                    lp.setMargins(left, top, right, bottom);
                     for (Pay p : restaurant.getPayMethods()){
                         ImageView img = new ImageView(rootView.getContext());
                         Drawable d = ResourcesUtil.getDrawableByName(rootView.getContext(), p.getNameFile());
                         img.setImageDrawable(d);
+                        img.setLayoutParams(lp);
                         layoutPayments.addView(img);
                     }
                 }else{
