@@ -36,3 +36,5 @@ INSERT INTO pay (sever_id, name_file, position, state) VALUES (5, 'paypal', 5, 1
 INSERT INTO pay (sever_id, name_file, position, state) VALUES (6, 'maestro', 6, 1);
 INSERT INTO pay (sever_id, name_file, position, state) VALUES (7, 'mastercard', 7, 1);
 INSERT INTO pay (sever_id, name_file, position, state) VALUES (8, 'visa', 8, 1);
+
+UPDATE restaurant SET last_update=0,  category_last_update=0;
