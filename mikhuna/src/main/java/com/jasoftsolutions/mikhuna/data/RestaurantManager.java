@@ -808,19 +808,16 @@ public class RestaurantManager {
                 }
 
                 if (r.getLinks() != null){
-                    Log.i(TAG, "Links No es null: " + r.getLinks().size());
                     cleanRestaurantLinksByRestaurantServerId(db, r.getServerId());
                     saveRestaurantLinks(r.getLinks(), r.getServerId());
                 }
 
                 if (r.getServices() != null){
-                    Log.i(TAG, "Services No es null: " + r.getServices().size());
                     cleanServicesByRestaurantServerId(db, r.getServerId());
                     saveRestaurantService(r.getServices(), r.getServerId());
                 }
 
                 if (r.getPayMethods() != null){
-                    Log.i(TAG, "Payments No es null: " + r.getPayMethods().size());
                     cleanPayMethodsByRestaurantServerId(db, r.getServerId());
                     saveRestaurantPayments(r.getPayMethods(), r.getServerId());
                 }
