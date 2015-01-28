@@ -63,6 +63,6 @@ public final class Const {
     /**
      * Tiempo mínimo que debe permanecer visible la pantalla de bienvenida
      */
-    public static final long SPLASH_MIN_DELAY = 2000;
+    public static final long SPLASH_MIN_DELAY = 3500;
 
 }
