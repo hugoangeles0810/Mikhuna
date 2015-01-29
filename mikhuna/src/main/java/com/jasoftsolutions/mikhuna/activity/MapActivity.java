@@ -53,7 +53,7 @@ public class MapActivity extends BaseActivity implements
 
             if (savedInstanceState == null){
                 new AsyncRestaurantMarker().execute();
-                defaulf
+                defaultCameraPositionAnimate();
             }else{
                 if (savedInstanceState.containsKey(ArgKeys.RESTAURANTS)){
                     restaurants = savedInstanceState.getParcelableArrayList(ArgKeys.RESTAURANTS);
@@ -91,15 +91,9 @@ public class MapActivity extends BaseActivity implements
         restaurantsCluster.setRenderer(new RestaurantRenderer());
     }
 
-    private CameraPosition defaultCameraPositionAnimate(){
+    private void defaultCameraPositionAnimate(){
         LatLng latLng = LocationUtil.getLastKnowLocation(this);
-
-        CameraPosition cp = CameraPosition.builder()
-                .target(latLng)
-                .zoom(DEFAULT_ZOOM)
-                .build();
-
-        return cp;
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM));
     }
 
 
