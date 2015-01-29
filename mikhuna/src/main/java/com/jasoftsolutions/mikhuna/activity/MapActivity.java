@@ -53,7 +53,7 @@ public class MapActivity extends BaseActivity implements
 
             if (savedInstanceState == null){
                 new AsyncRestaurantMarker().execute();
-                defaulf
+                //default
             }else{
                 if (savedInstanceState.containsKey(ArgKeys.RESTAURANTS)){
                     restaurants = savedInstanceState.getParcelableArrayList(ArgKeys.RESTAURANTS);
