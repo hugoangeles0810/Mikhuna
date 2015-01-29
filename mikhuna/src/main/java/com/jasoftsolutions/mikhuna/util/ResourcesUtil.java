@@ -10,9 +10,13 @@ public class ResourcesUtil {
 
     public static Drawable getDrawableByName(Context context, String name) {
         return context.getResources().getDrawable(
-                context.getResources().getIdentifier(name,
-                        "drawable", context.getPackageName())
+                getDrawableIdentifierByName(context, name)
         );
+    }
+
+    public static Integer getDrawableIdentifierByName(Context context, String name){
+        return context.getResources().getIdentifier(name,
+                "drawable", context.getPackageName());
     }
 
 }

@@ -3,36 +3,28 @@
 
     <string name="mikhuna_hostname">mikhuna.com</string>
     <string name="mikhuna_hostname_www">www.mikhuna.com</string>
-
     <string name="msg_ok">Ok</string>
     <string name="msg_cancel">Cancelar</string>
     <string name="msg_send">Enviar</string>
-
     <string name="app_name">Mikhuna</string>
     <string name="action_settings">Configuación</string>
     <string name="action_rate_restaurant">Rankear</string>
     <string name="main_action_logout">Cerrar sesión</string>
-
     <string name="action_send">Enviar</string>
-
     <string name="msg_wait_momment_please">Espere un momento por favor</string>
     <string name="msg_sending_progress">Enviando...</string>
-
     <string name="action_report_problem">Reportar un problema</string>
     <string name="action_contact">Contacto</string>
-
     <string name="msg_from">Desde</string>
     <string name="msg_to">hasta</string>
 
-    <!--<string name="action_exit">Salir</string>-->
+    <!-- <string name="action_exit">Salir</string> -->
 
     <string name="about_content_text">        Desarrollado por JASoft Solutions
         \nVisítenos en: www.jasoftsolutions.com
         \nContáctenos a: ventas@jasoftsolutions.com</string>
-
     <string name="error_database_creation">Parece que Mikhuna no se ha instalado correctamente y no funcionará como es debido.
-Por favor intente reinstalar la aplicación.
-    </string>
+Por favor intente reinstalar la aplicación.</string>
 
     <string-array name="main_menu_items">
         <item>Restaurantes</item>
@@ -61,24 +53,19 @@ Por favor intente reinstalar la aplicación.
     </string-array>
 
     <string name="default_loading_text">Cargando …</string>
-
     <string name="restaurant_logo_description">Logo del restaurant</string>
     <string name="restaurant_description">Descripción:</string>
     <string name="restaurant_estimated_arrival_time">Tiempo estimado de entrega:</string>
     <string name="restaurant_estimated_arrival_time_short">Entrega:</string>
     <string name="restaurant_address">Dirección:</string>
     <string name="restaurant_attention_timetable">Horario de atención:</string>
-
     <string name="restaurant_found_counter">%1$s restaurantes encontrados</string>
-
     <string name="restaurant_name">Restaurant:</string>
-
     <string name="title_activity_restaurant_list">Restaurantes</string>
     <string name="title_activity_splash">Bienvenido (a)</string>
     <string name="title_activity_tab_list">Restaurantes</string>
     <string name="title_activity_tab_filter">Filtros</string>
     <string name="title_activity_tab_promotions">Promociones</string>
-
     <string name="restaurant_min_amount">Mínimo:</string>
     <string name="restaurant_shipping_cost">Envío:</string>
     <string name="restaurant_phone">Teléfono:</string>
@@ -91,11 +78,9 @@ Por favor intente reinstalar la aplicación.
     <string name="dialog_button_cancel">Cancelar</string>
     <string name="dialog_button_close">Cerrar</string>
     <string name="dialog_button_continue">Continuar</string>
-
     <string name="restaurant_detail_incomplete_data">Debido a problemas de conexión, los datos de este restaurant aún están incompletos. Verifique su conexión a internet y luego reintente.</string>
     <string name="button_retry_connection">Reintentar conexión</string>
     <string name="link_promotions"><a href="">Promociones</a></string>
-
     <string name="weekday_monday">Lunes</string>
     <string name="weekday_tuesday">Martes</string>
     <string name="weekday_wednesday">Miércoles</string>
@@ -103,61 +88,45 @@ Por favor intente reinstalar la aplicación.
     <string name="weekday_friday">Viernes</string>
     <string name="weekday_saturday">Sábado</string>
     <string name="weekday_sunday">Domingo</string>
-
     <string name="restaurant_open">Abierto</string>
     <string name="restaurant_closed">Cerrado</string>
-
     <string name="restaurant_service_type_delivery">Delivery</string>
     <string name="restaurant_service_type_booking">Reservas</string>
     <string name="restaurant_service_type_delivery_and_booking">Delivery y Reservas</string>
     <string name="restaurant_service_type_menu">Menu</string>
-
     <string name="title_activity_preferences">Preferencias</string>
-
     <string name="tab_ubigeo_title">Ubigeo</string>
     <string name="tab_foodtype_title">Tipo de comida</string>
     <string name="tab_servicetype_title">Tipo de servicio</string>
-
     <string name="select_prompt">Seleccione</string>
     <string name="ubigeo_category_country">País</string>
     <string name="ubigeo_category_locality">Localidad</string>
-
     <string name="action_search">Buscar</string>
     <string name="action_filter">Filtros</string>
     <string name="action_refresh">Actualizar</string>
     <string name="action_share">Compartir</string>
     <string name="search_name_hint">Nombre</string>
-
     <string name="label_name">Nombre</string>
-
     <string name="label_all">Todos:</string>
     <string name="link_mark_all"><a href="">Marcar</a></string>
     <string name="link_unmark_all"><a href="">Desmarcar</a></string>
     <string name="label_apply_filter">Aplicar filtro</string>
     <string name="label_cancel_filter">Anular</string>
-
     <string name="filter_empty_error_message">Debe seleccionar su ubicación, al menos un tipo de comida y al menos un tipo de servicio.</string>
-
     <string name="label_location">Ubicación</string>
     <string name="label_foodtype">Tipo de comida</string>
     <string name="label_servicetype">Tipo de servicio</string>
-
     <string name="empty_restaurant_list">No se han encontrado restaurantes con el criterio de búsqueda actual.</string>
     <string name="empty_all_promotions_list">No se han encontrado promociones con el criterio de búsqueda actual.</string>
-
     <string name="label_validity">Vigencia:</string>
-
     <string name="title_activity_problem_report">Reportar un problema</string>
     <string name="title_activity_first_time">Preferencias iniciales</string>
     <string name="title_activity_restaurant_carte">Carta</string>
-
     <string name="msg_successful_problem_report_sending">El envio fue exitoso.
     Le agradecemos su ayuda.</string>
     <string name="msg_fail_problem_report_sending">Ha ocurrido un fallo durante el envío</string>
-
     <string name="label_problem_type">Tipo de problema:</string>
     <string name="label_problem_description">Detalle del problema: (máximo 250 caracteres)</string>
-
     <string name="problem_type_app_fail">La aplicación está fallando</string>
     <string name="problem_type_incorrect_data">La información no es correcta</string>
     <string name="problem_type_city_not_found">No encuentro mi ciudad</string>
@@ -168,11 +137,13 @@ Por favor intente reinstalar la aplicación.
     <string name="restaurant_rating_user_question_enviroment">¿Qué te pareció su ambiente?</string>
     <string name="restaurant_rating_user_question_food">¿Cómo calificas su comida?</string>
     <string name="restaurant_rating_user_comment">¿Qué opina sobre este restaurant?</string>
-
     <string name="warning_geo_action_error">Necesita tener instaado Google Maps para poder realizar esta acción.</string>
     <string name="warning_dial_action_error">No se pudo iniciar el marcador de llamadas.</string>
-
     <string name="dialog_share_restaurant">Compartir restaurant</string>
     <string name="restaurant_sharing_default_message">Encuentra a %1$s en %2$s</string>
+    <string name="title_activity_map">Mapa</string>
+    <string name="detail_marker_map">Click para más detalles</string>
+    <string name="search_restaurants_map">Buscando Restaurantes ... </string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

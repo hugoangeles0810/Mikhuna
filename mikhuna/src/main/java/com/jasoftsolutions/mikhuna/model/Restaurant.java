@@ -1,11 +1,17 @@
 package com.jasoftsolutions.mikhuna.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.SerializedName;
+import com.google.maps.android.clustering.ClusterItem;
 import com.jasoftsolutions.mikhuna.domain.RestaurantServiceType;
 
 import java.util.List;
 
-public class Restaurant extends AbstractModel {
+public class Restaurant extends AbstractModel implements
+        ClusterItem, Parcelable{
 
     @SerializedName("n")
 	private String name;
@@ -95,6 +101,16 @@ public class Restaurant extends AbstractModel {
     @SerializedName("servi")
     private List<Service> services;
 
+    public Restaurant() {
+    }
+
+    public Restaurant(Parcel in){
+        setServerId(in.readLong());
+        setName(in.readString());
+        setLatitude(in.readDouble());
+        setLongitude(in.readDouble());
+        setImageId(in.readInt());
+    }
 
     public String getName() {
 		return name;
@@ -319,5 +335,24 @@ public class Restaurant extends AbstractModel {
     }
     public void setRestaurantDishCategories(List<RestaurantDishCategory> restaurantDishCategories) {
         this.restaurantDishCategories = restaurantDishCategories;
+    }
+
+    @Override
+    public LatLng getPosition() {
+        return new LatLng(latitude, longitude);
+    }
+
+    @Override
+    public int describeContents() {
+        return hashCode();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(getServerId());
+        dest.writeString(getName());
+        dest.writeDouble(getLatitude());
+        dest.writeDouble(getLongitude());
+        dest.writeInt(getImageId());
     }
 }

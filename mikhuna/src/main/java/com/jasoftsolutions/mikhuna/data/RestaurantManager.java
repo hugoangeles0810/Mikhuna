@@ -356,9 +356,11 @@ public class RestaurantManager {
 
     public Restaurant getRestaurantWithFullDataByServerId(Long serverId){
         Restaurant r = getRestaurantByServerId(serverId);
-        r.setLinks(getLinksByRestaurantServerId(serverId));
-        r.setServices(getServicesByRestaurantServerId(serverId));
-        r.setPayMethods(getPayMethodsByRestaurantServerId(serverId));
+        if (r!=null){
+            r.setLinks(getLinksByRestaurantServerId(serverId));
+            r.setServices(getServicesByRestaurantServerId(serverId));
+            r.setPayMethods(getPayMethodsByRestaurantServerId(serverId));
+        }
         return r;
     }
 

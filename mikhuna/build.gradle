@@ -28,6 +28,7 @@ dependencies {
     compile files('lib/universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar')
     compile files('lib/bugsense-3.6.1.jar')
     compile files('lib/libGoogleAnalyticsServices.jar')
+    compile 'com.google.maps.android:android-maps-utils:0.3+'
     compile project(':facebook')
     compile project(':routable-android')
 }

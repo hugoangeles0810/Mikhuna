@@ -36,8 +36,6 @@ public class CarteButtonActionListener implements View.OnClickListener {
             AnalyticsUtil.registerEvent(view.getContext(), AnalyticsConst.Category.DETAIL_RESTAURANT,
                     AnalyticsConst.Action.VIEW_PRODUCTS, restaurant.getServerId().toString());
             Intent i = RestaurantDishCategoryActivity.getLauncherIntent(context, restaurant);
-            i.putExtra(ArgKeys.RESTAURANT_SERVER_ID, restaurant.getServerId());
-            i.putExtra(ArgKeys.RESTAURANT_NAME, restaurant.getName());
             context.startActivity(i);
         } catch (Exception e) {
             ExceptionUtil.handleException(e);

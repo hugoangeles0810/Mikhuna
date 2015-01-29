@@ -16,14 +16,11 @@
         app:showAsAction="always"
         />
 
-    <!--<item android:id="@+id/action_filter"-->
-        <!--android:icon="@drawable/filter"-->
-        <!--android:title="@string/action_filter"-->
-        <!--app:showAsAction="always"-->
-        <!--/>-->
+    <item android:id="@+id/action_map"
+        android:icon="@drawable/ic_action_place"
+        android:title="@string/action_refresh"
+        app:showAsAction="always"
+        />
 
-    <!--<item android:id="@+id/action_settings"-->
-        <!--android:title="@string/action_settings"-->
-        <!--android:orderInCategory="100"-->
-        <!--app:showAsAction="never" />-->
+
 </menu>

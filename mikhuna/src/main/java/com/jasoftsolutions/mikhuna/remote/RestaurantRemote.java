@@ -18,6 +18,7 @@ import com.jasoftsolutions.mikhuna.remote.json.RestaurantPromotionListJsonRespon
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,18 @@ public class RestaurantRemote {
 
 		return result;
 	}
+
+    public ArrayList<Restaurant> getAllRestaurants(){
+        ArrayList<Restaurant> result;
+        Gson gson = new Gson();
+        JsonElement json;
+        RemoteHandler sh= RemoteHandler.getInstance();
+
+        json = sh.getResourceFromUrl("/restaurantLocation/", JsonElement.class);
+        result = gson.fromJson(json, new TypeToken<List<Restaurant>>(){}.getType());
+
+        return result;
+    }
 
     public Restaurant getRestaurant(long id) {
         return getRestaurant(id, null);

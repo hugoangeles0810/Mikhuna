@@ -175,7 +175,8 @@ public class RestaurantDishCategoryActivity extends BaseActivity implements
 
     public static Intent getLauncherIntent(Context context, Restaurant restaurant) {
         Intent intent = new Intent(context, RestaurantDishCategoryActivity.class);
-        intent.putExtra(ArgKeys.RESTAURANT, restaurant);
+        intent.putExtra(ArgKeys.RESTAURANT_SERVER_ID, restaurant.getServerId());
+        intent.putExtra(ArgKeys.RESTAURANT_NAME, restaurant.getName());
         return intent;
     }
 }

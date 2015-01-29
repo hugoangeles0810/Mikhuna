@@ -1,5 +1,7 @@
 package com.jasoftsolutions.mikhuna.util;
 
+import android.content.Context;
+
 import com.jasoftsolutions.mikhuna.model.Service;
 
 import java.util.List;
@@ -25,6 +27,10 @@ public class StringUtil {
         sb.append(s.getName()+".");
 
         return sb.toString();
+    }
+
+    public static String getStringForResourceId(Context context, int id){
+        return context.getResources().getString(id);
     }
 
 

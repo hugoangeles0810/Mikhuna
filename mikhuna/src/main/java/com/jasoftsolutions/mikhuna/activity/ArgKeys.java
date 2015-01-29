@@ -6,6 +6,7 @@ package com.jasoftsolutions.mikhuna.activity;
 public class ArgKeys {
 
     public static final String RESTAURANT = "restaurant";
+    public static final String RESTAURANTS = "restaurants";
     public static final String RESTAURANT_ID = "restaurant_id";
     public static final String RESTAURANT_SERVER_ID = "restaurant_server_id";
     public static final String CATEGORY_LAST_UPDATE = "category_last_update";

@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:installLocation="auto"
-    package="com.jasoftsolutions.mikhuna" >
+    package="com.jasoftsolutions.mikhuna"
+    android:installLocation="auto" >
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
-    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <permission
         android:name="com.jasoftsolutions.mikhuna.permission.C2D_MESSAGE"
@@ -19,48 +23,59 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.jasoftsolutions.mikhuna.MikhunaApplication"
+        android:name=".MikhunaApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Mikhuna_main" >
 
-        <meta-data android:name="com.google.android.gms.version"
-                    android:value="@integer/google_play_services_version" />
+        <uses-library android:name="com.google.android.maps" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDWDE9MTv9ZKTpoBXJr78uMe1RnwEPDhn4" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="com.jasoftsolutions.mikhuna.activity.MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            >
+            android:name=".activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"></action>
-                <category android:name="android.intent.category.DEFAULT"></category>
-                <category android:name="android.intent.category.BROWSABLE"></category>
-                <data android:host="@string/mikhuna_hostname" android:scheme="http"></data>
-                <data android:host="@string/mikhuna_hostname_www" android:scheme="http"></data>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/mikhuna_hostname"
+                    android:scheme="http" />
+                <data
+                    android:host="@string/mikhuna_hostname_www"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.jasoftsolutions.mikhuna.activity.RestaurantListActivity"
+            android:name=".activity.RestaurantListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTask"
             android:label=""
-            >
+            android:launchMode="singleTask" >
         </activity>
-        <!--<activity-->
-            <!--android:name="com.jasoftsolutions.mikhuna.activity.LoginActivity"-->
-            <!--android:configChanges="orientation|keyboardHidden|screenSize"-->
-            <!--android:label="@string/title_activity_login"-->
-            <!--android:windowSoftInputMode="adjustResize|stateVisible" >-->
-        <!--</activity>-->
-        <!--<activity android:name="com.jasoftsolutions.mikhuna.activity.SplashActivity" >-->
-        <!--</activity>-->
+        <!-- <activity -->
+        <!-- android:name="com.jasoftsolutions.mikhuna.activity.LoginActivity" -->
+        <!-- android:configChanges="orientation|keyboardHidden|screenSize" -->
+        <!-- android:label="@string/title_activity_login" -->
+        <!-- android:windowSoftInputMode="adjustResize|stateVisible" > -->
+        <!-- </activity> -->
+        <!-- <activity android:name="com.jasoftsolutions.mikhuna.activity.SplashActivity" > -->
+        <!-- </activity> -->
         <activity
-            android:name="com.jasoftsolutions.mikhuna.activity.RestaurantDetailActivity"
+            android:name=".activity.RestaurantDetailActivity"
             android:label="" >
         </activity>
 
@@ -78,31 +93,29 @@
 
         <service android:name=".google.gcm.GCMIntentService" />
 
-        <activity
-            android:name="com.jasoftsolutions.mikhuna.activity.PreferencesActivity"
-            >
+        <activity android:name=".activity.PreferencesActivity" >
         </activity>
-
         <activity
-            android:name="com.jasoftsolutions.mikhuna.activity.ProblemReportActivity"
+            android:name=".activity.ProblemReportActivity"
             android:label="@string/title_activity_problem_report" >
         </activity>
-
         <activity
-            android:name="com.jasoftsolutions.mikhuna.activity.FirstTimeActivity"
+            android:name=".activity.FirstTimeActivity"
             android:label="@string/title_activity_first_time" >
         </activity>
-
         <activity
-            android:name="com.jasoftsolutions.mikhuna.activity.RestaurantDishCategoryActivity"
+            android:name=".activity.RestaurantDishCategoryActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_restaurant_carte" >
         </activity>
-
         <activity
-            android:name="com.jasoftsolutions.mikhuna.activity.RestaurantCarteActivity"
+            android:name=".activity.RestaurantCarteActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_restaurant_carte" >
+        </activity>
+        <activity
+            android:name=".activity.MapActivity"
+            android:label="@string/title_activity_map" >
         </activity>
     </application>
 

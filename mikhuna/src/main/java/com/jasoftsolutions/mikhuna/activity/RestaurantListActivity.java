@@ -1,5 +1,6 @@
 package com.jasoftsolutions.mikhuna.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +19,7 @@ import com.jasoftsolutions.mikhuna.R;
 import com.jasoftsolutions.mikhuna.activity.fragment.RestaurantListFilterFragment;
 import com.jasoftsolutions.mikhuna.activity.fragment.RestaurantListFragment;
 import com.jasoftsolutions.mikhuna.activity.fragment.RestaurantPromotionsListFragment;
+import com.jasoftsolutions.mikhuna.activity.fragment.dialog.Dialogs;
 import com.jasoftsolutions.mikhuna.activity.listener.ApplyActionListener;
 import com.jasoftsolutions.mikhuna.activity.preferences.RestaurantListFilterPreferences;
 import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
@@ -25,6 +27,7 @@ import com.jasoftsolutions.mikhuna.domain.RestaurantListFilter;
 import com.jasoftsolutions.mikhuna.util.AnalyticsConst;
 import com.jasoftsolutions.mikhuna.util.AnalyticsUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
+import com.jasoftsolutions.mikhuna.util.InternetUtil;
 
 public class RestaurantListActivity extends BaseActivity
         implements ApplyActionListener, ActionBar.TabListener{
@@ -245,6 +248,16 @@ public class RestaurantListActivity extends BaseActivity
                     }
                 }
             }
+        }
+
+        if (R.id.action_map == id) {
+            if (InternetUtil.isInternetConnected(this)) {
+                Intent intent = new Intent(this, MapActivity.class);
+                startActivity(intent);
+            }else{
+                Dialogs.noInternetConnectionMessage(this).show();
+            }
+            return true;
         }
 
         if (CommonMenuHandler.handleCommonMenus(this, item)) return true;
