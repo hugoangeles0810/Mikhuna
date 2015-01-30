@@ -83,7 +83,8 @@ public class RestaurantStore extends AbstractStore {
 
                 try {
                     restaurants = task.get(Const.MAX_UPDATING_MILLISECONDS_DELAY, TimeUnit.MILLISECONDS);
-                    notifyOnReady(RestaurantStore.this, restaurants, listener);
+                    if(restaurants!=null && !restaurants.isEmpty()) notifyOnReady(RestaurantStore.this, restaurants, listener);
+                    else notifyOnFailedConnection(RestaurantStore.this, null, listener);
                 } catch (Exception e) {
                     task.cancel(true);
                     notifyOnTimeOut(RestaurantStore.this, null, listener);
