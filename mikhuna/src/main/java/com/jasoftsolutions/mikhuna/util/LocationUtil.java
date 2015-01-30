@@ -19,7 +19,6 @@ public class LocationUtil {
     public static LatLng getLastKnowLocation(Context context){
         LocationManager locationManager = (LocationManager)
                 context.getSystemService(Context.LOCATION_SERVICE);
-
         LatLng position;
         Location location = null;
 

@@ -68,6 +68,18 @@ public class AuditHelper {
         registerAudit(AuditAction.VIEW_GCM, restaurant);
     }
 
+    public void registerViewMap(){
+        registerAudit(AuditAction.VIEW_MAP, null);
+    }
+
+    public void registerPreviewRestaurantFromMap(Restaurant restaurant){
+        registerAudit(AuditAction.PREVIEW_RESTAURANT_MAP, restaurant);
+    }
+
+    public void registerViewRestaurantFromMap(Restaurant restaurant){
+        registerAudit(AuditAction.VIEW_RESTAURANT_FROM_MAP, restaurant);
+    }
+
     public void registerContact() {
         registerAudit(AuditAction.CONTACT, null);
     }

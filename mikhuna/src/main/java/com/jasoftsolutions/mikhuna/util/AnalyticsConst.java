@@ -9,7 +9,8 @@ public final class AnalyticsConst {
         public static final String
         ENGAGEMENT = "Engagement",
         LIST_RESTAURANT = "List Restaurant",
-        DETAIL_RESTAURANT = "Detail Restaurant";
+        DETAIL_RESTAURANT = "Detail Restaurant",
+        MAP = "MAP";
     }
 
     public static final class Action{
@@ -27,6 +28,9 @@ public final class AnalyticsConst {
         CONTACT = "Contact",
         VIEW_DETAIL_FROM_HTTP_URI = "View Detail From Http Uri",
         INSTALL_GCM = "Install GCM",
-        VIEW_PRODUCTS = "View Products";
+        VIEW_PRODUCTS = "View Products",
+        VIEW_MAP = "View Map",
+        PREVIEW_RESTAURANT_FROM_MAP = "Preview Restaurant From Map",
+        VIEW_RESTAURANT_FROM_MAP = "View Restaurant From Map";
     }
 }

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/facebook/facebook.iml" filepath="$PROJECT_DIR$/facebook/facebook.iml" />
       <module fileurl="file://$PROJECT_DIR$/mikhuna/mikhuna.iml" filepath="$PROJECT_DIR$/mikhuna/mikhuna.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mikhuna-v2-android.iml" filepath="$PROJECT_DIR$/mikhuna-v2-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/repo_bitbucket.iml" filepath="$PROJECT_DIR$/repo_bitbucket.iml" />
       <module fileurl="file://$PROJECT_DIR$/routable-android/routable-android.iml" filepath="$PROJECT_DIR$/routable-android/routable-android.iml" />
     </modules>

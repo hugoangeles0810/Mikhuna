@@ -1,5 +1,6 @@
 package com.jasoftsolutions.mikhuna.store;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.jasoftsolutions.mikhuna.data.RestaurantManager;
@@ -11,10 +12,14 @@ import com.jasoftsolutions.mikhuna.remote.RestaurantRemote;
 import com.jasoftsolutions.mikhuna.remote.json.DishCategoriesResponseData;
 import com.jasoftsolutions.mikhuna.util.ContextUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
+import com.jasoftsolutions.mikhuna.util.ThreadUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by pc07 on 26/08/2014.
@@ -59,6 +64,33 @@ public class RestaurantStore extends AbstractStore {
             }
         });
         localRequest.start();
+    }
+
+    public void requestAllRestaurants(final StoreListener listener){
+        Thread request = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final AsyncTask<Void, Void, ArrayList<Restaurant>> task = new AsyncTask<Void, Void, ArrayList<Restaurant>>() {
+                    @Override
+                    protected ArrayList<Restaurant> doInBackground(Void... params) {
+                        RestaurantRemote rr = new RestaurantRemote();
+                        ArrayList<Restaurant> restaurants =  rr.getAllRestaurants();
+                        return restaurants;
+                    }
+                };
+                ArrayList<Restaurant> restaurants;
+                task.execute();
+
+                try {
+                    restaurants = task.get(Const.MAX_UPDATING_MILLISECONDS_DELAY, TimeUnit.MILLISECONDS);
+                    notifyOnReady(RestaurantStore.this, restaurants, listener);
+                } catch (Exception e) {
+                    task.cancel(true);
+                    notifyOnTimeOut(RestaurantStore.this, null, listener);
+                }
+            }
+        });
+        request.start();
     }
 
     public void requestRestaurant(StoreListener listener, final long serverId) {
