@@ -2,9 +2,10 @@ package com.jasoftsolutions.mikhuna.activity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -12,16 +13,19 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
-import com.google.maps.android.clustering.algo.GridBasedAlgorithm;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.jasoftsolutions.mikhuna.R;
+import com.jasoftsolutions.mikhuna.activity.fragment.dialog.Dialogs;
+import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
-import com.jasoftsolutions.mikhuna.remote.RestaurantRemote;
+import com.jasoftsolutions.mikhuna.store.RestaurantStore;
+import com.jasoftsolutions.mikhuna.store.StoreListener;
+import com.jasoftsolutions.mikhuna.util.AnalyticsConst;
+import com.jasoftsolutions.mikhuna.util.AnalyticsUtil;
 import com.jasoftsolutions.mikhuna.util.LocationUtil;
 import com.jasoftsolutions.mikhuna.util.ResourcesUtil;
 import com.jasoftsolutions.mikhuna.util.StringUtil;
@@ -29,12 +33,16 @@ import com.jasoftsolutions.mikhuna.util.StringUtil;
 import java.util.ArrayList;
 
 public class MapActivity extends BaseActivity implements
-        ClusterManager.OnClusterClickListener<Restaurant>, ClusterManager.OnClusterItemInfoWindowClickListener<Restaurant>  {
+        ClusterManager.OnClusterClickListener<Restaurant>,
+        ClusterManager.OnClusterItemInfoWindowClickListener<Restaurant>,
+        ClusterManager.OnClusterItemClickListener<Restaurant>,
+        StoreListener{
 
     public static final float DEFAULT_ZOOM  = 6;
     private ArrayList<Restaurant> restaurants;
     private ClusterManager<Restaurant> restaurantsCluster;
     private GoogleMap map;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,18 +60,32 @@ public class MapActivity extends BaseActivity implements
             setup();
 
             if (savedInstanceState == null){
-                new AsyncRestaurantMarker().execute();
-                //default
+                RestaurantStore rs = RestaurantStore.getInstance();
+                showProgressDialog();
+                rs.requestAllRestaurants(this);
+                defaultCameraPositionAnimate();
             }else{
-                if (savedInstanceState.containsKey(ArgKeys.RESTAURANTS)){
-                    restaurants = savedInstanceState.getParcelableArrayList(ArgKeys.RESTAURANTS);
+                restaurants = savedInstanceState.getParcelableArrayList(ArgKeys.RESTAURANTS);
+                if (restaurants!=null){
                     restaurantsCluster.addItems(restaurants);
-                }else{
-                    new AsyncRestaurantMarker().execute();
                 }
             }
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RestaurantStore rs = RestaurantStore.getInstance();
+        rs.addListener(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        RestaurantStore rs = RestaurantStore.getInstance();
+        rs.removeListener(this);
     }
 
     @Override
@@ -87,19 +109,14 @@ public class MapActivity extends BaseActivity implements
         map.setOnMarkerClickListener(restaurantsCluster);
         map.setOnInfoWindowClickListener(restaurantsCluster);
         restaurantsCluster.setOnClusterClickListener(this);
+        restaurantsCluster.setOnClusterItemClickListener(this);
         restaurantsCluster.setOnClusterItemInfoWindowClickListener(this);
         restaurantsCluster.setRenderer(new RestaurantRenderer());
     }
 
-    private CameraPosition defaultCameraPositionAnimate(){
+    private void defaultCameraPositionAnimate(){
         LatLng latLng = LocationUtil.getLastKnowLocation(this);
-
-        CameraPosition cp = CameraPosition.builder()
-                .target(latLng)
-                .zoom(DEFAULT_ZOOM)
-                .build();
-
-        return cp;
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM));
     }
 
 
@@ -111,9 +128,25 @@ public class MapActivity extends BaseActivity implements
     }
 
     @Override
+    public boolean onClusterItemClick(Restaurant restaurant) {
+        new AuditHelper(this).registerPreviewRestaurantFromMap(restaurant);
+
+        AnalyticsUtil.registerEvent(this, AnalyticsConst.Category.MAP,
+                AnalyticsConst.Action.PREVIEW_RESTAURANT_FROM_MAP, restaurant.getServerId().toString());
+
+        return false;
+    }
+
+    @Override
     public void onClusterItemInfoWindowClick(Restaurant restaurant) {
         Intent detailIntent = RestaurantDetailActivity
                 .getLauncherIntentByServerId(this, restaurant.getServerId());
+
+        new AuditHelper(this).registerViewRestaurantFromMap(restaurant);
+
+        AnalyticsUtil.registerEvent(this, AnalyticsConst.Category.MAP,
+                AnalyticsConst.Action.VIEW_RESTAURANT_FROM_MAP, restaurant.getServerId().toString());
+
         startActivity(detailIntent);
     }
 
@@ -123,35 +156,61 @@ public class MapActivity extends BaseActivity implements
         return map;
     }
 
-    // Solicita los restaurantes
-    class AsyncRestaurantMarker extends AsyncTask<Void, Void, ArrayList<Restaurant>>{
+    public void showProgressDialog(){
+        progressDialog = ProgressDialog.show(MapActivity.this,
+                null,
+                StringUtil.getStringForResourceId(MapActivity.this, R.string.search_restaurants_map)
+                , true);
+        progressDialog.show();
+    }
 
-        ProgressDialog progressDialog;
+    @Override
+    public void onReady(Object sender, Object data) {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(MapActivity.this,
-                    null,
-                    StringUtil.getStringForResourceId(MapActivity.this, R.string.search_restaurants_map)
-                    , true);
-            progressDialog.show();
-        }
+    }
 
-        @Override
-        protected ArrayList<Restaurant> doInBackground(Void... params) {
-            RestaurantRemote rr = new RestaurantRemote();
-            ArrayList<Restaurant> restaurants =  rr.getAllRestaurants();
-            return restaurants;
-        }
+    @Override
+    public void onUpdate(Object sender, Object data) {
 
-        @Override
-        protected void onPostExecute(ArrayList<Restaurant> result) {
-            super.onPostExecute(restaurants);
-            restaurants = result;
-            restaurantsCluster.addItems(restaurants);
-            progressDialog.dismiss();
-        }
+    }
+
+    @Override
+    public void onTimeOut(Object sender, @Nullable Object data) {
+
+    }
+
+    @Override
+    public void onFailedConnection(Object sender, @Nullable Object data) {
+
+    }
+
+    @Override
+    public void onSuccess(Object sender,final Object data) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                restaurantsCluster.clearItems();
+                restaurants = (ArrayList<Restaurant>) data;
+                restaurantsCluster.addItems(restaurants);
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    @Override
+    public void onFail(Object sender,final Object data) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+                Dialogs.noInternetConnectionMessage(MapActivity.this).show();
+            }
+        });
+    }
+
+
+    public static Intent getLauncherIntent(Context context){
+        return new Intent(context, MapActivity.class);
     }
 
     // Marker Personalizado
@@ -170,6 +229,4 @@ public class MapActivity extends BaseActivity implements
             ));
         }
     }
-
-
 }

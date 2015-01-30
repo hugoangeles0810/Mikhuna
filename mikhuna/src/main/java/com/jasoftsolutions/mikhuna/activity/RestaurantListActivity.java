@@ -252,7 +252,10 @@ public class RestaurantListActivity extends BaseActivity
 
         if (R.id.action_map == id) {
             if (InternetUtil.isInternetConnected(this)) {
-                Intent intent = new Intent(this, MapActivity.class);
+                Intent intent = MapActivity.getLauncherIntent(this);
+                new AuditHelper(this).registerViewMap();
+                AnalyticsUtil.registerEvent(this, AnalyticsConst.Category.MAP,
+                        AnalyticsConst.Action.VIEW_MAP);
                 startActivity(intent);
             }else{
                 Dialogs.noInternetConnectionMessage(this).show();
