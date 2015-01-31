@@ -30,9 +30,6 @@ public class LocationUtil {
 
         if (locationManager != null){
             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (location == null){
-                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            }
         }
 
         if (location != null){

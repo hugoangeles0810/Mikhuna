@@ -101,6 +101,18 @@ public class Restaurant extends AbstractModel implements
     @SerializedName("servi")
     private List<Service> services;
 
+    public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
+        @Override
+        public Restaurant createFromParcel(Parcel source) {
+            return new Restaurant(source);
+        }
+
+        @Override
+        public Restaurant[] newArray(int size) {
+            return new Restaurant[size];
+        }
+    };
+
     public Restaurant() {
     }
 
