@@ -115,6 +115,7 @@
         </activity>
         <activity
             android:name=".activity.MapActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_map" >
         </activity>
     </application>
