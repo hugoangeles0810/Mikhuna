@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -98,6 +100,24 @@ public class MapActivity extends BaseActivity implements
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_map, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_refresh){
+            requestRestaurantsOrRefresh();
+            return true;
+        }
+
+        return false;
+    }
+
     private void setUpMapIfNeeded() {
         if (map != null) {
             return;
@@ -137,6 +157,12 @@ public class MapActivity extends BaseActivity implements
                 StringUtil.getStringForResourceId(MapActivity.this, R.string.search_restaurants_map)
                 , true);
         progressDialog.show();
+    }
+
+    public void requestRestaurantsOrRefresh(){
+        RestaurantStore rs = RestaurantStore.getInstance();
+        showProgressDialog();
+        rs.requestAllRestaurants(this);
     }
 
     @Override
@@ -196,9 +222,7 @@ public class MapActivity extends BaseActivity implements
 
     @Override
     public void onMapLoaded() {
-        RestaurantStore rs = RestaurantStore.getInstance();
-        showProgressDialog();
-        rs.requestAllRestaurants(this);;
+        requestRestaurantsOrRefresh();
         defaultCameraPositionAnimate();
     }
 
