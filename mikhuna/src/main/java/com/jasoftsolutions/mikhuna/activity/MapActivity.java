@@ -167,6 +167,7 @@ public class MapActivity extends BaseActivity implements
                 restaurantsCluster.clearItems();
                 restaurants = (ArrayList<Restaurant>) data;
                 restaurantsCluster.addItems(restaurants);
+                restaurantsCluster.cluster();
                 if (progressDialog!=null && progressDialog.isShowing()){
                     progressDialog.dismiss();
                 }
