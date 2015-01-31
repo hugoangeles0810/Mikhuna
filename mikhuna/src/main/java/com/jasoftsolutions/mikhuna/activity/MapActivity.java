@@ -20,12 +20,14 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.jasoftsolutions.mikhuna.R;
 import com.jasoftsolutions.mikhuna.activity.fragment.dialog.Dialogs;
+import com.jasoftsolutions.mikhuna.activity.listener.RestaurantMarkerListener;
 import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.store.RestaurantStore;
 import com.jasoftsolutions.mikhuna.store.StoreListener;
 import com.jasoftsolutions.mikhuna.util.AnalyticsConst;
 import com.jasoftsolutions.mikhuna.util.AnalyticsUtil;
+import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 import com.jasoftsolutions.mikhuna.util.LocationUtil;
 import com.jasoftsolutions.mikhuna.util.ResourcesUtil;
 import com.jasoftsolutions.mikhuna.util.StringUtil;
@@ -33,9 +35,7 @@ import com.jasoftsolutions.mikhuna.util.StringUtil;
 import java.util.ArrayList;
 
 public class MapActivity extends BaseActivity implements
-        ClusterManager.OnClusterClickListener<Restaurant>,
-        ClusterManager.OnClusterItemInfoWindowClickListener<Restaurant>,
-        ClusterManager.OnClusterItemClickListener<Restaurant>,
+        GoogleMap.OnMapLoadedCallback,
         StoreListener{
 
     public static final float DEFAULT_ZOOM  = 15;
@@ -43,6 +43,7 @@ public class MapActivity extends BaseActivity implements
     private ClusterManager<Restaurant> restaurantsCluster;
     private GoogleMap map;
     private ProgressDialog progressDialog;
+    private RestaurantMarkerListener restaurantMarkerListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +60,18 @@ public class MapActivity extends BaseActivity implements
 
             setup();
 
-            if (savedInstanceState == null){
-                RestaurantStore rs = RestaurantStore.getInstance();
-                showProgressDialog();
-                rs.requestAllRestaurants(this);
-                defaultCameraPositionAnimate();
-            }else{
-                restaurants = savedInstanceState.getParcelableArrayList(ArgKeys.RESTAURANTS);
+            if(savedInstanceState != null){
+                try {
+                    restaurants = savedInstanceState.getParcelableArrayList(ArgKeys.RESTAURANTS);
+                }catch (Exception e){
+                    restaurants = null;
+                }
+
                 if (restaurants!=null){
                     restaurantsCluster.addItems(restaurants);
+                }else{
+                    RestaurantStore rs = RestaurantStore.getInstance();
+                    rs.requestAllRestaurants(this);
                 }
             }
         }
@@ -104,50 +108,21 @@ public class MapActivity extends BaseActivity implements
     private void setup(){
         setUpMapIfNeeded();
         restaurantsCluster = new ClusterManager<Restaurant>(this, map);
+        restaurantMarkerListener = new RestaurantMarkerListener(this, getMap());
         map.setMyLocationEnabled(true);
+        map.setOnMapLoadedCallback(this);
         map.setOnCameraChangeListener(restaurantsCluster);
         map.setOnMarkerClickListener(restaurantsCluster);
         map.setOnInfoWindowClickListener(restaurantsCluster);
-        restaurantsCluster.setOnClusterClickListener(this);
-        restaurantsCluster.setOnClusterItemClickListener(this);
-        restaurantsCluster.setOnClusterItemInfoWindowClickListener(this);
+        restaurantsCluster.setOnClusterClickListener(restaurantMarkerListener);
+        restaurantsCluster.setOnClusterItemClickListener(restaurantMarkerListener);
+        restaurantsCluster.setOnClusterItemInfoWindowClickListener(restaurantMarkerListener);
         restaurantsCluster.setRenderer(new RestaurantRenderer());
     }
 
     private void defaultCameraPositionAnimate(){
         LatLng latLng = LocationUtil.getLastKnowLocation(this);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM));
-    }
-
-
-    @Override
-    public boolean onClusterClick(Cluster<Restaurant> restaurantCluster) {
-        map.animateCamera(CameraUpdateFactory
-                .newLatLngZoom(restaurantCluster.getPosition(), map.getCameraPosition().zoom + 2));
-        return true;
-    }
-
-    @Override
-    public boolean onClusterItemClick(Restaurant restaurant) {
-        new AuditHelper(this).registerPreviewRestaurantFromMap(restaurant);
-
-        AnalyticsUtil.registerEvent(this, AnalyticsConst.Category.MAP,
-                AnalyticsConst.Action.PREVIEW_RESTAURANT_FROM_MAP, restaurant.getServerId().toString());
-
-        return false;
-    }
-
-    @Override
-    public void onClusterItemInfoWindowClick(Restaurant restaurant) {
-        Intent detailIntent = RestaurantDetailActivity
-                .getLauncherIntentByServerId(this, restaurant.getServerId());
-
-        new AuditHelper(this).registerViewRestaurantFromMap(restaurant);
-
-        AnalyticsUtil.registerEvent(this, AnalyticsConst.Category.MAP,
-                AnalyticsConst.Action.VIEW_RESTAURANT_FROM_MAP, restaurant.getServerId().toString());
-
-        startActivity(detailIntent);
     }
 
 
@@ -192,7 +167,9 @@ public class MapActivity extends BaseActivity implements
                 restaurantsCluster.clearItems();
                 restaurants = (ArrayList<Restaurant>) data;
                 restaurantsCluster.addItems(restaurants);
-                progressDialog.dismiss();
+                if (progressDialog!=null && progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
             }
         });
     }
@@ -202,8 +179,11 @@ public class MapActivity extends BaseActivity implements
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                progressDialog.dismiss();
-                Dialogs.noInternetConnectionMessage(MapActivity.this).show();
+                if (progressDialog!=null && progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                    Dialogs.noInternetConnectionMessage(MapActivity.this).show();
+                }
+
             }
         });
     }
@@ -211,6 +191,14 @@ public class MapActivity extends BaseActivity implements
 
     public static Intent getLauncherIntent(Context context){
         return new Intent(context, MapActivity.class);
+    }
+
+    @Override
+    public void onMapLoaded() {
+        RestaurantStore rs = RestaurantStore.getInstance();
+        showProgressDialog();
+        rs.requestAllRestaurants(this);;
+        defaultCameraPositionAnimate();
     }
 
     // Marker Personalizado
