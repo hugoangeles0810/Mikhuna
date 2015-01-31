@@ -41,8 +41,8 @@ public class ManagementUpdaterThread extends Thread {
 
         ManagementRemote service=new ManagementRemote();
 
-        SharedPreferences lru=LastResourceUpdatePreferences.get(context);
-        long lastUpdate=lru.getLong(LastResourceUpdatePreferences.MANAGEMENT, 0);
+        LastResourceUpdatePreferences lru = new LastResourceUpdatePreferences(context);
+        long lastUpdate=lru.getManagementLastUpdate();
 
         ManagementListJsonResponse response = service.getManagementList(lastUpdate);
 
@@ -51,9 +51,7 @@ public class ManagementUpdaterThread extends Thread {
             manager.saveUbigeos(response.getUbigeoResults());
             manager.saveRestCategories(response.getRestCatResults());
 
-            lru.edit()
-                    .putLong(LastResourceUpdatePreferences.MANAGEMENT, response.getLastUpdate())
-                    .commit();
+            lru.setManagementLastUpdate(response.getLastUpdate());
 
             result = true;
         } else {

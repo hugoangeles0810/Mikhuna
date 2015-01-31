@@ -18,6 +18,12 @@ public class Ubigeo extends AbstractModel {
     @SerializedName("n")
     private String name;
 
+    @SerializedName("la")
+    private Double latitude;
+
+    @SerializedName("lo")
+    private Double longitude;
+
     public Long getParentUbigeoServerId() {
         return parentUbigeoServerId;
     }
@@ -44,5 +50,21 @@ public class Ubigeo extends AbstractModel {
     }
     public void setUbigeoCategoryId(Integer ubigeoCategoryId) {
         this.ubigeoCategoryId = ubigeoCategoryId;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

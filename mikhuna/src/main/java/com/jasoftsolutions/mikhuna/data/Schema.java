@@ -176,7 +176,9 @@ public final class Schema {
             //
             parentUbigeoServerId = "parent_ubigeo_server_id",
             ubigeoCategoryId = "ucat_id",
-            name = "name"
+            name = "name",
+            latitude = "latitude",
+            longitude = "longitude"
         ;
     }
 

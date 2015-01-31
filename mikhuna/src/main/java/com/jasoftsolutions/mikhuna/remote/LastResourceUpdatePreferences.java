@@ -3,6 +3,8 @@ package com.jasoftsolutions.mikhuna.remote;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.jasoftsolutions.mikhuna.BuildConfig;
+
 /**
  * Created by pc07 on 03/04/2014.
  */
@@ -11,6 +13,7 @@ public class LastResourceUpdatePreferences {
     public static final String RESTAURANT_LIST = "restaurant_list";
     public static final String RESTAURANT_PROMOTIONS = "restaurant_promotions";
     public static final String MANAGEMENT = "management";
+    public static final String VERSION = "version";
 
     private Context context;
     private SharedPreferences pref;
@@ -29,10 +32,18 @@ public class LastResourceUpdatePreferences {
     }
 
     public long getManagementLastUpdate() {
+        Integer version = pref.getInt(VERSION, 0);
+        if (version < BuildConfig.VERSION_CODE){
+            return 0;
+        }
+
         return pref.getLong(MANAGEMENT, 0);
     }
 
     public void setManagementLastUpdate(long lastUpdate) {
+        Integer version = pref.getInt(VERSION, 0);
+
+        if (version == 0) pref.edit().putInt(VERSION, BuildConfig.VERSION_CODE).commit();
         pref.edit().putLong(MANAGEMENT, lastUpdate).commit();
     }
 

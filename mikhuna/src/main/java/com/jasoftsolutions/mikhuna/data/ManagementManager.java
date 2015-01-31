@@ -36,6 +36,8 @@ public class ManagementManager {
                     val.put(Schema.Ubigeo.parentUbigeoServerId, u.getParentUbigeo().getServerId());
                 }
                 val.put(Schema.Ubigeo.name, u.getName());
+                val.put(Schema.Ubigeo.latitude, u.getLatitude());
+                val.put(Schema.Ubigeo.longitude, u.getLongitude());
                 val.put(Schema.Ubigeo.ubigeoCategoryId, u.getUbigeoCategoryId());
 
                 u.setId(DbUtil.saveRegister(db, Schema.Ubigeo._tableName, val));
@@ -126,6 +128,25 @@ public class ManagementManager {
     public ArrayList<SelectOption> getUbigeos(String selection, String... selectionArgs) {
         return getSelectOptions(Schema.Ubigeo._tableName, Schema.Ubigeo.serverId, Schema.Ubigeo.name,
                 selection, selectionArgs);
+    }
+
+    public Ubigeo getUbigeoByServerId(Long serverId){
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getReadableDatabase();
+        Cursor cursor = db.query(Schema.Ubigeo._tableName, new String[]{
+                Schema.Ubigeo.id, Schema.Ubigeo.serverId, Schema.Ubigeo.latitude,
+                Schema.Ubigeo.longitude}, Schema.Ubigeo.serverId+"=?",
+                new String[]{serverId.toString()}, null, null, null);
+
+        if (cursor.moveToFirst()){
+            Ubigeo ubigeo = new Ubigeo();
+            ubigeo.setId(cursor.getLong(0));
+            ubigeo.setServerId(cursor.getLong(1));
+            ubigeo.setLatitude(cursor.getDouble(2));
+            ubigeo.setLongitude(cursor.getDouble(3));
+            return ubigeo;
+        }
+
+        return null;
     }
 
     public ArrayList<SelectOption> getUbigeosFrom(Long serverId) {

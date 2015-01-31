@@ -1,20 +1,26 @@
 package com.jasoftsolutions.mikhuna.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.jasoftsolutions.mikhuna.activity.preferences.RestaurantListFilterPreferences;
+import com.jasoftsolutions.mikhuna.data.ManagementManager;
+import com.jasoftsolutions.mikhuna.model.Ubigeo;
 
 import java.nio.DoubleBuffer;
+import java.util.HashMap;
 
 /**
  * Created by Hugo on 29/01/2015.
  */
 public class LocationUtil {
 
-    public static final Double DEFAULT_LATITUDE = -9.1951786;
-    public static final Double DEFAULT_LONGITUDE = -74.99041651;
+    public static final Long DEFAULT_UBIGEO_ID = 6l;
+    public static final Double DEFAULT_LATITUDE = -12.075700952290482;
+    public static final Double DEFAULT_LONGITUDE = -77.04816375717775;
 
     public static LatLng getLastKnowLocation(Context context){
         LocationManager locationManager = (LocationManager)
@@ -32,10 +38,25 @@ public class LocationUtil {
         if (location != null){
             position = new LatLng(location.getLatitude(), location.getLongitude());
         }else{
-            position = new LatLng(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
+            position = getPositionByUbigeoServerIdOrDefaultPosition(context);
         }
 
         return position;
+    }
+
+    private static LatLng getPositionByUbigeoServerIdOrDefaultPosition(Context context){
+        Long ubigeoId = new RestaurantListFilterPreferences(context).getUbigeoId();
+        ManagementManager mm = new ManagementManager();
+        Ubigeo ubigeo = mm.getUbigeoByServerId(ubigeoId);
+        LatLng latLng;
+
+        if (ubigeo != null) {
+            latLng = new LatLng(ubigeo.getLatitude(), ubigeo.getLongitude());
+        }else{
+            latLng = new LatLng(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
+        }
+
+        return latLng;
     }
 
 }

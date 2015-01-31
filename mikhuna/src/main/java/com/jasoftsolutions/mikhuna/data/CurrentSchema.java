@@ -17,6 +17,8 @@ public class CurrentSchema {
                     Schema.Ubigeo.parentUbigeoServerId + " integer," +
                     Schema.Ubigeo.ubigeoCategoryId + " integer," +
                     Schema.Ubigeo.name + " varchar(255)," +
+                    Schema.Ubigeo.latitude + " double," +
+                    Schema.Ubigeo.longitude + " double," +
                     "foreign key ("+Schema.Ubigeo.parentUbigeoServerId +") " +
                         "references " + Schema.Ubigeo._tableName + "(" + Schema.Ubigeo.serverId + ")" +
             ")",

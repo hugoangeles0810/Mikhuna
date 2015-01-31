@@ -185,7 +185,14 @@ public class SchemaChanges {
                             Schema.Links.typeLink + " integer," +
                             Schema.Links.restaurantId + " integer" +
                             ")",
-}
+            },
+            // Version 8
+            new String[]{
+                    "alter table "+ Schema.Ubigeo._tableName + " add " +
+                            Schema.Ubigeo.latitude + " double ",
+                    "alter table "+ Schema.Ubigeo._tableName + " add " +
+                            Schema.Ubigeo.longitude + " double ",
+            }
     };
 
     public static final String[][] DOWNGRADES = new String[][] {
@@ -220,6 +227,12 @@ public class SchemaChanges {
                     "drop table if exists "+ Schema.Service._tableName,
                     "drop table if exists "+ Schema.Pay._tableName,
                     "drop table if exists "+ Schema.Links._tableName
+            },
+            new String[]{ // De 8 a 7
+                    "alter table " + Schema.Ubigeo._tableName + " drop " +
+                            Schema.Ubigeo.latitude,
+                    "alter table " + Schema.Ubigeo._tableName + " drop " +
+                            Schema.Ubigeo.longitude
             }
     };
 
