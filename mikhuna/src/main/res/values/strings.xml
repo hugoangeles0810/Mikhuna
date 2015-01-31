@@ -142,7 +142,7 @@ Por favor intente reinstalar la aplicación.</string>
     <string name="dialog_share_restaurant">Compartir restaurant</string>
     <string name="restaurant_sharing_default_message">Encuentra a %1$s en %2$s</string>
     <string name="title_activity_map">Mapa</string>
-    <string name="detail_marker_map">Click para más detalles</string>
+    <string name="detail_marker_map">Clic para más detalles</string>
     <string name="search_restaurants_map">Buscando Restaurantes ... </string>
     <string name="hello_world">Hello world!</string>
 

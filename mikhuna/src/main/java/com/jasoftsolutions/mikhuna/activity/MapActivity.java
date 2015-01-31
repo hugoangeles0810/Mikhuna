@@ -38,7 +38,7 @@ public class MapActivity extends BaseActivity implements
         ClusterManager.OnClusterItemClickListener<Restaurant>,
         StoreListener{
 
-    public static final float DEFAULT_ZOOM  = 6;
+    public static final float DEFAULT_ZOOM  = 15;
     private ArrayList<Restaurant> restaurants;
     private ClusterManager<Restaurant> restaurantsCluster;
     private GoogleMap map;
