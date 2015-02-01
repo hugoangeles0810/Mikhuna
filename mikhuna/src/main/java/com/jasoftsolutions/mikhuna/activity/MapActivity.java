@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -39,6 +40,8 @@ import java.util.ArrayList;
 public class MapActivity extends BaseActivity implements
         GoogleMap.OnMapLoadedCallback,
         StoreListener{
+
+    public static final String TAG = MapActivity.class.getSimpleName();
 
     public static final float DEFAULT_ZOOM  = 15;
     private ArrayList<Restaurant> restaurants;
@@ -190,12 +193,16 @@ public class MapActivity extends BaseActivity implements
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                restaurantsCluster.clearItems();
-                restaurants = (ArrayList<Restaurant>) data;
-                restaurantsCluster.addItems(restaurants);
-                restaurantsCluster.cluster();
-                if (progressDialog!=null && progressDialog.isShowing()){
-                    progressDialog.dismiss();
+                try {
+                    restaurants = (ArrayList<Restaurant>) data;
+                    restaurantsCluster.clearItems();
+                    restaurantsCluster.addItems(restaurants);
+                    restaurantsCluster.cluster();
+                    if (progressDialog != null && progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
+                }catch (Exception e){
+                    ExceptionUtil.ignoreException(e);
                 }
             }
         });
