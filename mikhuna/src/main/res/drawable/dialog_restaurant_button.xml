@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="@color/apptheme_color_stacked" />
+
+            <corners android:radius="3dp" />
+
+            <padding android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp" />
+        </shape>
+
+    </item>
+
+    <item android:state_focused="true">
+        <shape>
+            <solid android:color="@color/apptheme_color_stacked" />
+
+            <corners android:radius="3dp" />
+
+            <padding android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp" />
+        </shape>
+
+    </item>
+
+    <item>
+        <shape>
+            <solid android:color="@color/apptheme_color_actionbar" />
+
+            <corners android:radius="3dp" />
+
+            <padding android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp" />
+        </shape>
+
+    </item>
+
+</selector>

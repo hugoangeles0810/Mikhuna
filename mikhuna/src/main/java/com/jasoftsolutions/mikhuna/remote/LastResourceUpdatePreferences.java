@@ -34,6 +34,7 @@ public class LastResourceUpdatePreferences {
     public long getManagementLastUpdate() {
         Integer version = pref.getInt(VERSION, 0);
         if (version < BuildConfig.VERSION_CODE){
+            pref.edit().putInt(VERSION, BuildConfig.VERSION_CODE).commit();
             return 0;
         }
 
@@ -41,9 +42,6 @@ public class LastResourceUpdatePreferences {
     }
 
     public void setManagementLastUpdate(long lastUpdate) {
-        Integer version = pref.getInt(VERSION, 0);
-
-        if (version == 0) pref.edit().putInt(VERSION, BuildConfig.VERSION_CODE).commit();
         pref.edit().putLong(MANAGEMENT, lastUpdate).commit();
     }
 
