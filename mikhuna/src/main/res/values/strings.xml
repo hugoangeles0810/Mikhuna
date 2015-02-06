@@ -17,6 +17,8 @@
     <string name="action_contact">Contacto</string>
     <string name="msg_from">Desde</string>
     <string name="msg_to">hasta</string>
+    <string name="show_more">Ver detalle</string>
+    <string name="not_now">Buscar otros</string>
 
     <!-- <string name="action_exit">Salir</string> -->
 

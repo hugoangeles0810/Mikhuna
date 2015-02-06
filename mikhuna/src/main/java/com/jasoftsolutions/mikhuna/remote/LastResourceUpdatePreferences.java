@@ -18,31 +18,29 @@ public class LastResourceUpdatePreferences {
     private Context context;
     private SharedPreferences pref;
 
-    public static SharedPreferences get(Context context) {
-        return context.getSharedPreferences("last_resource_updates", Context.MODE_PRIVATE);
-    }
-
     public LastResourceUpdatePreferences(Context context) {
         this.context = context;
-        pref = get(context);
+        pref = context.getSharedPreferences("last_resource_updates", Context.MODE_PRIVATE);;
     }
 
     public SharedPreferences getPref() {
         return pref;
     }
 
-    public long getManagementLastUpdate() {
-        Integer version = pref.getInt(VERSION, 0);
-        if (version < BuildConfig.VERSION_CODE){
-            pref.edit().putInt(VERSION, BuildConfig.VERSION_CODE).commit();
-            return 0;
+    public  long getManagementLastUpdate() {
+        int version = pref.getInt(VERSION, 0);
+        int build = BuildConfig.VERSION_CODE;
+        long lastUpdate;
+        if (version < build){
+            pref.edit().putInt(VERSION, BuildConfig.VERSION_CODE)
+            .putLong(MANAGEMENT, 0l).apply();
         }
-
-        return pref.getLong(MANAGEMENT, 0);
+        lastUpdate = pref.getLong(MANAGEMENT, 0);
+        return lastUpdate;
     }
 
     public void setManagementLastUpdate(long lastUpdate) {
-        pref.edit().putLong(MANAGEMENT, lastUpdate).commit();
+        pref.edit().putLong(MANAGEMENT, lastUpdate).apply();
     }
 
     public long getRestaurantListLastUpdate(long ubigeoId) {

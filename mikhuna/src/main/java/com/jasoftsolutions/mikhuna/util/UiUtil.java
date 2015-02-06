@@ -97,4 +97,15 @@ public class UiUtil {
             ExceptionUtil.handleException(e);
         }
     }
+
+    public static void removeAllFragmentsAndAddLoadingFragment(FragmentManager fm) {
+        try {
+            FragmentTransaction ft = fm.beginTransaction();
+            removeAllFragmentsOnTransaction(fm, ft);
+            addLoadingFragmentOnTransaction(ft);
+            ft.commit();
+        } catch (Exception e) {
+            ExceptionUtil.handleException(e);
+        }
+    }
 }

@@ -76,8 +76,8 @@ public class AuditHelper {
         registerAudit(AuditAction.PREVIEW_RESTAURANT_MAP, restaurant);
     }
 
-    public void registerViewRestaurantFromMap(Restaurant restaurant){
-        registerAudit(AuditAction.VIEW_RESTAURANT_FROM_MAP, restaurant);
+    public void registerViewRestaurantFromMap(Long serverId){
+        registerAuditById(AuditAction.VIEW_RESTAURANT_FROM_MAP, serverId);
     }
 
     public void registerContact() {

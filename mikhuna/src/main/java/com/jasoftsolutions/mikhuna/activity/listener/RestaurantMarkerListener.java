@@ -7,7 +7,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
+import com.jasoftsolutions.mikhuna.activity.BaseActivity;
 import com.jasoftsolutions.mikhuna.activity.RestaurantDetailActivity;
+import com.jasoftsolutions.mikhuna.activity.fragment.dialog.RestaurantDialogFragment;
 import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.util.AnalyticsConst;
@@ -18,15 +20,16 @@ import com.jasoftsolutions.mikhuna.util.AnalyticsUtil;
  */
 public class RestaurantMarkerListener implements
         ClusterManager.OnClusterClickListener<Restaurant>,
-        ClusterManager.OnClusterItemInfoWindowClickListener<Restaurant>,
         ClusterManager.OnClusterItemClickListener<Restaurant> {
 
     private GoogleMap map;
     private Context context;
+    private BaseActivity activity;
 
-    public RestaurantMarkerListener(Context ctx, GoogleMap googleMap){
+    public RestaurantMarkerListener(Context ctx, GoogleMap googleMap, BaseActivity baseActivity){
         context = ctx;
         map = googleMap;
+        activity = baseActivity;
     }
 
     @Override
@@ -43,19 +46,10 @@ public class RestaurantMarkerListener implements
         AnalyticsUtil.registerEvent(context, AnalyticsConst.Category.MAP,
                 AnalyticsConst.Action.PREVIEW_RESTAURANT_FROM_MAP, restaurant.getServerId().toString());
 
-        return false;
+        RestaurantDialogFragment restaurantDialogFragment = RestaurantDialogFragment.newInstance(restaurant.getServerId());
+        restaurantDialogFragment.show(activity.getSupportFragmentManager(), "dialog");
+
+        return true;
     }
 
-    @Override
-    public void onClusterItemInfoWindowClick(Restaurant restaurant) {
-        Intent detailIntent = RestaurantDetailActivity
-                .getLauncherIntentByServerId(context, restaurant.getServerId());
-
-        new AuditHelper(context).registerViewRestaurantFromMap(restaurant);
-
-        AnalyticsUtil.registerEvent(context, AnalyticsConst.Category.MAP,
-                AnalyticsConst.Action.VIEW_RESTAURANT_FROM_MAP, restaurant.getServerId().toString());
-
-        context.startActivity(detailIntent);
-    }
 }

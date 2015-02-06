@@ -131,15 +131,13 @@ public class MapActivity extends BaseActivity implements
     private void setup(){
         setUpMapIfNeeded();
         restaurantsCluster = new ClusterManager<Restaurant>(this, map);
-        restaurantMarkerListener = new RestaurantMarkerListener(this, getMap());
+        restaurantMarkerListener = new RestaurantMarkerListener(this, getMap(), this);
         map.setMyLocationEnabled(true);
         map.setOnMapLoadedCallback(this);
         map.setOnCameraChangeListener(restaurantsCluster);
         map.setOnMarkerClickListener(restaurantsCluster);
-        map.setOnInfoWindowClickListener(restaurantsCluster);
         restaurantsCluster.setOnClusterClickListener(restaurantMarkerListener);
         restaurantsCluster.setOnClusterItemClickListener(restaurantMarkerListener);
-        restaurantsCluster.setOnClusterItemInfoWindowClickListener(restaurantMarkerListener);
         restaurantsCluster.setRenderer(new RestaurantRenderer());
     }
 

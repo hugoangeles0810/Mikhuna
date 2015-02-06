@@ -14,6 +14,8 @@ public class Tags {
     public static final String FRAGMENT_INFORMATION = "tag_fragment_information";
     public static final String FRAGMENT_ACTIONS = "tag_fragment_actions";
 
+    public static final String FRAGMENT_PREVIEW = "tag_restaurant_preview";
+
     public static final String DIALOG_RETRY_SERVER_CONNECTION = "tag_dialog_retry_server_connection";
 
 }
