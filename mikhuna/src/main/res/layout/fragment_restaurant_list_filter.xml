@@ -45,6 +45,7 @@
                 >
 
                 <LinearLayout
+                    android:id="@+id/container_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -68,6 +69,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/container_type_food"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -90,6 +92,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/label_all"
                                 android:layout_marginRight="5dp"
+                                android:layout_marginLeft="20dp"
                                 />
 
                             <TextView
@@ -129,11 +132,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:numColumns="auto_fit"
+                        android:isScrollContainer="false"
                         />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/container_type_service"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"

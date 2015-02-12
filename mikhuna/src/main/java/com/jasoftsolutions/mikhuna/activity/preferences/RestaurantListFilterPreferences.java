@@ -2,6 +2,7 @@ package com.jasoftsolutions.mikhuna.activity.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.jasoftsolutions.mikhuna.data.ManagementManager;
 import com.jasoftsolutions.mikhuna.domain.RestaurantListFilter;
@@ -16,6 +17,7 @@ public class RestaurantListFilterPreferences {
     public static final String TAG = RestaurantListFilterPreferences.class.getSimpleName();
 
     public static final String PREF_NAME = "restaurant_list_filter";
+    public static final String PREF_MAP = "map_list_filter";
     public static final String UBIGEO_SERVER_ID = "ubigeo_server_id";
     public static final String RESTAURANT_CATEGORIES = "restaurant_categories";
     public static final String SERVICES = "services";
@@ -24,6 +26,10 @@ public class RestaurantListFilterPreferences {
 
     public RestaurantListFilterPreferences(Context context) {
         pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+    }
+
+    public RestaurantListFilterPreferences(Context context, String prefName){
+        pref= context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
     }
 
     public void saveFilter(RestaurantListFilter filter) {

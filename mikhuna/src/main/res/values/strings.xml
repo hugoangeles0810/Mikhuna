@@ -115,6 +115,7 @@ Por favor intente reinstalar la aplicación.</string>
     <string name="label_apply_filter">Aplicar filtro</string>
     <string name="label_cancel_filter">Anular</string>
     <string name="filter_empty_error_message">Debe seleccionar su ubicación, al menos un tipo de comida y al menos un tipo de servicio.</string>
+    <string name="filter_map_empty_error_message">Debe seleccionar al menos un tipo de comida y al menos un tipo de servicio.</string>
     <string name="label_location">Ubicación</string>
     <string name="label_foodtype">Tipo de comida</string>
     <string name="label_servicetype">Tipo de servicio</string>

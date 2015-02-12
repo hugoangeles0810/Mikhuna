@@ -3,6 +3,7 @@ package com.jasoftsolutions.mikhuna.activity.fragment;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,8 @@ public class RestaurantListFilterFragment extends Fragment {
 
     private static final String TAG = RestaurantListFilterFragment.class.getSimpleName();
 
+    public static final String FROM_MAP = "from_map";
+
     private ManagementManager managementManager;
 
     private ApplyActionListener applyActionListener;
@@ -45,6 +48,17 @@ public class RestaurantListFilterFragment extends Fragment {
     private RestaurantListFilter currentFilter;
 
     private boolean emptyUbigeo;
+    private boolean mFromMap = false;
+
+    public static RestaurantListFilterFragment newInstance(boolean isFromMap){
+        RestaurantListFilterFragment f = new RestaurantListFilterFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(FROM_MAP, isFromMap);
+        f.setArguments(args);
+        return f;
+    }
+
+
 
     public RestaurantListFilterFragment() {
         managementManager = new ManagementManager();
@@ -53,6 +67,12 @@ public class RestaurantListFilterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_restaurant_list_filter, container, false);
+
+        if (getArguments() != null) mFromMap = getArguments().getBoolean(FROM_MAP);
+
+        if(mFromMap){
+            rootView.findViewById(R.id.container_location).setVisibility(View.GONE);
+        }
 
         ubigeoSpinner = (Spinner)rootView.findViewById(R.id.restaurant_list_filter_ubigeo);
         initializeUbigeoSpinner(ubigeoSpinner);
@@ -87,7 +107,18 @@ public class RestaurantListFilterFragment extends Fragment {
             public void onClick(View v) {
                 computeFilter();
 
-                if (currentFilter.getUbigeoServerId() == null
+                if (mFromMap && currentFilter.getRestaurantCategories() == null
+                        || currentFilter.getRestaurantCategories().size() == 0
+                        || currentFilter.getServiceTypes() == null
+                        || currentFilter.getServiceTypes().size() == 0) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder
+                            .setMessage(R.string.filter_map_empty_error_message)
+                            .setPositiveButton(R.string.msg_ok, null)
+                    ;
+                    builder.create().show();
+
+                }else if(currentFilter.getUbigeoServerId() == null
                         || currentFilter.getUbigeoServerId() == 0
                         || currentFilter.getRestaurantCategories() == null
                         || currentFilter.getRestaurantCategories().size() == 0

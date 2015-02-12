@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -22,14 +23,21 @@ import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.jasoftsolutions.mikhuna.R;
+import com.jasoftsolutions.mikhuna.activity.fragment.RestaurantListFilterFragment;
 import com.jasoftsolutions.mikhuna.activity.fragment.dialog.Dialogs;
+import com.jasoftsolutions.mikhuna.activity.fragment.dialog.MapFilterDialog;
+import com.jasoftsolutions.mikhuna.activity.listener.ApplyActionListener;
 import com.jasoftsolutions.mikhuna.activity.listener.RestaurantMarkerListener;
+import com.jasoftsolutions.mikhuna.activity.preferences.RestaurantListFilterPreferences;
 import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
+import com.jasoftsolutions.mikhuna.domain.RestaurantListFilter;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
+import com.jasoftsolutions.mikhuna.model.RestaurantCategoryAssign;
 import com.jasoftsolutions.mikhuna.store.RestaurantStore;
 import com.jasoftsolutions.mikhuna.store.StoreListener;
 import com.jasoftsolutions.mikhuna.util.AnalyticsConst;
 import com.jasoftsolutions.mikhuna.util.AnalyticsUtil;
+import com.jasoftsolutions.mikhuna.util.ArrayUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 import com.jasoftsolutions.mikhuna.util.LocationUtil;
 import com.jasoftsolutions.mikhuna.util.ResourcesUtil;
@@ -39,7 +47,8 @@ import java.util.ArrayList;
 
 public class MapActivity extends BaseActivity implements
         GoogleMap.OnMapLoadedCallback,
-        StoreListener{
+        StoreListener,
+        ApplyActionListener{
 
     public static final String TAG = MapActivity.class.getSimpleName();
 
@@ -49,6 +58,7 @@ public class MapActivity extends BaseActivity implements
     private GoogleMap map;
     private ProgressDialog progressDialog;
     private RestaurantMarkerListener restaurantMarkerListener;
+    private MapFilterDialog filterDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +126,12 @@ public class MapActivity extends BaseActivity implements
         if (id == R.id.action_refresh){
             requestRestaurantsOrRefresh();
             return true;
+        }
+
+        if (id == R.id.action_filter){
+            filterDialog = MapFilterDialog.newInstance();
+            filterDialog.setListener(this);
+            filterDialog.show(getSupportFragmentManager(), "Dialog");
         }
 
         return false;
@@ -193,9 +209,11 @@ public class MapActivity extends BaseActivity implements
             public void run() {
                 try {
                     restaurants = (ArrayList<Restaurant>) data;
-                    restaurantsCluster.clearItems();
-                    restaurantsCluster.addItems(restaurants);
-                    restaurantsCluster.cluster();
+                    RestaurantListFilterPreferences pref =
+                            new RestaurantListFilterPreferences(MapActivity.this,
+                                    RestaurantListFilterPreferences.PREF_MAP);
+                    RestaurantListFilter filter = pref.loadFilter();
+                    filterRestaurants(filter);
                     if (progressDialog != null && progressDialog.isShowing()) {
                         progressDialog.dismiss();
                     }
@@ -229,6 +247,36 @@ public class MapActivity extends BaseActivity implements
     public void onMapLoaded() {
         requestRestaurantsOrRefresh();
         defaultCameraPositionAnimate();
+    }
+
+    @Override
+    public void onApplyAction(Object sender) {
+        filterDialog.dismiss();
+        if (sender != null){
+            try {
+                RestaurantListFilterFragment fragment =
+                        (RestaurantListFilterFragment) sender;
+                RestaurantListFilterPreferences preferences = new RestaurantListFilterPreferences(
+                        this, RestaurantListFilterPreferences.PREF_MAP);
+                preferences.saveFilter(fragment.getCurrentFilter());
+                filterRestaurants(fragment.getCurrentFilter());
+            }catch (ClassCastException e){
+                ExceptionUtil.ignoreException(e);
+            }
+        }else{
+            Toast.makeText(this, "No Manejando preferencias ...", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void filterRestaurants(RestaurantListFilter filter){
+        ArrayList<Long> categories = filter.getRestaurantCategories();
+        ArrayList<Long> services = filter.getServiceTypes();
+        restaurantsCluster.clearItems();
+        restaurantsCluster.addItems(
+                ArrayUtil.filterFromCategoriesAndServices(restaurants,
+                        categories,
+                        services));
+        restaurantsCluster.cluster();
     }
 
     // Marker Personalizado

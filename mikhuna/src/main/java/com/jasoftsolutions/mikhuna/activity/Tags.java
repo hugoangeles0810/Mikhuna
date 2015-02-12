@@ -16,6 +16,8 @@ public class Tags {
 
     public static final String FRAGMENT_PREVIEW = "tag_restaurant_preview";
 
+    public static final String FRAGMENT_FILTER_MAP = "tag_filter_map";
+
     public static final String DIALOG_RETRY_SERVER_CONNECTION = "tag_dialog_retry_server_connection";
 
 }

@@ -48,7 +48,7 @@ public class MikhunaApplication extends Application {
 
     private void setupBugSense() {
         if (Const.BUGSENSE_ENABLED) {
-            BugSenseHandler.initAndStartSession(this, "072f18fb");
+            BugSenseHandler.initAndStartSession(this, "26a2a4db");
         }
     }
 
