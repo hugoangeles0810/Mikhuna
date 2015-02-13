@@ -36,7 +36,7 @@ public class MapFilterDialog extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.restaurant_dialog, container, false);
+        return inflater.inflate(R.layout.restaurant_dialog, container);
     }
 
     @Override

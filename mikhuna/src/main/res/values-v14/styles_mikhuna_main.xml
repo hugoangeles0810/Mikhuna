@@ -40,7 +40,7 @@
     </style>
 
     <style name="ActionBar.Solid.Mikhuna_main" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@drawable/ab_solid_mikhuna_main</item>
+        <item name="android:background">@color/apptheme_color_actionbar</item>
         <item name="android:backgroundStacked">@drawable/ab_stacked_solid_mikhuna_main</item>
         <item name="android:backgroundSplit">@drawable/ab_bottom_solid_mikhuna_main</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Mikhuna_main</item>

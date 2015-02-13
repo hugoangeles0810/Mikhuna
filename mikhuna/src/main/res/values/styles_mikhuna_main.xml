@@ -47,7 +47,7 @@
     </style>
 
     <style name="ActionBar.Solid.Mikhuna_main" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="background">@drawable/ab_solid_mikhuna_main</item>
+        <item name="background">@color/apptheme_color_actionbar</item>
         <item name="backgroundStacked">@drawable/ab_stacked_solid_mikhuna_main</item>
         <item name="backgroundSplit">@drawable/ab_bottom_solid_mikhuna_main</item>
         <item name="progressBarStyle">@style/ProgressBar.Mikhuna_main</item>

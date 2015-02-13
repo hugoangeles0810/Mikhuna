@@ -10,12 +10,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.jasoftsolutions.mikhuna.R;
 import com.jasoftsolutions.mikhuna.activity.adapter.CheckedTextAdapter;
 import com.jasoftsolutions.mikhuna.activity.listener.ApplyActionListener;
+import com.jasoftsolutions.mikhuna.activity.ui.ExpandedGridView;
 import com.jasoftsolutions.mikhuna.data.ManagementManager;
 import com.jasoftsolutions.mikhuna.domain.RestaurantListFilter;
 import com.jasoftsolutions.mikhuna.domain.RestaurantServiceType;
@@ -30,7 +33,7 @@ import java.util.ArrayList;
  */
 public class RestaurantListFilterFragment extends Fragment {
 
-    private static final String TAG = RestaurantListFilterFragment.class.getSimpleName();
+    public static final String TAG = RestaurantListFilterFragment.class.getSimpleName();
 
     public static final String FROM_MAP = "from_map";
 
@@ -39,10 +42,10 @@ public class RestaurantListFilterFragment extends Fragment {
     private ApplyActionListener applyActionListener;
 
     private Spinner ubigeoSpinner;
-    private GridView restaurantCategoryGridView;
+    private ExpandedGridView restaurantCategoryGridView;
     private TextView markAllRestaurantCategoriesTextView;
     private TextView unmarkAllRestaurantCategoriesTextView;
-    private GridView serviceTypeGridView;
+    private ExpandedGridView serviceTypeGridView;
     private Button applyButton;
 
     private RestaurantListFilter currentFilter;
@@ -77,8 +80,9 @@ public class RestaurantListFilterFragment extends Fragment {
         ubigeoSpinner = (Spinner)rootView.findViewById(R.id.restaurant_list_filter_ubigeo);
         initializeUbigeoSpinner(ubigeoSpinner);
 
-        restaurantCategoryGridView =(GridView)rootView.findViewById(R.id.restaurant_list_filter_restocat_grid);
+        restaurantCategoryGridView =(ExpandedGridView)rootView.findViewById(R.id.restaurant_list_filter_restocat_grid);
         initializeRestaurantCategoryGridView(restaurantCategoryGridView);
+
 
         markAllRestaurantCategoriesTextView = (TextView)rootView.findViewById(R.id.restaurant_list_filter_mark_all_restocat_link);
         setupRestaurantCategoryMarkAllLink(markAllRestaurantCategoriesTextView);
@@ -86,7 +90,7 @@ public class RestaurantListFilterFragment extends Fragment {
         unmarkAllRestaurantCategoriesTextView = (TextView)rootView.findViewById(R.id.restaurant_list_filter_unmark_all_restocat_link);
         setupRestaurantCategoryUnMarkAllLink();
 
-        serviceTypeGridView=(GridView)rootView.findViewById(R.id.restaurant_list_filter_servicetype_grid);
+        serviceTypeGridView=(ExpandedGridView)rootView.findViewById(R.id.restaurant_list_filter_servicetype_grid);
         initializeServiceTypeGridView(serviceTypeGridView);
 
         applyButton = (Button)rootView.findViewById(R.id.button_apply_filter);

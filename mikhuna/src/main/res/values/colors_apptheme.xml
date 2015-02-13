@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="apptheme_color">#ffbb33</color>
-    <color name="apptheme_color_actionbar">#bf190a</color>
+    <color name="apptheme_color_actionbar">#ffef483b</color>
     <color name="apptheme_color_stacked">#601d17</color>
     <color name="apptheme_color_tenuous">#ffd2cfd0</color>
 </resources>

@@ -28,7 +28,6 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Mikhuna_main" >
-
         <uses-library android:name="com.google.android.maps" />
 
         <meta-data
@@ -115,8 +114,17 @@
         </activity>
         <activity
             android:name=".activity.MapActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_map" >
+            android:label="@string/title_activity_map"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.FilterMapActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_filter_map"
+            android:parentActivityName=".activity.MapActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jasoftsolutions.mikhuna.activity.MapActivity" />
         </activity>
     </application>
 

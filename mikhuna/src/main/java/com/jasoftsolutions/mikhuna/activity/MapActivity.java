@@ -47,8 +47,7 @@ import java.util.ArrayList;
 
 public class MapActivity extends BaseActivity implements
         GoogleMap.OnMapLoadedCallback,
-        StoreListener,
-        ApplyActionListener{
+        StoreListener{
 
     public static final String TAG = MapActivity.class.getSimpleName();
 
@@ -98,6 +97,7 @@ public class MapActivity extends BaseActivity implements
         super.onResume();
         RestaurantStore rs = RestaurantStore.getInstance();
         rs.addListener(this);
+        filterRestaurants();
     }
 
     @Override
@@ -129,9 +129,8 @@ public class MapActivity extends BaseActivity implements
         }
 
         if (id == R.id.action_filter){
-            filterDialog = MapFilterDialog.newInstance();
-            filterDialog.setListener(this);
-            filterDialog.show(getSupportFragmentManager(), "Dialog");
+            Intent i = FilterMapActivity.getLauncherIntent(this);
+            startActivity(i);
         }
 
         return false;
@@ -209,11 +208,7 @@ public class MapActivity extends BaseActivity implements
             public void run() {
                 try {
                     restaurants = (ArrayList<Restaurant>) data;
-                    RestaurantListFilterPreferences pref =
-                            new RestaurantListFilterPreferences(MapActivity.this,
-                                    RestaurantListFilterPreferences.PREF_MAP);
-                    RestaurantListFilter filter = pref.loadFilter();
-                    filterRestaurants(filter);
+                    filterRestaurants();
                     if (progressDialog != null && progressDialog.isShowing()) {
                         progressDialog.dismiss();
                     }
@@ -249,34 +244,26 @@ public class MapActivity extends BaseActivity implements
         defaultCameraPositionAnimate();
     }
 
-    @Override
-    public void onApplyAction(Object sender) {
-        filterDialog.dismiss();
-        if (sender != null){
+
+    private void filterRestaurants(){
+        if (restaurants != null ) {
             try {
-                RestaurantListFilterFragment fragment =
-                        (RestaurantListFilterFragment) sender;
-                RestaurantListFilterPreferences preferences = new RestaurantListFilterPreferences(
-                        this, RestaurantListFilterPreferences.PREF_MAP);
-                preferences.saveFilter(fragment.getCurrentFilter());
-                filterRestaurants(fragment.getCurrentFilter());
-            }catch (ClassCastException e){
+                RestaurantListFilterPreferences pref =
+                        new RestaurantListFilterPreferences(MapActivity.this,
+                                RestaurantListFilterPreferences.PREF_MAP);
+                RestaurantListFilter filter = pref.loadFilter();
+                ArrayList<Long> categories = filter.getRestaurantCategories();
+                ArrayList<Long> services = filter.getServiceTypes();
+                restaurantsCluster.clearItems();
+                restaurantsCluster.addItems(
+                        ArrayUtil.filterFromCategoriesAndServices(restaurants,
+                                categories,
+                                services));
+                restaurantsCluster.cluster();
+            }catch (NullPointerException e){
                 ExceptionUtil.ignoreException(e);
             }
-        }else{
-            Toast.makeText(this, "No Manejando preferencias ...", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void filterRestaurants(RestaurantListFilter filter){
-        ArrayList<Long> categories = filter.getRestaurantCategories();
-        ArrayList<Long> services = filter.getServiceTypes();
-        restaurantsCluster.clearItems();
-        restaurantsCluster.addItems(
-                ArrayUtil.filterFromCategoriesAndServices(restaurants,
-                        categories,
-                        services));
-        restaurantsCluster.cluster();
     }
 
     // Marker Personalizado

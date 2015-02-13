@@ -148,5 +148,6 @@ Por favor intente reinstalar la aplicación.</string>
     <string name="detail_marker_map">Clic para más detalles</string>
     <string name="search_restaurants_map">Buscando Restaurantes ... </string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_filter_map">Filtrar Restaurantes</string>
 
 </resources>
