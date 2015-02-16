@@ -1,7 +1,6 @@
 package com.jasoftsolutions.mikhuna.util;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 
@@ -9,9 +8,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.jasoftsolutions.mikhuna.activity.preferences.RestaurantListFilterPreferences;
 import com.jasoftsolutions.mikhuna.data.ManagementManager;
 import com.jasoftsolutions.mikhuna.model.Ubigeo;
-
-import java.nio.DoubleBuffer;
-import java.util.HashMap;
 
 /**
  * Created by Hugo on 29/01/2015.

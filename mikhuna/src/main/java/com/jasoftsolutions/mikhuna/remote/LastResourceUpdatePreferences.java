@@ -32,7 +32,8 @@ public class LastResourceUpdatePreferences {
         int build = BuildConfig.VERSION_CODE;
         long lastUpdate;
         if (version < build){
-            pref.edit().clear().apply();
+            pref.edit().clear()
+                    .putInt(VERSION, build).apply();
         }
         lastUpdate = pref.getLong(MANAGEMENT, 0);
         return lastUpdate;

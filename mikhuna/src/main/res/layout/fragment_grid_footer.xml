@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_type_service"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/default_separator_margin_2"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_servicetype"
+        />
+
+    <View style="@style/emphasis_horizontal_separator_line" />
+
+    <com.jasoftsolutions.mikhuna.activity.ui.ExpandedGridView
+        android:id="@+id/restaurant_list_filter_servicetype_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="auto_fit"
+        />
+
+</LinearLayout>

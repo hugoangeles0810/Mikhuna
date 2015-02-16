@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:id="@+id/filter_buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+
+        <Button
+            android:id="@+id/button_apply_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_apply_filter"
+            />
+
+    </LinearLayout>
+
+    <in.srain.cube.views.GridViewWithHeaderAndFooter
+        android:id="@+id/custom_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/filter_buttons_layout"
+        android:padding="5dp"
+        android:numColumns="auto_fit"
+     />
+
+</RelativeLayout>
