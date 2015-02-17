@@ -29,7 +29,7 @@ import com.jasoftsolutions.mikhuna.util.UiUtil;
 
 import java.util.ArrayList;
 
-import in.srain.cube.views.GridViewWithHeaderAndFooter;
+import com.jasoftsolutions.mikhuna.activity.ui.GridViewWithHeaderAndFooter;
 
 /**
  * Created by pc07 on 28/04/2014.
@@ -45,7 +45,7 @@ public class RestaurantListFilterFragment extends Fragment {
     private ApplyActionListener applyActionListener;
 
     private Spinner ubigeoSpinner;
-    private GridViewWithHeaderAndFooter restaurantCategoryGridView;
+    private GridView restaurantCategoryGridView;
     private TextView markAllRestaurantCategoriesTextView;
     private TextView unmarkAllRestaurantCategoriesTextView;
     private GridView serviceTypeGridView;
@@ -76,35 +76,38 @@ public class RestaurantListFilterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_list_filter_grid, container, false);
-        GridViewWithHeaderAndFooter gridView = (GridViewWithHeaderAndFooter) rootView.findViewById(R.id.custom_grid);
+        View rootView = inflater.inflate(R.layout.fragment_restaurant_list_filter, container, false);
 
-        View headerView = inflater.inflate(R.layout.fragment_grid_header, null);
-        View footerView = inflater.inflate(R.layout.fragment_grid_footer, null);
+//        View headerView = inflater.inflate(R.layout.fragment_grid_header, null);
+//        View footerView = inflater.inflate(R.layout.fragment_grid_footer, null);
+//
+//        gridView.addHeaderView(headerView, null, false);
+//        gridView.addFooterView(footerView, null, false);
 
-        gridView.addHeaderView(headerView);
-        gridView.addFooterView(footerView);
 
         if (getArguments() != null) mFromMap = getArguments().getBoolean(FROM_MAP);
 
         if(mFromMap){
-            headerView.findViewById(R.id.container_location).setVisibility(View.GONE);
+            rootView.findViewById(R.id.container_location).setVisibility(View.GONE);
         }
 
-        ubigeoSpinner = (Spinner)headerView.findViewById(R.id.restaurant_list_filter_ubigeo);
+        ubigeoSpinner = (Spinner)rootView.findViewById(R.id.restaurant_list_filter_ubigeo);
         initializeUbigeoSpinner(ubigeoSpinner);
 
-        restaurantCategoryGridView =(GridViewWithHeaderAndFooter)rootView.findViewById(R.id.custom_grid);
+        restaurantCategoryGridView =(GridView)rootView.findViewById(R.id.restaurant_list_filter_restocat_grid);
+        restaurantCategoryGridView.setFastScrollEnabled(true);
+        restaurantCategoryGridView.setSmoothScrollbarEnabled(false);
+        restaurantCategoryGridView.setScrollingCacheEnabled(false);
         initializeRestaurantCategoryGridView(restaurantCategoryGridView);
 
 
-        markAllRestaurantCategoriesTextView = (TextView)headerView.findViewById(R.id.restaurant_list_filter_mark_all_restocat_link);
+        markAllRestaurantCategoriesTextView = (TextView)rootView.findViewById(R.id.restaurant_list_filter_mark_all_restocat_link);
         setupRestaurantCategoryMarkAllLink(markAllRestaurantCategoriesTextView);
 
-        unmarkAllRestaurantCategoriesTextView = (TextView)headerView.findViewById(R.id.restaurant_list_filter_unmark_all_restocat_link);
+        unmarkAllRestaurantCategoriesTextView = (TextView)rootView.findViewById(R.id.restaurant_list_filter_unmark_all_restocat_link);
         setupRestaurantCategoryUnMarkAllLink();
 
-        serviceTypeGridView=(ExpandedGridView)footerView.findViewById(R.id.restaurant_list_filter_servicetype_grid);
+        serviceTypeGridView=(ExpandedGridView)rootView.findViewById(R.id.restaurant_list_filter_servicetype_grid);
         initializeServiceTypeGridView(serviceTypeGridView);
 
         applyButton = (Button)rootView.findViewById(R.id.button_apply_filter);
@@ -166,7 +169,8 @@ public class RestaurantListFilterFragment extends Fragment {
         }
 
         if (currentFilter.getRestaurantCategories() != null && currentFilter.getRestaurantCategories().size() > 0) {
-            adapterCategoryRestaurant.setCheckedListIds(currentFilter.getRestaurantCategories());
+            CheckedTextAdapter adapter = (CheckedTextAdapter) restaurantCategoryGridView.getAdapter();
+            adapter.setCheckedListIds(currentFilter.getRestaurantCategories());
         }
 
         if (currentFilter.getServiceTypes() != null && currentFilter.getServiceTypes().size() > 0) {
@@ -179,7 +183,7 @@ public class RestaurantListFilterFragment extends Fragment {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CheckedTextAdapter adapter = adapterCategoryRestaurant;
+                CheckedTextAdapter adapter = (CheckedTextAdapter) restaurantCategoryGridView.getAdapter();
                 for (int i=0; i<adapter.getCount(); i++) {
                     adapter.setChecked(i, true);
                 }
@@ -191,7 +195,7 @@ public class RestaurantListFilterFragment extends Fragment {
         unmarkAllRestaurantCategoriesTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CheckedTextAdapter adapter = adapterCategoryRestaurant;
+                CheckedTextAdapter adapter = (CheckedTextAdapter) restaurantCategoryGridView.getAdapter();
                 for (int i=0; i<adapter.getCount(); i++) {
                     adapter.setChecked(i, false);
                 }
@@ -214,10 +218,10 @@ public class RestaurantListFilterFragment extends Fragment {
         }
     }
 
-    private void initializeRestaurantCategoryGridView(GridViewWithHeaderAndFooter gridView) {
-        adapterCategoryRestaurant = new CheckedTextAdapter(getActivity());
-        adapterCategoryRestaurant.setEntries(managementManager.getAllRestaurantCategories());
-        gridView.setAdapter(adapterCategoryRestaurant);
+    private void initializeRestaurantCategoryGridView(GridView gridView) {
+        CheckedTextAdapter adapter = new CheckedTextAdapter(getActivity());
+        adapter.setEntries(managementManager.getAllRestaurantCategories());
+        gridView.setAdapter(adapter);
     }
 
     private void initializeServiceTypeGridView(GridView gridView) {
@@ -233,7 +237,7 @@ public class RestaurantListFilterFragment extends Fragment {
             SelectOption so = (SelectOption)ubigeoSpinner.getSelectedItem();
             filter.setUbigeoServerId(so.getId());
 
-            filter.setRestaurantCategories(getCheckedIn(adapterCategoryRestaurant));
+            filter.setRestaurantCategories(getCheckedIn((CheckedTextAdapter) restaurantCategoryGridView.getAdapter()));
 
             filter.setServiceTypes(getCheckedIn((CheckedTextAdapter) serviceTypeGridView.getAdapter()));
 

@@ -226,7 +226,7 @@ public class MapActivity extends BaseActivity implements
             public void run() {
                 if (progressDialog!=null && progressDialog.isShowing()){
                     progressDialog.dismiss();
-                    Dialogs.noInternetConnectionMessage(MapActivity.this).show();
+                    Dialogs.dialogWithMessage(MapActivity.this, MapActivity.this.getString(R.string.no_internet_restaurants_from_map)).show();
                 }
 
             }

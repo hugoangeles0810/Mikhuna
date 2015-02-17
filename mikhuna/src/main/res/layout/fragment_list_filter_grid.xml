@@ -20,7 +20,7 @@
 
     </LinearLayout>
 
-    <in.srain.cube.views.GridViewWithHeaderAndFooter
+    <com.jasoftsolutions.mikhuna.activity.ui.GridViewWithHeaderAndFooter
         android:id="@+id/custom_grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

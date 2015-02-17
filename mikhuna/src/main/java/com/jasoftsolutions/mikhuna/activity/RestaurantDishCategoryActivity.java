@@ -151,7 +151,7 @@ public class RestaurantDishCategoryActivity extends BaseActivity implements
 
     private void showRetryDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.restaurant_detail_incomplete_data);
+        builder.setMessage(R.string.restaurant_carte_incomplete);
         builder.setPositiveButton(R.string.dialog_button_retry, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

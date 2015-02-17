@@ -258,7 +258,7 @@ public class RestaurantListActivity extends BaseActivity
                         AnalyticsConst.Action.VIEW_MAP);
                 startActivity(intent);
             }else{
-                Dialogs.noInternetConnectionMessage(this).show();
+                Dialogs.dialogWithMessage(this, getString(R.string.no_internet_from_map_access)).show();
             }
             return true;
         }

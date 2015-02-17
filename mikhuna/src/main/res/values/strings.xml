@@ -75,12 +75,18 @@ Por favor intente reinstalar la aplicación.</string>
     <string name="restaurant_networks_title">Redes:</string>
     <string name="restaurant_services_title">Servicios:</string>
     <string name="title_activity_restaurant_detail">Información sobre el restaurante</string>
+
     <string name="message_dialog_no_server_response">No ha sido posible la conexión al servidor, verifique su conexión a internet por favor.</string>
     <string name="dialog_button_retry">Reintentar</string>
     <string name="dialog_button_cancel">Cancelar</string>
     <string name="dialog_button_close">Cerrar</string>
     <string name="dialog_button_continue">Continuar</string>
     <string name="restaurant_detail_incomplete_data">Debido a problemas de conexión, los datos de este restaurant aún están incompletos. Verifique su conexión a internet y luego reintente.</string>
+    <string name="restaurant_carte_incomplete">Debido a problemas de conexión, la carta de este restaurant podría estar incompleta. Verifique su conexión a internet y luego reintente.</string>
+    <string name="error_conexion">Error de conexión</string>
+    <string name="no_internet_from_map_access">Es necesario el acceso a internet para ver el mapa. Verifique su conexión a internet y luego reintente.</string>
+    <string name="no_internet_restaurants_from_map">No se logró recuperar los restaurantes del servidor. Verifique su conexión a internet y luego actualize.</string>
+
     <string name="button_retry_connection">Reintentar conexión</string>
     <string name="link_promotions"><a href="">Promociones</a></string>
     <string name="weekday_monday">Lunes</string>
@@ -140,7 +146,7 @@ Por favor intente reinstalar la aplicación.</string>
     <string name="restaurant_rating_user_question_enviroment">¿Qué te pareció su ambiente?</string>
     <string name="restaurant_rating_user_question_food">¿Cómo calificas su comida?</string>
     <string name="restaurant_rating_user_comment">¿Qué opina sobre este restaurant?</string>
-    <string name="warning_geo_action_error">Necesita tener instaado Google Maps para poder realizar esta acción.</string>
+    <string name="warning_geo_action_error">Necesita tener instalado Google Maps para poder realizar esta acción.</string>
     <string name="warning_dial_action_error">No se pudo iniciar el marcador de llamadas.</string>
     <string name="dialog_share_restaurant">Compartir restaurant</string>
     <string name="restaurant_sharing_default_message">Encuentra a %1$s en %2$s</string>
@@ -149,5 +155,7 @@ Por favor intente reinstalar la aplicación.</string>
     <string name="search_restaurants_map">Buscando Restaurantes ... </string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_filter_map">Filtrar Restaurantes</string>
+
+
 
 </resources>
