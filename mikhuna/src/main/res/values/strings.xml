@@ -55,14 +55,14 @@ Por favor intente reinstalar la aplicación.</string>
     </string-array>
 
     <string name="default_loading_text">Cargando …</string>
-    <string name="restaurant_logo_description">Logo del restaurant</string>
+    <string name="restaurant_logo_description">Logo del restaurante</string>
     <string name="restaurant_description">Descripción:</string>
     <string name="restaurant_estimated_arrival_time">Tiempo estimado de entrega:</string>
     <string name="restaurant_estimated_arrival_time_short">Entrega:</string>
     <string name="restaurant_address">Dirección:</string>
     <string name="restaurant_attention_timetable">Horario de atención:</string>
     <string name="restaurant_found_counter">%1$s restaurantes encontrados</string>
-    <string name="restaurant_name">Restaurant:</string>
+    <string name="restaurant_name">Restaurante:</string>
     <string name="title_activity_restaurant_list">Restaurantes</string>
     <string name="title_activity_splash">Bienvenido (a)</string>
     <string name="title_activity_tab_list">Restaurantes</string>
@@ -81,8 +81,8 @@ Por favor intente reinstalar la aplicación.</string>
     <string name="dialog_button_cancel">Cancelar</string>
     <string name="dialog_button_close">Cerrar</string>
     <string name="dialog_button_continue">Continuar</string>
-    <string name="restaurant_detail_incomplete_data">Debido a problemas de conexión, los datos de este restaurant aún están incompletos. Verifique su conexión a internet y luego reintente.</string>
-    <string name="restaurant_carte_incomplete">Debido a problemas de conexión, la carta de este restaurant podría estar incompleta. Verifique su conexión a internet y luego reintente.</string>
+    <string name="restaurant_detail_incomplete_data">Debido a problemas de conexión, los datos de este restaurante aún están incompletos. Verifique su conexión a internet y luego reintente.</string>
+    <string name="restaurant_carte_incomplete">Debido a problemas de conexión, la carta de este restaurante podría estar incompleta. Verifique su conexión a internet y luego reintente.</string>
     <string name="error_conexion">Error de conexión</string>
     <string name="no_internet_from_map_access">Es necesario el acceso a internet para ver el mapa. Verifique su conexión a internet y luego reintente.</string>
     <string name="no_internet_restaurants_from_map">No se logró recuperar los restaurantes del servidor. Verifique su conexión a internet y luego actualize.</string>
@@ -142,13 +142,13 @@ Por favor intente reinstalar la aplicación.</string>
     <string name="problem_type_other">Otro</string>
 
     <!-- Fragmento de ranking del restaurant -->
-    <string name="restaurant_rating_user_question_service">¿Cómo calificas el servicio de este restaurant?</string>
+    <string name="restaurant_rating_user_question_service">¿Cómo calificas el servicio de este restaurante?</string>
     <string name="restaurant_rating_user_question_enviroment">¿Qué te pareció su ambiente?</string>
     <string name="restaurant_rating_user_question_food">¿Cómo calificas su comida?</string>
-    <string name="restaurant_rating_user_comment">¿Qué opina sobre este restaurant?</string>
+    <string name="restaurant_rating_user_comment">¿Qué opina sobre este restaurante?</string>
     <string name="warning_geo_action_error">Necesita tener instalado Google Maps para poder realizar esta acción.</string>
     <string name="warning_dial_action_error">No se pudo iniciar el marcador de llamadas.</string>
-    <string name="dialog_share_restaurant">Compartir restaurant</string>
+    <string name="dialog_share_restaurant">Compartir restaurante</string>
     <string name="restaurant_sharing_default_message">Encuentra a %1$s en %2$s</string>
     <string name="title_activity_map">Mapa</string>
     <string name="detail_marker_map">Clic para más detalles</string>
