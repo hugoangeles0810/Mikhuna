@@ -127,12 +127,20 @@
 
                     <View style="@style/emphasis_horizontal_separator_line" />
 
-                    <com.jasoftsolutions.mikhuna.activity.ui.ExpandedGridView
+                    <!--<com.jasoftsolutions.mikhuna.activity.ui.ExpandedGridView-->
+                        <!--android:id="@+id/restaurant_list_filter_restocat_grid"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:numColumns="auto_fit"-->
+                        <!--/>-->
+
+                    <TableLayout
                         android:id="@+id/restaurant_list_filter_restocat_grid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:numColumns="auto_fit"
-                        />
+                        android:layout_gravity="center_horizontal">
+
+                    </TableLayout>
 
                 </LinearLayout>
 

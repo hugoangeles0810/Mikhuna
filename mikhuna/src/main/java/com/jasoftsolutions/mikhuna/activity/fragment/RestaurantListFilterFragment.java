@@ -3,17 +3,17 @@ package com.jasoftsolutions.mikhuna.activity.fragment;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.jasoftsolutions.mikhuna.R;
@@ -28,8 +28,7 @@ import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 import com.jasoftsolutions.mikhuna.util.UiUtil;
 
 import java.util.ArrayList;
-
-import com.jasoftsolutions.mikhuna.activity.ui.GridViewWithHeaderAndFooter;
+import java.util.List;
 
 /**
  * Created by pc07 on 28/04/2014.
@@ -45,11 +44,12 @@ public class RestaurantListFilterFragment extends Fragment {
     private ApplyActionListener applyActionListener;
 
     private Spinner ubigeoSpinner;
-    private GridView restaurantCategoryGridView;
+    private TableLayout restaurantCategoryGridView;
     private TextView markAllRestaurantCategoriesTextView;
     private TextView unmarkAllRestaurantCategoriesTextView;
     private GridView serviceTypeGridView;
     private Button applyButton;
+    private ArrayList<CheckBox> checkBoxesCategories;
 
     // Necesario para referenciar el adaptador del Grid personalizado
     private CheckedTextAdapter adapterCategoryRestaurant;
@@ -78,12 +78,6 @@ public class RestaurantListFilterFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_restaurant_list_filter, container, false);
 
-//        View headerView = inflater.inflate(R.layout.fragment_grid_header, null);
-//        View footerView = inflater.inflate(R.layout.fragment_grid_footer, null);
-//
-//        gridView.addHeaderView(headerView, null, false);
-//        gridView.addFooterView(footerView, null, false);
-
 
         if (getArguments() != null) mFromMap = getArguments().getBoolean(FROM_MAP);
 
@@ -94,10 +88,7 @@ public class RestaurantListFilterFragment extends Fragment {
         ubigeoSpinner = (Spinner)rootView.findViewById(R.id.restaurant_list_filter_ubigeo);
         initializeUbigeoSpinner(ubigeoSpinner);
 
-        restaurantCategoryGridView =(GridView)rootView.findViewById(R.id.restaurant_list_filter_restocat_grid);
-        restaurantCategoryGridView.setFastScrollEnabled(true);
-        restaurantCategoryGridView.setSmoothScrollbarEnabled(false);
-        restaurantCategoryGridView.setScrollingCacheEnabled(false);
+        restaurantCategoryGridView =(TableLayout)rootView.findViewById(R.id.restaurant_list_filter_restocat_grid);
         initializeRestaurantCategoryGridView(restaurantCategoryGridView);
 
 
@@ -113,11 +104,7 @@ public class RestaurantListFilterFragment extends Fragment {
         applyButton = (Button)rootView.findViewById(R.id.button_apply_filter);
         initializeApplyButton();
 
-//        restaurantListFilterPreferences = new RestaurantListFilterPreferences(getActivity());
-//        loadFromPreferences();
         loadFromFilter();
-
-//        initializeUbigeoSpinner(ubigeoSpinner);
 
         return rootView;
     }
@@ -169,8 +156,12 @@ public class RestaurantListFilterFragment extends Fragment {
         }
 
         if (currentFilter.getRestaurantCategories() != null && currentFilter.getRestaurantCategories().size() > 0) {
-            CheckedTextAdapter adapter = (CheckedTextAdapter) restaurantCategoryGridView.getAdapter();
-            adapter.setCheckedListIds(currentFilter.getRestaurantCategories());
+            for (CheckBox box : checkBoxesCategories){
+                SelectOption so = (SelectOption) box.getTag();
+                if (currentFilter.getRestaurantCategories().contains(so.getId())){
+                    box.setChecked(true);
+                }
+            }
         }
 
         if (currentFilter.getServiceTypes() != null && currentFilter.getServiceTypes().size() > 0) {
@@ -183,22 +174,22 @@ public class RestaurantListFilterFragment extends Fragment {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CheckedTextAdapter adapter = (CheckedTextAdapter) restaurantCategoryGridView.getAdapter();
-                for (int i=0; i<adapter.getCount(); i++) {
-                    adapter.setChecked(i, true);
-                }
+                setupCheckBox(checkBoxesCategories, true);
             }
         });
+    }
+
+    private void setupCheckBox(List<CheckBox> boxes, boolean state){
+        for (CheckBox box : boxes){
+            box.setChecked(state);
+        }
     }
 
     private void setupRestaurantCategoryUnMarkAllLink() {
         unmarkAllRestaurantCategoriesTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CheckedTextAdapter adapter = (CheckedTextAdapter) restaurantCategoryGridView.getAdapter();
-                for (int i=0; i<adapter.getCount(); i++) {
-                    adapter.setChecked(i, false);
-                }
+                setupCheckBox(checkBoxesCategories, false);
             }
         });
     }
@@ -218,10 +209,36 @@ public class RestaurantListFilterFragment extends Fragment {
         }
     }
 
-    private void initializeRestaurantCategoryGridView(GridView gridView) {
-        CheckedTextAdapter adapter = new CheckedTextAdapter(getActivity());
-        adapter.setEntries(managementManager.getAllRestaurantCategories());
-        gridView.setAdapter(adapter);
+    private void initializeRestaurantCategoryGridView(TableLayout gridLayout) {
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        checkBoxesCategories = new ArrayList<CheckBox>();
+        TableRow.LayoutParams paramsCheck = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+        int flag = 0;
+        TableRow row = null;
+        for (SelectOption option : managementManager.getAllRestaurantCategories()){
+            if (flag == 0){
+                row = new TableRow(getActivity());
+                row.setGravity(Gravity.CENTER_VERTICAL);
+            }
+
+            flag++;
+
+            CheckBox checkBox = new CheckBox(getActivity());
+            checkBox.setLayoutParams(paramsCheck);
+            checkBox.setText(option.getName());
+            checkBox.setTag(option);
+            row.addView(checkBox);
+            checkBoxesCategories.add(checkBox);
+
+            if (flag == 2){
+                gridLayout.addView(row);
+                flag = 0;
+            }
+        }
+
+        if (flag == 1){
+            gridLayout.addView(row);
+        }
     }
 
     private void initializeServiceTypeGridView(GridView gridView) {
@@ -237,7 +254,7 @@ public class RestaurantListFilterFragment extends Fragment {
             SelectOption so = (SelectOption)ubigeoSpinner.getSelectedItem();
             filter.setUbigeoServerId(so.getId());
 
-            filter.setRestaurantCategories(getCheckedIn((CheckedTextAdapter) restaurantCategoryGridView.getAdapter()));
+            filter.setRestaurantCategories(getCheckedIn(checkBoxesCategories));
 
             filter.setServiceTypes(getCheckedIn((CheckedTextAdapter) serviceTypeGridView.getAdapter()));
 
@@ -255,6 +272,17 @@ public class RestaurantListFilterFragment extends Fragment {
                 result.add(((SelectOption) adapter.getItem(i)).getId());
             }
         }
+        return result;
+    }
+
+    private ArrayList<Long> getCheckedIn(List<CheckBox> boxes){
+        ArrayList<Long> result =  new ArrayList<Long>();
+        for (CheckBox box : boxes){
+            if (box.isChecked()){
+                result.add(((SelectOption) box.getTag()).getId());
+            }
+        }
+
         return result;
     }
 
