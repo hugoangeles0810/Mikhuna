@@ -1,7 +1,11 @@
 package com.jasoftsolutions.mikhuna.activity;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -21,6 +25,7 @@ import com.jasoftsolutions.mikhuna.activity.fragment.RestaurantListFragment;
 import com.jasoftsolutions.mikhuna.activity.fragment.RestaurantPromotionsListFragment;
 import com.jasoftsolutions.mikhuna.activity.fragment.dialog.Dialogs;
 import com.jasoftsolutions.mikhuna.activity.listener.ApplyActionListener;
+import com.jasoftsolutions.mikhuna.activity.listener.ShakeListener;
 import com.jasoftsolutions.mikhuna.activity.preferences.RestaurantListFilterPreferences;
 import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
 import com.jasoftsolutions.mikhuna.domain.RestaurantListFilter;
@@ -46,6 +51,10 @@ public class RestaurantListActivity extends BaseActivity
 
     private boolean promotionListAudited;
     private boolean tabsReady;
+
+    // Shake Listener
+    private ShakeListener mShakeListener;
+    private Boolean mShakeEnabled = true;
 
     private void initializeFragments() {
         Log.i(TAG, "inicializando fragments...");
@@ -131,7 +140,41 @@ public class RestaurantListActivity extends BaseActivity
 
         setContentView(R.layout.activity_restaurant_list);
 
+        final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+
+        mShakeListener = new ShakeListener(this);
+        mShakeListener.setOnShakeListener(new ShakeListener.OnShakeListener() {
+            @Override
+            public void onShake() {
+                if (mShakeEnabled){
+                    mShakeEnabled = false;
+                    vibe.vibrate(100);
+                    new AlertDialog.Builder(RestaurantListActivity.this)
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mShakeEnabled = true;
+                                }
+                            })
+                            .setMessage("Shake it!")
+                            .show();
+                }
+            }
+        });
+
         initializeFragments();
+    }
+
+    @Override
+    protected void onResume() {
+        mShakeListener.resume();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        mShakeListener.pause();
+        super.onPause();
     }
 
     @Override
