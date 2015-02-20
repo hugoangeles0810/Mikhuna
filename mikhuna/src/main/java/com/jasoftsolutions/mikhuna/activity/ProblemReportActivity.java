@@ -17,6 +17,8 @@ public class ProblemReportActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_report);
 
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);
+
         addProblemReportFragment();
     }
 

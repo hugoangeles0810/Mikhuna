@@ -108,7 +108,13 @@
         </activity>
         <activity
             android:name=".activity.ProblemReportActivity"
-            android:label="@string/title_activity_problem_report" >
+            android:label="@string/title_activity_problem_report"
+            android:logo="@android:color/transparent"
+            android:parentActivityName=".activity.RestaurantListActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jasoftsolutions.mikhuna.activity.RestaurantListActivity" />
         </activity>
         <activity
             android:name=".activity.FirstTimeActivity"
