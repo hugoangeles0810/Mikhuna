@@ -160,7 +160,12 @@ public class RestaurantListActivity extends BaseActivity
             public void onShake() {
                 if (mShakeEnabled){
                     mShakeEnabled = false;
-                    vibe.vibrate(100);
+
+                    try{
+                        vibe.vibrate(100);
+                    } catch (NullPointerException e){
+                        ExceptionUtil.ignoreException(e);
+                    }
 
                     new AuditHelper(RestaurantListActivity.this).registerShakePhone();
 
