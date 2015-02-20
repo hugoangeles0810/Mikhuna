@@ -35,7 +35,6 @@ public class RecommendRestaurantService extends IntentService {
 
         if (intent.getAction().equals(ACTION_RECOMMENDED)) {
 
-            Log.i(TAG, " >> Inicia manejo de intent ...");
             RestaurantRemote rr = new RestaurantRemote();
             RestaurantListFilterPreferences rfp = new RestaurantListFilterPreferences(this);
             Long ubigeoId = rfp.getUbigeoId();
@@ -45,28 +44,23 @@ public class RecommendRestaurantService extends IntentService {
 
             try {
                 restaurantID = rr.getIdOfRestaurantRecommended(ubigeoId, user);
-                Log.i(TAG, " Exito en el backend ...");
             } catch (Exception e) {
-                Log.i(TAG, " Fallo en conexion al backend ...");
                 ExceptionUtil.ignoreException(e);
             }
 
             if (restaurantID == null) {
-                Log.i(TAG, " Buscando restaurant offline ... ");
                 RestaurantManager rm = new RestaurantManager();
                 ArrayList<Long> restaurantsId = rm.queryRestaurantServerIds(null, rfp.loadFilter());
                 int index = (int) (Math.random() * restaurantsId.size());
                 restaurantID = restaurantsId.get(index);
             }
 
-            Log.i(TAG, " Restaurant ID: " + restaurantID + " ... ");
 
             Intent i = new Intent(RestaurantListActivity.ACTION_SHOW_RECOMMENDED);
             i.putExtra(RestaurantListActivity.RESTAURANT_ID, restaurantID);
 
             sendBroadcast(i);
 
-            Log.i(TAG, " << Fin manejo de intent ...");
         }
     }
 

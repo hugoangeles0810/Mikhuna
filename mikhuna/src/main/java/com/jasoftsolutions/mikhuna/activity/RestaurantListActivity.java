@@ -161,7 +161,6 @@ public class RestaurantListActivity extends BaseActivity
                 if (mShakeEnabled){
                     mShakeEnabled = false;
                     vibe.vibrate(100);
-                    Log.i(TAG, " Enviando intent ... ");
 
                     new AuditHelper(RestaurantListActivity.this).registerShakePhone();
 
@@ -177,10 +176,15 @@ public class RestaurantListActivity extends BaseActivity
 
     @Override
     protected void onResume() {
-        mShakeListener.resume();
-        if (mRecommendedReceiver == null) mRecommendedReceiver = new ShowRecommendedRestaurantReceiver();
-        IntentFilter filter = new IntentFilter(ACTION_SHOW_RECOMMENDED);
-        registerReceiver(mRecommendedReceiver, filter);
+        try {
+            mShakeListener.resume();
+            if (mRecommendedReceiver == null)
+                mRecommendedReceiver = new ShowRecommendedRestaurantReceiver();
+            IntentFilter filter = new IntentFilter(ACTION_SHOW_RECOMMENDED);
+            registerReceiver(mRecommendedReceiver, filter);
+        }catch (UnsupportedOperationException e){
+            ExceptionUtil.ignoreException(e);
+        }
         super.onResume();
     }
 

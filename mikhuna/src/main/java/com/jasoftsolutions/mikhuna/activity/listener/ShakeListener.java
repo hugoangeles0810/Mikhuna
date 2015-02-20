@@ -77,8 +77,6 @@ public class ShakeListener implements SensorListener {
             long diff = now - mLastTime;
             float speed = Math.abs(values[SensorManager.DATA_Y] - mLastY) / diff * 10000; // Solo interesa la velocidad en eje X
             if (speed > FORCE_THRESHOLD) {
-                long duration = now - mLastShake;
-                Log.d(TAG, "Duration: " + duration);
                 if ((++mShakeCount >= SHAKE_COUNT) && (now - mLastShake > SHAKE_OFFSET)) {
                     mLastShake = now;
                     mShakeCount = 0;
