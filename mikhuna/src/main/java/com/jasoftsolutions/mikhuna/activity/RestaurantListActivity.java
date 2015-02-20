@@ -1,9 +1,11 @@
 package com.jasoftsolutions.mikhuna.activity;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
@@ -18,17 +20,20 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.jasoftsolutions.mikhuna.R;
 import com.jasoftsolutions.mikhuna.activity.fragment.RestaurantListFilterFragment;
 import com.jasoftsolutions.mikhuna.activity.fragment.RestaurantListFragment;
 import com.jasoftsolutions.mikhuna.activity.fragment.RestaurantPromotionsListFragment;
 import com.jasoftsolutions.mikhuna.activity.fragment.dialog.Dialogs;
+import com.jasoftsolutions.mikhuna.activity.fragment.dialog.RestaurantDialogFragment;
 import com.jasoftsolutions.mikhuna.activity.listener.ApplyActionListener;
 import com.jasoftsolutions.mikhuna.activity.listener.ShakeListener;
 import com.jasoftsolutions.mikhuna.activity.preferences.RestaurantListFilterPreferences;
 import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
 import com.jasoftsolutions.mikhuna.domain.RestaurantListFilter;
+import com.jasoftsolutions.mikhuna.service.RecommendRestaurantService;
 import com.jasoftsolutions.mikhuna.util.AnalyticsConst;
 import com.jasoftsolutions.mikhuna.util.AnalyticsUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
@@ -38,6 +43,10 @@ public class RestaurantListActivity extends BaseActivity
         implements ApplyActionListener, ActionBar.TabListener{
 
     private static final String TAG = RestaurantListActivity.class.getSimpleName();
+
+    public static final String ACTION_SHOW_RECOMMENDED = "show_recomended";
+
+    public static final String RESTAURANT_ID = "restaurant_id";
 
     private Menu menu;
 
@@ -55,6 +64,9 @@ public class RestaurantListActivity extends BaseActivity
     // Shake Listener
     private ShakeListener mShakeListener;
     private Boolean mShakeEnabled = true;
+
+    // Receiver del restaurante recomendado
+    private ShowRecommendedRestaurantReceiver mRecommendedReceiver;
 
     private void initializeFragments() {
         Log.i(TAG, "inicializando fragments...");
@@ -149,16 +161,11 @@ public class RestaurantListActivity extends BaseActivity
                 if (mShakeEnabled){
                     mShakeEnabled = false;
                     vibe.vibrate(100);
-                    new AlertDialog.Builder(RestaurantListActivity.this)
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    mShakeEnabled = true;
-                                }
-                            })
-                            .setMessage("Shake it!")
-                            .show();
-                }
+                    Log.i(TAG, " Enviando intent ... ");
+                    Intent intent = RecommendRestaurantService.
+                            getIntentOfActionRecommended(RestaurantListActivity.this);
+                    startService(intent);
+            }
             }
         });
 
@@ -168,11 +175,15 @@ public class RestaurantListActivity extends BaseActivity
     @Override
     protected void onResume() {
         mShakeListener.resume();
+        if (mRecommendedReceiver == null) mRecommendedReceiver = new ShowRecommendedRestaurantReceiver();
+        IntentFilter filter = new IntentFilter(ACTION_SHOW_RECOMMENDED);
+        registerReceiver(mRecommendedReceiver, filter);
         super.onResume();
     }
 
     @Override
     protected void onPause() {
+        if (mRecommendedReceiver != null ) unregisterReceiver(mRecommendedReceiver);
         mShakeListener.pause();
         super.onPause();
     }
@@ -245,6 +256,14 @@ public class RestaurantListActivity extends BaseActivity
                 return false;
             }
         });
+    }
+
+    public Boolean getmShakeEnabled() {
+        return mShakeEnabled;
+    }
+
+    public void setmShakeEnabled(Boolean mShakeEnabled) {
+        this.mShakeEnabled = mShakeEnabled;
     }
 
     private void setListsRestaurantNameQuery(String s) {
@@ -398,6 +417,23 @@ public class RestaurantListActivity extends BaseActivity
         @Override
         public int getCount() {
             return 3;
+        }
+    }
+
+    private class ShowRecommendedRestaurantReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(ACTION_SHOW_RECOMMENDED)){
+                Long restaurantId = intent.getLongExtra(RESTAURANT_ID, 1);
+                if (restaurantId != null){
+                    RestaurantDialogFragment dialogFragment =
+                            RestaurantDialogFragment.newInstance(restaurantId);
+                    dialogFragment.setFromList(true);
+                    dialogFragment.show(RestaurantListActivity.this.getSupportFragmentManager(),
+                            RestaurantDialogFragment.TAG);
+                }
+            }
         }
     }
 

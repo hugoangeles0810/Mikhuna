@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.jasoftsolutions.mikhuna.R;
 import com.jasoftsolutions.mikhuna.activity.RestaurantDetailActivity;
+import com.jasoftsolutions.mikhuna.activity.RestaurantListActivity;
 import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
 import com.jasoftsolutions.mikhuna.activity.util.RestaurantViewUtil;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
@@ -29,13 +30,24 @@ import com.jasoftsolutions.mikhuna.util.StringUtil;
  */
 public class RestaurantPreviewFragment extends Fragment {
 
+    public static final String IS_FROM_LIST = "is_from_list";
+
     private Restaurant mRestaurant;
+    private Boolean mIsFromListActivity = false;
 
     public static RestaurantPreviewFragment newInstance(Bundle args){
         RestaurantPreviewFragment rpf = new RestaurantPreviewFragment();
         if (args != null){
             rpf.setArguments(args);
         }
+        return  rpf;
+    }
+
+    public static RestaurantPreviewFragment newInstance(boolean isFromListActivity){
+        RestaurantPreviewFragment rpf = new RestaurantPreviewFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(IS_FROM_LIST, isFromListActivity);
+        rpf.setArguments(args);
         return  rpf;
     }
 
@@ -102,6 +114,11 @@ public class RestaurantPreviewFragment extends Fragment {
 
                         AnalyticsUtil.registerEvent(context, AnalyticsConst.Category.MAP,
                                 AnalyticsConst.Action.VIEW_RESTAURANT_FROM_MAP, serverId.toString());
+
+                        if (getActivity() instanceof RestaurantListActivity){
+                            ((RestaurantListActivity)getActivity()).setmShakeEnabled(true);
+                        }
+
                         context.startActivity(detailIntent);
                         ((DialogFragment) getParentFragment()).dismiss();
                     }
@@ -113,6 +130,9 @@ public class RestaurantPreviewFragment extends Fragment {
                 buttonCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (getActivity() instanceof RestaurantListActivity){
+                            ((RestaurantListActivity)getActivity()).setmShakeEnabled(true);
+                        }
                         ((DialogFragment) getParentFragment()).dismiss();
                     }
                 });
@@ -142,6 +162,14 @@ public class RestaurantPreviewFragment extends Fragment {
 
             RestaurantViewUtil.showRestaurantIsOpen(mRestaurant, isOpenTextView);
             RestaurantViewUtil.showRestaurantServiceType(mRestaurant, serviceTypeTextView);
+
+            if (getArguments() != null){
+                mIsFromListActivity = getArguments().getBoolean(IS_FROM_LIST);
+            }
+
+            if (mIsFromListActivity){
+                rootView.findViewById(R.id.tv_recommend).setVisibility(View.VISIBLE);
+            }
         }
 
 

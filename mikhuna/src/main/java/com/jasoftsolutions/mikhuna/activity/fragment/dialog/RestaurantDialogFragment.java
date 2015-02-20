@@ -32,9 +32,13 @@ import com.jasoftsolutions.mikhuna.util.UiUtil;
 public class RestaurantDialogFragment extends DialogFragment implements
         LoaderManager.LoaderCallbacks<Restaurant>{
 
+    public static final String TAG = RestaurantDialogFragment.class.getSimpleName();
+
     private static String RESTAURANT_ID = "restaurant_id";
     private static int LOADER_RESTAURANT = 0;
     private long mServerId;
+
+    private boolean isFromList = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,14 @@ public class RestaurantDialogFragment extends DialogFragment implements
         super.onActivityCreated(savedInstanceState);
         getLoaderManager().initLoader(LOADER_RESTAURANT, null, this);
         UiUtil.removeAllFragmentsAndAddLoadingFragment(getChildFragmentManager());
+    }
+
+    public boolean isFromList() {
+        return isFromList;
+    }
+
+    public void setFromList(boolean isFromList) {
+        this.isFromList = isFromList;
     }
 
     public static RestaurantDialogFragment newInstance(long serverId){
@@ -80,7 +92,7 @@ public class RestaurantDialogFragment extends DialogFragment implements
                 RestaurantPreviewFragment rpf = (RestaurantPreviewFragment)
                         fm.findFragmentByTag(Tags.FRAGMENT_PREVIEW);
                 if (rpf == null){
-                    rpf = RestaurantPreviewFragment.newInstance(null);
+                    rpf = RestaurantPreviewFragment.newInstance(isFromList);
                     ft.replace(R.id.container, rpf, Tags.FRAGMENT_PREVIEW);
                 }
 

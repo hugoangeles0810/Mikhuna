@@ -20,6 +20,28 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="0dp"
+        android:gravity="start">
+
+        <TextView
+            android:id="@+id/tv_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/msg_mikhuna_recommended"
+            android:padding="5dp"
+            style="@style/restaurant_list_item_title"
+            android:textAppearance="?android:attr/textAppearance"
+            android:textColor="@color/dish_name"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:id="@+id/container_restaurant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

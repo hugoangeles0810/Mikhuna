@@ -87,6 +87,8 @@ Por favor intente reinstalar la aplicación.</string>
     <string name="no_internet_from_map_access">Es necesario el acceso a internet para ver el mapa. Verifique su conexión a internet y luego reintente.</string>
     <string name="no_internet_restaurants_from_map">No se logró recuperar los restaurantes del servidor. Verifique su conexión a internet y luego actualize.</string>
 
+    <string name="msg_mikhuna_recommended">Mikhuna te recomienda: </string>
+
     <string name="button_retry_connection">Reintentar conexión</string>
     <string name="link_promotions"><a href="">Promociones</a></string>
     <string name="weekday_monday">Lunes</string>

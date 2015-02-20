@@ -1,5 +1,6 @@
 package com.jasoftsolutions.mikhuna.remote;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -7,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.jasoftsolutions.mikhuna.BuildConfig;
+import com.jasoftsolutions.mikhuna.activity.RestaurantListActivity;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.model.RestaurantDish;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
@@ -62,6 +64,16 @@ public class RestaurantRemote {
         result=sh.getResourceFromUrl("/restaurants/id/"+id+"/v/"+ BuildConfig.VERSION_CODE, lastUpdate, Restaurant.class);
 
         return result;
+    }
+
+    public Long getIdOfRestaurantRecommended(Long ubigeoId, String user){
+        Long id;
+        RemoteHandler sh = RemoteHandler.getInstance();
+
+        id = sh.getResourceFromUrl("/recommend/user/" + user + "/u/" + ubigeoId + "/v/" + BuildConfig.VERSION_CODE, Long.class);
+
+        return id;
+
     }
 
     public RestaurantPromotionListJsonResponse getRestaurantPromotionList(Long ubigeoId, Long lastUpdate) {

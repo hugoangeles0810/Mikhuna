@@ -93,6 +93,9 @@
 
         <service android:name=".google.gcm.GCMIntentService" />
 
+        <service android:name=".service.RecommendRestaurantService"
+            android:exported="false"/>
+
         <activity android:name=".activity.PreferencesActivity" >
         </activity>
         <activity
