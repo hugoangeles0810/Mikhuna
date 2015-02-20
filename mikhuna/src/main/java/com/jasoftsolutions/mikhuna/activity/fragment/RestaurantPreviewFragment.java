@@ -110,13 +110,18 @@ public class RestaurantPreviewFragment extends Fragment {
                         Intent detailIntent = RestaurantDetailActivity
                                 .getLauncherIntentByServerId(context, serverId);
 
-                        new AuditHelper(context).registerViewRestaurantFromMap(serverId);
 
-                        AnalyticsUtil.registerEvent(context, AnalyticsConst.Category.MAP,
-                                AnalyticsConst.Action.VIEW_RESTAURANT_FROM_MAP, serverId.toString());
 
                         if (getActivity() instanceof RestaurantListActivity){
                             ((RestaurantListActivity)getActivity()).setmShakeEnabled(true);
+                            new AuditHelper(context).registerShowRecommended(serverId);
+                            AnalyticsUtil.registerEvent(context, AnalyticsConst.Category.LIST_RESTAURANT,
+                                    AnalyticsConst.Action.VIEW_RECOMMENDED, serverId.toString());
+                        }else{
+                            new AuditHelper(context).registerViewRestaurantFromMap(serverId);
+
+                            AnalyticsUtil.registerEvent(context, AnalyticsConst.Category.MAP,
+                                    AnalyticsConst.Action.VIEW_RESTAURANT_FROM_MAP, serverId.toString());
                         }
 
                         context.startActivity(detailIntent);

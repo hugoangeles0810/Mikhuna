@@ -31,6 +31,8 @@ public final class AnalyticsConst {
         VIEW_PRODUCTS = "View Products",
         VIEW_MAP = "View Map",
         PREVIEW_RESTAURANT_FROM_MAP = "Preview Restaurant From Map",
-        VIEW_RESTAURANT_FROM_MAP = "View Restaurant From Map";
+        VIEW_RESTAURANT_FROM_MAP = "View Restaurant From Map",
+        SHAKE_PHONE = "Shake phone",
+        VIEW_RECOMMENDED = "View Recommended Restaunrant";
     }
 }

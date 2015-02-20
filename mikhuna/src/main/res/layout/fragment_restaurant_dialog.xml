@@ -4,26 +4,9 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end">
-
-        <Button
-            android:id="@+id/button_cancel"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:layout_margin="2dp"
-            android:background="@android:drawable/btn_dialog"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="0dp"
-        android:gravity="start">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_recommend"
@@ -34,12 +17,18 @@
             style="@style/restaurant_list_item_title"
             android:textAppearance="?android:attr/textAppearance"
             android:textColor="@color/dish_name"
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp"
+            android:layout_alignParentLeft="true"
             android:visibility="gone"/>
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_margin="2dp"
+            android:background="@android:drawable/btn_dialog"
+            android:layout_alignParentRight="true"/>
 
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/container_restaurant"

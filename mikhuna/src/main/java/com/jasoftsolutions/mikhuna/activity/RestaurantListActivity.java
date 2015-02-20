@@ -162,6 +162,9 @@ public class RestaurantListActivity extends BaseActivity
                     mShakeEnabled = false;
                     vibe.vibrate(100);
                     Log.i(TAG, " Enviando intent ... ");
+
+                    new AuditHelper(RestaurantListActivity.this).registerShakePhone();
+
                     Intent intent = RecommendRestaurantService.
                             getIntentOfActionRecommended(RestaurantListActivity.this);
                     startService(intent);

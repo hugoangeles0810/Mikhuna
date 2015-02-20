@@ -21,7 +21,9 @@ public enum AuditAction {
     VIEW_PRODUCTS(16),
     VIEW_MAP(17),
     PREVIEW_RESTAURANT_MAP(18),
-    VIEW_RESTAURANT_FROM_MAP(19)
+    VIEW_RESTAURANT_FROM_MAP(19),
+    SHAKE_PHONE(20),
+    SHOW_RECOMMENDED(21),
     ;
 
     private int actionId;

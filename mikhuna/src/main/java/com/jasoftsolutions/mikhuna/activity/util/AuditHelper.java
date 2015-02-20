@@ -80,6 +80,10 @@ public class AuditHelper {
         registerAuditById(AuditAction.VIEW_RESTAURANT_FROM_MAP, serverId);
     }
 
+    public void registerShakePhone(){ registerAudit(AuditAction.SHAKE_PHONE, null); }
+
+    public void registerShowRecommended(Long id){ registerAuditById(AuditAction.SHOW_RECOMMENDED, id); }
+
     public void registerContact() {
         registerAudit(AuditAction.CONTACT, null);
     }
