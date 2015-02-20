@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.jasoftsolutions.mikhuna.R;
@@ -42,6 +43,8 @@ public class RestaurantDishCategoryActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_carte);
 
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);
+
         if (savedInstanceState == null){
             restaurantServerId = getIntent().getExtras().getLong(ArgKeys.RESTAURANT_SERVER_ID);
             restaurantName = getIntent().getExtras().getString(ArgKeys.RESTAURANT_NAME);
@@ -53,6 +56,17 @@ public class RestaurantDishCategoryActivity extends BaseActivity implements
         this.setTitle(getResources().getString(R.string.title_activity_restaurant_carte) + " - " + restaurantName);
         loadRestaurantDishCategory();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return false;
+        }
     }
 
     private void loadRestaurantDishCategory() {

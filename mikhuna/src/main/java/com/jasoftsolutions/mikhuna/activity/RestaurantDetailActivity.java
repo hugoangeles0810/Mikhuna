@@ -45,6 +45,8 @@ public class RestaurantDetailActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_detail);
 
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);
+
         restaurantId = ContextUtil.getIntentLongExtra(getIntent(), ArgKeys.RESTAURANT_ID);
         if (restaurantId == 0) {
             restaurantServerId =  ContextUtil.getIntentLongExtra(getIntent(), ArgKeys.RESTAURANT_SERVER_ID);
@@ -137,6 +139,8 @@ public class RestaurantDetailActivity extends BaseActivity implements
             if (withRetry) {
                 showRetryDialog();
             }
+
+            setTitle(r.getName());
 
             ft.commit();
 
@@ -246,6 +250,11 @@ public class RestaurantDetailActivity extends BaseActivity implements
 //        } else if (id == R.id.action_share) {
         if (id == R.id.action_share) {
             shareRestaurant();
+            return true;
+        }
+
+        if(id ==  android.R.id.home){
+            finish();
             return true;
         }
 

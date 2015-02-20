@@ -64,6 +64,8 @@ public class MapActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);
+
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
 
         if (status != ConnectionResult.SUCCESS){

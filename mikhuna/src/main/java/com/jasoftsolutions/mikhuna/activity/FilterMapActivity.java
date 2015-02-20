@@ -28,6 +28,8 @@ public class FilterMapActivity extends ActionBarActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_map);
 
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_back);
+
         render();
 
     }

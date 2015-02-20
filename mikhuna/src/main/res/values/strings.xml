@@ -158,6 +158,7 @@ Por favor intente reinstalar la aplicación.</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_filter_map">Filtrar Restaurantes</string>
 
-
+    <string name="title_activity_detail">Detalle </string>
+    <string name="title_preferences_activity">Preferencias</string>
 
 </resources>

@@ -76,7 +76,14 @@
         <!-- </activity> -->
         <activity
             android:name=".activity.RestaurantDetailActivity"
-            android:label="" >
+            android:label="@string/title_activity_detail"
+            android:logo="@android:color/transparent"
+            android:parentActivityName=".activity.RestaurantListActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jasoftsolutions.mikhuna.activity.RestaurantListActivity" />
+
         </activity>
 
         <receiver
@@ -96,7 +103,8 @@
         <service android:name=".service.RecommendRestaurantService"
             android:exported="false"/>
 
-        <activity android:name=".activity.PreferencesActivity" >
+        <activity android:name=".activity.PreferencesActivity"
+            android:label="@string/title_activity_preferences">
         </activity>
         <activity
             android:name=".activity.ProblemReportActivity"
@@ -109,7 +117,14 @@
         <activity
             android:name=".activity.RestaurantDishCategoryActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/title_activity_restaurant_carte" >
+            android:label="@string/title_activity_restaurant_carte"
+            android:logo="@android:color/transparent"
+            android:parentActivityName=".activity.RestaurantDetailActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jasoftsolutions.mikhuna.activity.RestaurantDetailActivity" />
+
         </activity>
         <activity
             android:name=".activity.RestaurantCarteActivity"
@@ -119,13 +134,22 @@
         <activity
             android:name=".activity.MapActivity"
             android:label="@string/title_activity_map"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:logo="@android:color/transparent"
+            android:parentActivityName=".activity.RestaurantListActivity">
+
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.jasoftsolutions.mikhuna.activity.RestaurantListActivity" />
+
         </activity>
         <activity
             android:name=".activity.FilterMapActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_filter_map"
-            android:parentActivityName=".activity.MapActivity" >
+            android:logo="@android:color/transparent"
+            android:parentActivityName=".activity.MapActivity"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jasoftsolutions.mikhuna.activity.MapActivity" />
