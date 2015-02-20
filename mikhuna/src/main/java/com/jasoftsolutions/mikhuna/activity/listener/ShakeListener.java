@@ -14,14 +14,15 @@ public class ShakeListener implements SensorListener {
 
     public String TAG = ShakeListener.class.getSimpleName();
 
-    private static final int FORCE_THRESHOLD = 800; // Minima velocidad del movimiento para ser considerado un Shake
+    private static final int FORCE_THRESHOLD = 1000; // Minima velocidad del movimiento para ser considerado un Shake //800
     private static final int TIME_THRESHOLD = 100;
     private static final int SHAKE_TIMEOUT = 400;  // Tiempo máximo entre movimientos (sirve para reiniciar SHAKE_COUNT)
     private static final long SHAKE_OFFSET = 2000; // Tiempo mínimo entre notifaciones al listener.
-    private static final int SHAKE_COUNT = 4; // Minimo de Shakes para notificar al listener
+    private static final int SHAKE_COUNT = 5; // Minimo de Shakes para notificar al listener //4
 
     private SensorManager mSensorMgr;
     private float mLastX = -1.0f;
+    private float mLastY = -1.0f;
     private long mLastTime;
     private OnShakeListener mShakeListener;
     private Context mContext;
@@ -74,7 +75,7 @@ public class ShakeListener implements SensorListener {
 
         if ((now - mLastTime) > TIME_THRESHOLD) {
             long diff = now - mLastTime;
-            float speed = Math.abs(values[SensorManager.DATA_X] - mLastX) / diff * 10000; // Solo interesa la velocidad en eje X
+            float speed = Math.abs(values[SensorManager.DATA_Y] - mLastY) / diff * 10000; // Solo interesa la velocidad en eje X
             if (speed > FORCE_THRESHOLD) {
                 long duration = now - mLastShake;
                 Log.d(TAG, "Duration: " + duration);
