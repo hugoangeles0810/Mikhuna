@@ -68,7 +68,7 @@ public class RestaurantPromotionsUpdaterTask extends Thread {
             result = updateRestaurantPromotions();
         } catch (Exception e) {
             result = false;
-            ExceptionUtil.handleException(e);
+            ExceptionUtil.ignoreException(e);
         }
 
         actionListenerManager.raiseActionPerformed(this, ACTION_COMPLETE);
