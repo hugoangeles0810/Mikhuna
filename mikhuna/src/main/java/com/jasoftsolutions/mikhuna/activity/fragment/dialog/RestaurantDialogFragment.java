@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.jasoftsolutions.mikhuna.R;
 import com.jasoftsolutions.mikhuna.activity.MapActivity;
+import com.jasoftsolutions.mikhuna.activity.RestaurantListActivity;
 import com.jasoftsolutions.mikhuna.activity.Tags;
 import com.jasoftsolutions.mikhuna.activity.fragment.RestaurantPreviewFragment;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
@@ -113,5 +114,13 @@ public class RestaurantDialogFragment extends DialogFragment implements
     @Override
     public void onLoaderReset(Loader<Restaurant> loader) {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (getActivity() instanceof RestaurantListActivity){
+            ((RestaurantListActivity)getActivity()).setmShakeEnabled(true);
+        }
+        super.onDestroyView();
     }
 }

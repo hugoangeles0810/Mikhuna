@@ -181,6 +181,7 @@ public class RestaurantListActivity extends BaseActivity
 
     @Override
     protected void onResume() {
+        super.onResume();
         try {
             mShakeListener.resume();
             if (mRecommendedReceiver == null)
@@ -190,12 +191,13 @@ public class RestaurantListActivity extends BaseActivity
         }catch (UnsupportedOperationException e){
             ExceptionUtil.ignoreException(e);
         }
-        super.onResume();
+        mShakeEnabled = true;
     }
 
     @Override
     protected void onPause() {
         if (mRecommendedReceiver != null ) unregisterReceiver(mRecommendedReceiver);
+        mShakeEnabled = false;
         mShakeListener.pause();
         super.onPause();
     }

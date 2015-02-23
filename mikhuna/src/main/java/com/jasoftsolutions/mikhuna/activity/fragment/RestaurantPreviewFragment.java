@@ -113,7 +113,6 @@ public class RestaurantPreviewFragment extends Fragment {
 
 
                         if (getActivity() instanceof RestaurantListActivity){
-                            ((RestaurantListActivity)getActivity()).setmShakeEnabled(true);
                             new AuditHelper(context).registerShowRecommended(serverId);
                             AnalyticsUtil.registerEvent(context, AnalyticsConst.Category.LIST_RESTAURANT,
                                     AnalyticsConst.Action.VIEW_RECOMMENDED, serverId.toString());
@@ -135,9 +134,6 @@ public class RestaurantPreviewFragment extends Fragment {
                 buttonCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (getActivity() instanceof RestaurantListActivity){
-                            ((RestaurantListActivity)getActivity()).setmShakeEnabled(true);
-                        }
                         ((DialogFragment) getParentFragment()).dismiss();
                     }
                 });

@@ -335,7 +335,7 @@ public class RestaurantManager {
             try{
                 db.insertOrThrow(Schema.RestaurantService._tableName, null, val);
             }catch (Exception e){
-                ExceptionUtil.handleException(e);
+                ExceptionUtil.ignoreException(e);
             }
             MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
         }
@@ -781,7 +781,7 @@ public class RestaurantManager {
                 try {
                     r.setId(db.insertOrThrow(Schema.Restaurant._tableName, null, val));
                 } catch (SQLiteConstraintException e) {
-                    ExceptionUtil.handleException(e);
+                    ExceptionUtil.ignoreException(e);
                     val.remove(Schema.Restaurant.serverId);
                     db.update(Schema.Restaurant._tableName, val, Schema.Restaurant.serverId + "=?",
                             new String[]{r.getServerId().toString()});
