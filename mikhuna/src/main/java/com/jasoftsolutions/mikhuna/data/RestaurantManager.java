@@ -18,6 +18,7 @@ import com.jasoftsolutions.mikhuna.model.RestaurantDishPresentation;
 import com.jasoftsolutions.mikhuna.model.RestaurantPromotion;
 import com.jasoftsolutions.mikhuna.model.RestaurantTimetable;
 import com.jasoftsolutions.mikhuna.model.Service;
+import com.jasoftsolutions.mikhuna.model.TempLikeDish;
 import com.jasoftsolutions.mikhuna.util.ArrayUtil;
 import com.jasoftsolutions.mikhuna.util.DateUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
@@ -58,7 +59,8 @@ public class RestaurantManager {
                 Schema.Restaurant.weight, Schema.Restaurant.serviceTypeId, Schema.Restaurant.ubigeoServerId,
                 Schema.Restaurant.timetableDescription,
                 Schema.Restaurant.numberProductCategory,
-                Schema.Restaurant.categoryLastUpdate
+                Schema.Restaurant.categoryLastUpdate,
+                Schema.Restaurant.likeDishLastUpdate
         }, selection, selectionArgs, groupBy, having, orderBy);
     }
 
@@ -88,6 +90,7 @@ public class RestaurantManager {
         r.setTimetableDescription(cursor.getString(21));
         r.setNumberProductCategory(cursor.getInt(22));
         r.setCategoryLastUpdate(cursor.getLong(23));
+        r.setLikeDishLastUpdate(cursor.getLong(24));
 
         return r;
     }
@@ -944,6 +947,17 @@ public class RestaurantManager {
         }
     }
 
+    public void updateDishLikeLastUpdate(Long restaurantServerId, Long lastUpdate){
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getWritableDatabase();
+        ContentValues val = new ContentValues();
+        val.put(Schema.Restaurant.likeDishLastUpdate, lastUpdate);
+        try {
+            db.update(Schema.Restaurant._tableName, val, Schema.Restaurant.serverId+"=?",
+                    new String[]{restaurantServerId.toString()});
+        }catch(Exception e){
+        }
+    }
+
     private void saveRestaurantDishPresentations(List<RestaurantDishPresentation> dishPresentations, SQLiteDatabase db) {
         for (RestaurantDishPresentation dp : dishPresentations){
             ContentValues val = new ContentValues();
@@ -1392,4 +1406,112 @@ public class RestaurantManager {
 //        db.update(Schema.RestaurantDish._tableName, val, Schema.RestaurantDish.serverId+"=?",
 //                new String[] {dishServerId.toString()});
 //    }
+
+    public void updateLikeStateOfDish(RestaurantDish dish){
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(Schema.RestaurantDish.likeCount, dish.getLikeCount());
+        cv.put(Schema.RestaurantDish.liked, dish.getLiked());
+
+        try{
+            db.update(Schema.RestaurantDish._tableName,
+                    cv,
+                    Schema.RestaurantDish.serverId + "=?",
+                    new String[]{dish.getServerId().toString()});
+        }catch (Exception e){
+            ExceptionUtil.ignoreException(e);
+        }
+
+        db.close();
+    }
+
+    public void saveTempLikeDish(Long dishId, Integer likeState){
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(Schema.TempLikeDish.dishId, dishId);
+        cv.put(Schema.TempLikeDish.likeState, likeState);
+
+        try{
+            db.insertOrThrow(Schema.TempLikeDish._tableName, null, cv);
+        }catch (Exception e){
+            ExceptionUtil.ignoreException(e);
+            cv.remove(Schema.TempLikeDish.dishId);
+            db.update(Schema.TempLikeDish._tableName, cv,
+                    Schema.TempLikeDish.dishId + "=?",
+                    new String[]{dishId.toString()});
+        }
+
+        db.close();
+    }
+
+    public List<TempLikeDish> getAllTempLikeDish(){
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getReadableDatabase();
+        Cursor cursor = db.query(Schema.TempLikeDish._tableName, new String[]{
+                        Schema.TempLikeDish.dishId, Schema.TempLikeDish.likeState
+                },
+                null, null, null, null, null);
+
+        ArrayList<TempLikeDish> tempLikeDishs = new ArrayList();
+
+        if (cursor.moveToFirst()){
+            do{
+                TempLikeDish temp = new TempLikeDish();
+                temp.setDishId(cursor.getLong(0));
+                temp.setLikeState(cursor.getInt(1));
+                tempLikeDishs.add(temp);
+            }while (cursor.moveToNext());
+        }
+
+        db.close();
+
+        return  tempLikeDishs;
+    }
+
+    public void deleteTempLikeDishOfList(List<TempLikeDish> tempLikeDishList){
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getWritableDatabase();
+
+        for (TempLikeDish tempLikeDish: tempLikeDishList){
+            try{
+                db.delete(Schema.TempLikeDish._tableName,
+                        Schema.TempLikeDish.dishId + "=" + tempLikeDish.getDishId(),
+                        null);
+            }catch (Exception e){
+                ExceptionUtil.ignoreException(e);
+            }
+
+        }
+        db.close();
+    }
+
+    public void deleteAllTempLikeDish(){
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getWritableDatabase();
+
+        try{
+            db.delete(Schema.TempLikeDish._tableName, null , null);
+        }catch (Exception e){
+
+        }
+
+        db.close();
+    }
+
+    public void updateCounterOfDishList(List<RestaurantDish> dishes){
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getWritableDatabase();
+
+        for (RestaurantDish dish : dishes){
+            ContentValues val = new ContentValues();
+            val.put(Schema.RestaurantDish.likeCount, dish.getLikeCount());
+            val.put(Schema.RestaurantDish.liked, dish.getLikedInt());
+
+            try {
+                db.update(Schema.RestaurantDish._tableName, val,
+                        Schema.RestaurantDish.serverId + "=" + dish.getServerId(), null);
+            }catch (Exception e){
+                ExceptionUtil.ignoreException(e);
+            }
+        }
+
+        db.close();
+    }
 }

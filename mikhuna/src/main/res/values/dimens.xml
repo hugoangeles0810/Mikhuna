@@ -36,4 +36,6 @@
 
     <dimen name="dish_description_size">15dp</dimen>
 
+    <dimen name="like_button_size">30dp</dimen>
+
 </resources>

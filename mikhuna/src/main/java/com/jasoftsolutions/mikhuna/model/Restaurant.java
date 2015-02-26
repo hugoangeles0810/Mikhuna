@@ -81,6 +81,8 @@ public class Restaurant extends AbstractModel implements
 
     private Long categoryLastUpdate;
 
+    private Long likeDishLastUpdate;
+
     @SerializedName("__local_restaurantCategoryAssigns")    // reemplazo de "exclude"
     private List<RestaurantCategory> restaurantCategories;
 
@@ -347,6 +349,14 @@ public class Restaurant extends AbstractModel implements
     }
     public void setRestaurantDishCategories(List<RestaurantDishCategory> restaurantDishCategories) {
         this.restaurantDishCategories = restaurantDishCategories;
+    }
+
+    public Long getLikeDishLastUpdate() {
+        return likeDishLastUpdate;
+    }
+
+    public void setLikeDishLastUpdate(Long likeDishLastUpdate) {
+        this.likeDishLastUpdate = likeDishLastUpdate;
     }
 
     @Override

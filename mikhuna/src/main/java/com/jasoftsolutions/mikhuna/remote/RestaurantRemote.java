@@ -1,26 +1,24 @@
 package com.jasoftsolutions.mikhuna.remote;
 
-import android.content.Intent;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.jasoftsolutions.mikhuna.BuildConfig;
-import com.jasoftsolutions.mikhuna.activity.RestaurantListActivity;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.model.RestaurantDish;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishPresentation;
 import com.jasoftsolutions.mikhuna.model.RestaurantUri;
+import com.jasoftsolutions.mikhuna.model.TempLikeDish;
 import com.jasoftsolutions.mikhuna.remote.json.DishCategoriesResponseData;
 import com.jasoftsolutions.mikhuna.remote.json.RestaurantListJsonResponse;
 import com.jasoftsolutions.mikhuna.remote.json.RestaurantPromotionListJsonResponse;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,11 +115,16 @@ public class RestaurantRemote {
         return result;
     }
 
-    public DishCategoriesResponseData getRestaurantDishCategoryList(Long restaurantServerId, Long lastUpdate){
+    public DishCategoriesResponseData getRestaurantDishCategoryList(Long restaurantServerId, Long lastUpdate, Long lastUpdateP, String user){
         JsonElement result;
         RemoteHandler sh = RemoteHandler.getInstance();
 
-        result = sh.getResourceFromUrl("/products/id/" + restaurantServerId + "/lupd/"+lastUpdate, JsonElement.class);
+        result = sh.getResourceFromUrl("/products/id/" + restaurantServerId +
+                "/lupd/"+ lastUpdate +
+                "/lupdp/" + lastUpdateP +
+                "/user/" + user+
+                "/v/" + BuildConfig.VERSION_CODE
+                , JsonElement.class);
 
         return getDishCategoryResponseData(restaurantServerId, result);
     }
@@ -132,6 +135,9 @@ public class RestaurantRemote {
         responseData.setLastUpdate(gson.fromJson(result.getAsJsonObject().get("lastUpdate"), Long.class));
         responseData.setCount(gson.fromJson(result.getAsJsonObject().get("count"), Integer.class));
         responseData.setCategories(getRestaurantDishCategoryList(restaurantServerId, result.getAsJsonObject().get("results")));
+        responseData.setCountLikeProduct(gson.fromJson(result.getAsJsonObject().get("countLikeProduct"), Integer.class));
+        ArrayList<RestaurantDish> dishesLike = gson.fromJson(result.getAsJsonObject().get("resultsLikeProduct"), new TypeToken<ArrayList<RestaurantDish>>(){}.getType());
+        responseData.setResultsLikeProduct(dishesLike);
         return responseData;
     }
 
@@ -164,6 +170,32 @@ public class RestaurantRemote {
         }
 
         return dishCategories;
+    }
+
+    public boolean sendLikeDish(List<TempLikeDish> dishList, String mail){
+        RemoteHandler sh = RemoteHandler.getInstance();
+        JsonElement response = null;
+        Gson gson = new Gson();
+        JsonObject json = new JsonObject();
+        json.addProperty("u", mail);
+        json.add("data", gson.toJsonTree(dishList));
+        Log.i("Remote", json.toString());
+
+        List<NameValuePair> params = new ArrayList();
+        NameValuePair likes = new BasicNameValuePair("likes", json.toString());
+        params.add(likes);
+
+        try{
+            response = sh.postResourceFromUrl("/saveLike/", params, JsonElement.class);
+            if (response != null &&
+                    gson.fromJson(response.getAsJsonObject().get("success"), Boolean.class)){
+                return true;
+            }
+        }catch (Exception e){
+        }
+
+        return true;
+
     }
 
 //    public List<RestaurantDishCategory> getRestaurantDishCategoryList(Long restaurantServerId, Long lastUpdate){

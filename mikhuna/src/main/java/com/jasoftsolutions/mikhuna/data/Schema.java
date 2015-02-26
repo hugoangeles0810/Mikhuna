@@ -39,7 +39,8 @@ public final class Schema {
             timetableDescription = "timetable_description",
             numberProductCategory = "number_product_category",
             ubigeoServerId = "ubigeo_server_id",
-            categoryLastUpdate = "category_last_update"
+            categoryLastUpdate = "category_last_update",
+            likeDishLastUpdate = "like_dish_last_update"
         ;
     }
 
@@ -240,5 +241,15 @@ public final class Schema {
             fullUrl = "full_url",
             restaurantServerId = "restaurant_server_id"
         ;
+    }
+
+    // Tabla de data temporal de likes en los platos
+    public static final class TempLikeDish{
+        public static final String
+            _tableName = "temp_like_dish",
+
+            id = BaseColumns._ID,
+            dishId = "dish_id",
+            likeState = "like_state";
     }
 }

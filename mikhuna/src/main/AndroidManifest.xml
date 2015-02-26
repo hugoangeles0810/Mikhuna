@@ -103,6 +103,9 @@
         <service android:name=".service.RecommendRestaurantService"
             android:exported="false"/>
 
+        <service android:name=".service.ServiceSendLikeDish"
+            android:exported="false"/>
+
         <activity android:name=".activity.PreferencesActivity"
             android:label="@string/title_activity_preferences">
         </activity>

@@ -17,6 +17,7 @@ import com.jasoftsolutions.mikhuna.activity.fragment.RestaurantDishCategoryFragm
 import com.jasoftsolutions.mikhuna.activity.fragment.dialog.Dialogs;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
+import com.jasoftsolutions.mikhuna.service.ServiceSendLikeDish;
 import com.jasoftsolutions.mikhuna.store.RestaurantStore;
 import com.jasoftsolutions.mikhuna.store.StoreListener;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
@@ -73,7 +74,7 @@ public class RestaurantDishCategoryActivity extends BaseActivity implements
         UiUtil.removeAllFragmentsAndAddLoadingFragment(this);
         RestaurantStore rs = RestaurantStore.getInstance();
         rs.addListener(this);
-        rs.requestRestaurantDishCategoriesOf(restaurantServerId, this);
+        rs.requestRestaurantDishCategoriesOf(restaurantServerId, this, this);
     }
 
     private void showDishCategories(ArrayList<RestaurantDishCategory> dc, Boolean withRetry) {
@@ -110,9 +111,12 @@ public class RestaurantDishCategoryActivity extends BaseActivity implements
 
     @Override
     protected void onStop() {
-        super.onStop();
+        Log.e(TAG, "OnStop ... ");
+        Intent i = ServiceSendLikeDish.getIntentOfActionSendLike(this);
+        startService(i);
         RestaurantStore rs = RestaurantStore.getInstance();
         rs.removeListener(this);
+        super.onStop();
     }
 
     @Override

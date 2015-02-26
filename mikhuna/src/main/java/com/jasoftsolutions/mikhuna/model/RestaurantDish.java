@@ -1,5 +1,7 @@
 package com.jasoftsolutions.mikhuna.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -14,8 +16,12 @@ public class RestaurantDish extends AbstractModel {
     private Integer position;
     private Double price;
     private Boolean liked;
+    @SerializedName("cl")
     private Long likeCount;
     private List<RestaurantDishPresentation> dishPresentations;
+
+    @SerializedName("l")
+    private Integer likedInt;
 
     private String priceText;
 
@@ -119,5 +125,13 @@ public class RestaurantDish extends AbstractModel {
     }
     public void setPriceText(String priceText) {
         this.priceText = priceText;
+    }
+
+    public Integer getLikedInt() {
+        return likedInt;
+    }
+
+    public void setLikedInt(Integer likedInt) {
+        this.likedInt = likedInt;
     }
 }

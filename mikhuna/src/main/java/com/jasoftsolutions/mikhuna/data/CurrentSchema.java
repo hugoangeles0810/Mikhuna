@@ -156,9 +156,20 @@ public class CurrentSchema {
                     Schema.Restaurant.numberProductCategory +  " integer ",
             "alter table "+ Schema.Restaurant._tableName + " add " +
                     Schema.Restaurant.categoryLastUpdate +  " integer default 0",
-            //Version 7
+            // Version 7
             "alter table"+ Schema.RestaurantDishCategory._tableName + " add " +
-                    Schema.RestaurantDishCategory.description + " text"
+                    Schema.RestaurantDishCategory.description + " text",
+            // Version 8
+            "alter table "+ Schema.Ubigeo._tableName + " add " +
+                    Schema.Ubigeo.latitude + " double ",
+            "alter table "+ Schema.Ubigeo._tableName + " add " +
+                    Schema.Ubigeo.longitude + " double ",
+            // Version 9
+            "create table "+ Schema.TempLikeDish._tableName+" (" +
+                    Schema.TempLikeDish.id + " integer primary key,"+
+                    Schema.TempLikeDish.dishId + " integer unique,"+
+                    Schema.TempLikeDish.likeState + " integer"+
+                    ")"
     };
 
 }

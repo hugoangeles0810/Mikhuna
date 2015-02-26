@@ -1,8 +1,10 @@
 package com.jasoftsolutions.mikhuna.store;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.jasoftsolutions.mikhuna.MikhunaApplication;
 import com.jasoftsolutions.mikhuna.data.RestaurantManager;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.model.RestaurantDish;
@@ -10,6 +12,7 @@ import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
 import com.jasoftsolutions.mikhuna.remote.Const;
 import com.jasoftsolutions.mikhuna.remote.RestaurantRemote;
 import com.jasoftsolutions.mikhuna.remote.json.DishCategoriesResponseData;
+import com.jasoftsolutions.mikhuna.util.AccountUtil;
 import com.jasoftsolutions.mikhuna.util.ContextUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 import com.jasoftsolutions.mikhuna.util.ThreadUtil;
@@ -257,7 +260,7 @@ public class RestaurantStore extends AbstractStore {
         localRequest.start();
     }
 
-    public void requestRestaurantDishCategoriesOf(final Long restaurantServerId , final StoreListener listener) {
+    public void requestRestaurantDishCategoriesOf(final Long restaurantServerId, final Context context, final StoreListener listener) {
         Thread request = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -272,9 +275,13 @@ public class RestaurantStore extends AbstractStore {
                 final Restaurant r = rm.getRestaurantByServerId(restaurantServerId);
 
                 try {
-                    responseData = rr.getRestaurantDishCategoryList(restaurantServerId, r.getCategoryLastUpdate());
+                    responseData = rr.getRestaurantDishCategoryList(restaurantServerId, r.getCategoryLastUpdate(),
+                            r.getLikeDishLastUpdate(),
+                            AccountUtil.getDefaultGoogleAccount(context));
                 }catch (Exception e){
-                    ExceptionUtil.handleException(e);
+                    ExceptionUtil.ignoreException(e);
+                    Log.e(TAG, e.getLocalizedMessage() + " -- " + e.getMessage());
+                    ExceptionUtil.ignoreException(e);
                     status.put("failed", true);
                     responseData = null;
                 }
@@ -282,6 +289,11 @@ public class RestaurantStore extends AbstractStore {
                 if (!status.get("failed") && responseData.getCategories()!=null){
                     rm.saveRestaurantDishCategories(responseData.getCategories());
                     rm.updateRestaurantCategoryLastUpdate(restaurantServerId, responseData.getLastUpdate());
+                }
+
+                if (!status.get("failed") && responseData.getCountLikeProduct()>0){
+                    rm.updateCounterOfDishList(responseData.getResultsLikeProduct());
+                    rm.updateDishLikeLastUpdate(restaurantServerId, responseData.getLastUpdate());
                 }
 
                 rdc = rm.getRestaurantDishCategoriesOf(restaurantServerId);

@@ -6,16 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
 import android.widget.CheckedTextView;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jasoftsolutions.mikhuna.R;
+import com.jasoftsolutions.mikhuna.activity.fragment.RestaurantPreviewFragment;
 import com.jasoftsolutions.mikhuna.data.RestaurantManager;
 import com.jasoftsolutions.mikhuna.model.RestaurantDish;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishPresentation;
+import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +35,13 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
     private ArrayList<RestaurantDishCategory> dishCategories;
     private Context context;
     private LayoutInflater inflater;
+    private RestaurantManager restaurantManager;
 
     public DishCategoryAdapter(Context context, ArrayList<RestaurantDishCategory> dishCategories) {
         inflater = LayoutInflater.from(context);
         this.context = context;
         this.dishCategories = dishCategories;
+        restaurantManager = new RestaurantManager();
         getDishByCategory(dishCategories);
 
     }
@@ -129,8 +135,8 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         View view = convertView;
-        ViewHolderChild holder;
-        RestaurantDish dish = (RestaurantDish) getChild(groupPosition, childPosition);
+        final ViewHolderChild holder;
+        final RestaurantDish dish = (RestaurantDish) getChild(groupPosition, childPosition);
         if (view == null){
             view = inflater.inflate(R.layout.fragment_item_dish, null);
 
@@ -139,14 +145,38 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
             holder.dishPrice = (TextView)view.findViewById(R.id.tv_dish_price);
             holder.dishDescription = (TextView)view.findViewById(R.id.tv_dish_description);
             holder.listPresentations = (LinearLayout)view.findViewById(R.id.list_presentations);
+            holder.likeButton = (CheckBox) view.findViewById(R.id.button_like);
+            holder.countLike = (TextView) view.findViewById(R.id.counter_like);
 
             view.setTag(holder);
         }else{
             holder = (ViewHolderChild)view.getTag();
         }
 
-        holder.dishName.setText(dish.getName());
+        holder.likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    if (holder.likeButton.isChecked()) {
+                        dish.setLiked(true);
+                        dish.setLikeCount(dish.getLikeCount() + 1);
+                    } else {
+                        dish.setLiked(false);
+                        dish.setLikeCount(dish.getLikeCount()>0?dish.getLikeCount() - 1:0);
+                    }
+                    holder.countLike.setText(dish.getLikeCount().toString());
+                    restaurantManager.updateLikeStateOfDish(dish);
+                    int likeState = dish.getLiked()?1:0;
+                    restaurantManager.saveTempLikeDish(dish.getServerId(), likeState);
+                } catch (ClassCastException e) {
+                    ExceptionUtil.ignoreException(e);
+                }
+            }
+        });
 
+        holder.dishName.setText(dish.getName());
+        holder.countLike.setText(dish.getLikeCount().toString());
+        holder.likeButton.setChecked(dish.getLiked());
         if (dish.getPrice()!=null && dish.getPrice()>0){
             holder.dishPrice.setVisibility(View.VISIBLE);
             holder.dishPrice.setText(String.format("S/. %.1f", dish.getPrice()));
@@ -195,6 +225,8 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
         TextView dishName;
         TextView dishPrice;
         TextView dishDescription;
+        CheckBox likeButton;
+        TextView countLike;
         LinearLayout listPresentations;
     }
 

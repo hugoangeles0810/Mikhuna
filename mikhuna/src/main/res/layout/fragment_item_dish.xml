@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
@@ -17,7 +18,8 @@
             android:layout_weight="2"
             style="@style/restaurant_list_item_title"
             android:textAppearance="?android:attr/textAppearance"
-            android:textColor="@color/dish_name"/>
+            android:textColor="@color/dish_name"
+            android:text="Ceviche"/>
 
         <TextView
             android:id="@+id/tv_dish_price"
@@ -26,7 +28,9 @@
             android:layout_weight="1"
             android:textColor="@color/dish_price"
             android:textAlignment="textEnd"
-            android:gravity="end" />
+            android:gravity="end"
+            android:text="S/.15.0"/>
+
 
     </LinearLayout>
 
@@ -35,7 +39,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black_overlay"
-        android:textSize="@dimen/dish_description_size"/>
+        android:textSize="@dimen/dish_description_size"
+        android:text="Con filite de caballa"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:padding="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentRight="true"
+            >
+
+            <CheckBox
+                android:id="@+id/button_like"
+                android:padding="5dp"
+                android:layout_margin="0dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:button="@drawable/like_button_shape_container"
+                android:gravity="center_vertical|center_horizontal"/>
+
+            <TextView
+                android:id="@+id/counter_like"
+                android:padding="5dp"
+                android:layout_margin="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/like_button_size"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="999+"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/list_presentations"

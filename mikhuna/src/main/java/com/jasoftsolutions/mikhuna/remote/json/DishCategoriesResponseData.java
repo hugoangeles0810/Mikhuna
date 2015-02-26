@@ -1,5 +1,6 @@
 package com.jasoftsolutions.mikhuna.remote.json;
 
+import com.jasoftsolutions.mikhuna.model.RestaurantDish;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ public class DishCategoriesResponseData {
     private Long lastUpdate;
     private Integer count;
     private ArrayList<RestaurantDishCategory> categories;
+    private Integer countLikeProduct;
+    private ArrayList<RestaurantDish> resultsLikeProduct;
 
     public DishCategoriesResponseData() {
     }
@@ -43,5 +46,21 @@ public class DishCategoriesResponseData {
 
     public void setCategories(ArrayList<RestaurantDishCategory> categories) {
         this.categories = categories;
+    }
+
+    public Integer getCountLikeProduct() {
+        return countLikeProduct;
+    }
+
+    public void setCountLikeProduct(Integer countLikeProduct) {
+        this.countLikeProduct = countLikeProduct;
+    }
+
+    public ArrayList<RestaurantDish> getResultsLikeProduct() {
+        return resultsLikeProduct;
+    }
+
+    public void setResultsLikeProduct(ArrayList<RestaurantDish> resultsLikeProduct) {
+        this.resultsLikeProduct = resultsLikeProduct;
     }
 }

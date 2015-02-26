@@ -192,6 +192,16 @@ public class SchemaChanges {
                             Schema.Ubigeo.latitude + " double ",
                     "alter table "+ Schema.Ubigeo._tableName + " add " +
                             Schema.Ubigeo.longitude + " double ",
+            },
+            // Version 9
+            new String[]{
+                    "create table "+ Schema.TempLikeDish._tableName+" (" +
+                            Schema.TempLikeDish.id + " integer primary key,"+
+                            Schema.TempLikeDish.dishId + " integer unique,"+
+                            Schema.TempLikeDish.likeState + " integer"+
+                            ")",
+                    "alter table " + Schema.Restaurant._tableName + " add "+
+                            Schema.Restaurant.likeDishLastUpdate + " integer default 0",
             }
     };
 
@@ -233,6 +243,11 @@ public class SchemaChanges {
                             Schema.Ubigeo.latitude,
                     "alter table " + Schema.Ubigeo._tableName + " drop " +
                             Schema.Ubigeo.longitude
+            },
+            new String[]{ // De 9 a 8
+                    "drop table if exists "+ Schema.TempLikeDish._tableName,
+                    "alter table "+ Schema.Restaurant._tableName + " drop " +
+                            Schema.Restaurant.likeDishLastUpdate
             }
     };
 
