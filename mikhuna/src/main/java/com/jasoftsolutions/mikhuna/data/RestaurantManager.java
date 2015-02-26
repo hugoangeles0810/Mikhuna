@@ -1422,7 +1422,7 @@ public class RestaurantManager {
             ExceptionUtil.ignoreException(e);
         }
 
-        db.close();
+        MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
     }
 
     public void saveTempLikeDish(Long dishId, Integer likeState){
@@ -1442,7 +1442,7 @@ public class RestaurantManager {
                     new String[]{dishId.toString()});
         }
 
-        db.close();
+        MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
     }
 
     public List<TempLikeDish> getAllTempLikeDish(){
@@ -1463,7 +1463,8 @@ public class RestaurantManager {
             }while (cursor.moveToNext());
         }
 
-        db.close();
+        cursor.close();
+        MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
 
         return  tempLikeDishs;
     }
@@ -1481,7 +1482,7 @@ public class RestaurantManager {
             }
 
         }
-        db.close();
+        MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
     }
 
     public void deleteAllTempLikeDish(){
@@ -1493,7 +1494,7 @@ public class RestaurantManager {
 
         }
 
-        db.close();
+        MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
     }
 
     public void updateCounterOfDishList(List<RestaurantDish> dishes){
@@ -1512,6 +1513,6 @@ public class RestaurantManager {
             }
         }
 
-        db.close();
+        MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
     }
 }
