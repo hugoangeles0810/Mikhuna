@@ -98,6 +98,13 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".service.InternetBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
         <service android:name=".google.gcm.GCMIntentService" />
 
         <service android:name=".service.RecommendRestaurantService"

@@ -280,8 +280,6 @@ public class RestaurantStore extends AbstractStore {
                             AccountUtil.getDefaultGoogleAccount(context));
                 }catch (Exception e){
                     ExceptionUtil.ignoreException(e);
-                    Log.e(TAG, e.getLocalizedMessage() + " -- " + e.getMessage());
-                    ExceptionUtil.ignoreException(e);
                     status.put("failed", true);
                     responseData = null;
                 }
