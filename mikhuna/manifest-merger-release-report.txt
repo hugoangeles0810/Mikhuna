@@ -19,50 +19,54 @@ ADDED from AndroidManifest.xml:6:5
 		ADDED from AndroidManifest.xml:8:9
 	android:glEsVersion
 		ADDED from AndroidManifest.xml:7:9
-uses-permission#android.permission.ACCESS_NETWORK_STATE
+uses-permission#android.permission.VIBRATE
 ADDED from AndroidManifest.xml:10:5
 	android:name
 		ADDED from AndroidManifest.xml:10:22
-uses-permission#android.permission.INTERNET
+uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from AndroidManifest.xml:11:5
 	android:name
 		ADDED from AndroidManifest.xml:11:22
-uses-permission#android.permission.GET_ACCOUNTS
+uses-permission#android.permission.INTERNET
 ADDED from AndroidManifest.xml:12:5
 	android:name
 		ADDED from AndroidManifest.xml:12:22
-uses-permission#android.permission.WAKE_LOCK
+uses-permission#android.permission.GET_ACCOUNTS
 ADDED from AndroidManifest.xml:13:5
 	android:name
 		ADDED from AndroidManifest.xml:13:22
-uses-permission#com.google.android.c2dm.permission.RECEIVE
+uses-permission#android.permission.WAKE_LOCK
 ADDED from AndroidManifest.xml:14:5
 	android:name
 		ADDED from AndroidManifest.xml:14:22
-uses-permission#android.permission.ACCESS_COARSE_LOCATION
+uses-permission#com.google.android.c2dm.permission.RECEIVE
 ADDED from AndroidManifest.xml:15:5
 	android:name
 		ADDED from AndroidManifest.xml:15:22
-uses-permission#android.permission.ACCESS_FINE_LOCATION
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
 ADDED from AndroidManifest.xml:16:5
 	android:name
 		ADDED from AndroidManifest.xml:16:22
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from AndroidManifest.xml:17:5
+	android:name
+		ADDED from AndroidManifest.xml:17:22
 permission#com.jasoftsolutions.mikhuna.permission.C2D_MESSAGE
-ADDED from AndroidManifest.xml:18:5
+ADDED from AndroidManifest.xml:19:5
 	android:protectionLevel
+		ADDED from AndroidManifest.xml:21:9
+	android:name
 		ADDED from AndroidManifest.xml:20:9
-	android:name
-		ADDED from AndroidManifest.xml:19:9
 uses-permission#com.jasoftsolutions.mikhuna.permission.C2D_MESSAGE
-ADDED from AndroidManifest.xml:22:5
-	android:name
-		ADDED from AndroidManifest.xml:22:22
-uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
 ADDED from AndroidManifest.xml:23:5
 	android:name
 		ADDED from AndroidManifest.xml:23:22
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from AndroidManifest.xml:24:5
+	android:name
+		ADDED from AndroidManifest.xml:24:22
 application
-ADDED from AndroidManifest.xml:25:5
+ADDED from AndroidManifest.xml:26:5
 MERGED from com.android.support:support-v4:20.0.0:17:5
 MERGED from com.android.support:appcompat-v7:20.0.0:17:5
 MERGED from com.android.support:support-v4:20.0.0:17:5
@@ -74,167 +78,189 @@ MERGED from repo_bitbucket:facebook:unspecified:24:5
 MERGED from com.android.support:support-v4:20.0.0:17:5
 MERGED from repo_bitbucket:routable-android:unspecified:11:5
 	android:label
-		ADDED from AndroidManifest.xml:29:9
-	android:allowBackup
-		ADDED from AndroidManifest.xml:27:9
-	android:icon
-		ADDED from AndroidManifest.xml:28:9
-	android:theme
 		ADDED from AndroidManifest.xml:30:9
+	android:allowBackup
+		ADDED from AndroidManifest.xml:28:9
+	android:icon
+		ADDED from AndroidManifest.xml:29:9
+	android:theme
+		ADDED from AndroidManifest.xml:31:9
 	android:name
-		ADDED from AndroidManifest.xml:26:9
+		ADDED from AndroidManifest.xml:27:9
 uses-library#com.google.android.maps
-ADDED from AndroidManifest.xml:31:9
+ADDED from AndroidManifest.xml:32:9
 	android:name
-		ADDED from AndroidManifest.xml:31:23
+		ADDED from AndroidManifest.xml:32:23
 meta-data#com.google.android.maps.v2.API_KEY
-ADDED from AndroidManifest.xml:33:9
+ADDED from AndroidManifest.xml:34:9
 	android:name
-		ADDED from AndroidManifest.xml:34:13
-	android:value
 		ADDED from AndroidManifest.xml:35:13
-meta-data#com.google.android.gms.version
-ADDED from AndroidManifest.xml:36:9
-	android:name
-		ADDED from AndroidManifest.xml:37:13
 	android:value
+		ADDED from AndroidManifest.xml:36:13
+meta-data#com.google.android.gms.version
+ADDED from AndroidManifest.xml:37:9
+	android:name
 		ADDED from AndroidManifest.xml:38:13
+	android:value
+		ADDED from AndroidManifest.xml:39:13
 activity#com.jasoftsolutions.mikhuna.activity.MainActivity
-ADDED from AndroidManifest.xml:40:9
+ADDED from AndroidManifest.xml:41:9
 	android:configChanges
+		ADDED from AndroidManifest.xml:43:13
+	android:name
 		ADDED from AndroidManifest.xml:42:13
-	android:name
-		ADDED from AndroidManifest.xml:41:13
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:43:13
+ADDED from AndroidManifest.xml:44:13
 action#android.intent.action.MAIN
-ADDED from AndroidManifest.xml:44:17
+ADDED from AndroidManifest.xml:45:17
 	android:name
-		ADDED from AndroidManifest.xml:44:25
+		ADDED from AndroidManifest.xml:45:25
 category#android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:46:17
+ADDED from AndroidManifest.xml:47:17
 	android:name
-		ADDED from AndroidManifest.xml:46:27
+		ADDED from AndroidManifest.xml:47:27
 intent-filter#android.intent.action.VIEW+android.intent.category.BROWSABLE+android.intent.category.DEFAULT
-ADDED from AndroidManifest.xml:48:13
+ADDED from AndroidManifest.xml:49:13
 action#android.intent.action.VIEW
-ADDED from AndroidManifest.xml:49:17
+ADDED from AndroidManifest.xml:50:17
 	android:name
-		ADDED from AndroidManifest.xml:49:25
+		ADDED from AndroidManifest.xml:50:25
 category#android.intent.category.DEFAULT
-ADDED from AndroidManifest.xml:51:17
-	android:name
-		ADDED from AndroidManifest.xml:51:27
-category#android.intent.category.BROWSABLE
 ADDED from AndroidManifest.xml:52:17
 	android:name
 		ADDED from AndroidManifest.xml:52:27
+category#android.intent.category.BROWSABLE
+ADDED from AndroidManifest.xml:53:17
+	android:name
+		ADDED from AndroidManifest.xml:53:27
 data
-ADDED from AndroidManifest.xml:54:17
+ADDED from AndroidManifest.xml:55:17
 	android:host
-		ADDED from AndroidManifest.xml:55:21
-	android:scheme
 		ADDED from AndroidManifest.xml:56:21
+	android:scheme
+		ADDED from AndroidManifest.xml:57:21
 activity#com.jasoftsolutions.mikhuna.activity.RestaurantListActivity
-ADDED from AndroidManifest.xml:62:9
+ADDED from AndroidManifest.xml:63:9
 	android:label
-		ADDED from AndroidManifest.xml:65:13
-	android:configChanges
-		ADDED from AndroidManifest.xml:64:13
-	android:name
-		ADDED from AndroidManifest.xml:63:13
-	android:launchMode
 		ADDED from AndroidManifest.xml:66:13
-activity#com.jasoftsolutions.mikhuna.activity.RestaurantDetailActivity
-ADDED from AndroidManifest.xml:76:9
-	android:label
-		ADDED from AndroidManifest.xml:78:13
-	android:name
-		ADDED from AndroidManifest.xml:77:13
-receiver#com.jasoftsolutions.mikhuna.google.gcm.GCMBroadcastReceiver
-ADDED from AndroidManifest.xml:81:9
-	android:permission
-		ADDED from AndroidManifest.xml:83:13
-	android:name
-		ADDED from AndroidManifest.xml:82:13
-intent-filter#com.google.android.c2dm.intent.GCM_RECEIVED_ACTION+com.google.android.c2dm.intent.RECEIVE+com.google.android.c2dm.intent.REGISTRATION+com.jasoftsolutions.mikhuna
-ADDED from AndroidManifest.xml:84:13
-action#com.google.android.c2dm.intent.RECEIVE
-ADDED from AndroidManifest.xml:85:17
-	android:name
-		ADDED from AndroidManifest.xml:85:25
-action#com.google.android.c2dm.intent.REGISTRATION
-ADDED from AndroidManifest.xml:86:17
-	android:name
-		ADDED from AndroidManifest.xml:86:25
-action#com.google.android.c2dm.intent.GCM_RECEIVED_ACTION
-ADDED from AndroidManifest.xml:87:17
-	android:name
-		ADDED from AndroidManifest.xml:87:25
-category#com.jasoftsolutions.mikhuna
-ADDED from AndroidManifest.xml:89:17
-	android:name
-		ADDED from AndroidManifest.xml:89:27
-service#com.jasoftsolutions.mikhuna.google.gcm.GCMIntentService
-ADDED from AndroidManifest.xml:93:9
-	android:name
-		ADDED from AndroidManifest.xml:93:18
-activity#com.jasoftsolutions.mikhuna.activity.PreferencesActivity
-ADDED from AndroidManifest.xml:95:9
-	android:name
-		ADDED from AndroidManifest.xml:95:19
-activity#com.jasoftsolutions.mikhuna.activity.ProblemReportActivity
-ADDED from AndroidManifest.xml:97:9
-	android:label
-		ADDED from AndroidManifest.xml:99:13
-	android:name
-		ADDED from AndroidManifest.xml:98:13
-activity#com.jasoftsolutions.mikhuna.activity.FirstTimeActivity
-ADDED from AndroidManifest.xml:101:9
-	android:label
-		ADDED from AndroidManifest.xml:103:13
-	android:name
-		ADDED from AndroidManifest.xml:102:13
-activity#com.jasoftsolutions.mikhuna.activity.RestaurantDishCategoryActivity
-ADDED from AndroidManifest.xml:105:9
-	android:label
-		ADDED from AndroidManifest.xml:108:13
 	android:configChanges
+		ADDED from AndroidManifest.xml:65:13
+	android:name
+		ADDED from AndroidManifest.xml:64:13
+	android:launchMode
+		ADDED from AndroidManifest.xml:67:13
+activity#com.jasoftsolutions.mikhuna.activity.RestaurantDetailActivity
+ADDED from AndroidManifest.xml:77:9
+	android:label
+		ADDED from AndroidManifest.xml:79:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:81:13
+	android:name
+		ADDED from AndroidManifest.xml:78:13
+	android:logo
+		ADDED from AndroidManifest.xml:80:13
+meta-data#android.support.PARENT_ACTIVITY
+ADDED from AndroidManifest.xml:83:13
+	android:name
+		ADDED from AndroidManifest.xml:84:17
+	android:value
+		ADDED from AndroidManifest.xml:85:17
+receiver#com.jasoftsolutions.mikhuna.google.gcm.GCMBroadcastReceiver
+ADDED from AndroidManifest.xml:89:9
+	android:permission
+		ADDED from AndroidManifest.xml:91:13
+	android:name
+		ADDED from AndroidManifest.xml:90:13
+intent-filter#com.google.android.c2dm.intent.GCM_RECEIVED_ACTION+com.google.android.c2dm.intent.RECEIVE+com.google.android.c2dm.intent.REGISTRATION+com.jasoftsolutions.mikhuna
+ADDED from AndroidManifest.xml:92:13
+action#com.google.android.c2dm.intent.RECEIVE
+ADDED from AndroidManifest.xml:93:17
+	android:name
+		ADDED from AndroidManifest.xml:93:25
+action#com.google.android.c2dm.intent.REGISTRATION
+ADDED from AndroidManifest.xml:94:17
+	android:name
+		ADDED from AndroidManifest.xml:94:25
+action#com.google.android.c2dm.intent.GCM_RECEIVED_ACTION
+ADDED from AndroidManifest.xml:95:17
+	android:name
+		ADDED from AndroidManifest.xml:95:25
+category#com.jasoftsolutions.mikhuna
+ADDED from AndroidManifest.xml:97:17
+	android:name
+		ADDED from AndroidManifest.xml:97:27
+service#com.jasoftsolutions.mikhuna.google.gcm.GCMIntentService
+ADDED from AndroidManifest.xml:101:9
+	android:name
+		ADDED from AndroidManifest.xml:101:18
+service#com.jasoftsolutions.mikhuna.service.RecommendRestaurantService
+ADDED from AndroidManifest.xml:103:9
+	android:exported
+		ADDED from AndroidManifest.xml:104:13
+	android:name
+		ADDED from AndroidManifest.xml:103:18
+activity#com.jasoftsolutions.mikhuna.activity.PreferencesActivity
+ADDED from AndroidManifest.xml:106:9
+	android:label
 		ADDED from AndroidManifest.xml:107:13
 	android:name
-		ADDED from AndroidManifest.xml:106:13
-activity#com.jasoftsolutions.mikhuna.activity.RestaurantCarteActivity
-ADDED from AndroidManifest.xml:110:9
+		ADDED from AndroidManifest.xml:106:19
+activity#com.jasoftsolutions.mikhuna.activity.ProblemReportActivity
+ADDED from AndroidManifest.xml:109:9
 	android:label
-		ADDED from AndroidManifest.xml:113:13
-	android:configChanges
-		ADDED from AndroidManifest.xml:112:13
-	android:name
 		ADDED from AndroidManifest.xml:111:13
-activity#com.jasoftsolutions.mikhuna.activity.MapActivity
-ADDED from AndroidManifest.xml:115:9
-	android:screenOrientation
-		ADDED from AndroidManifest.xml:118:13
-	android:label
-		ADDED from AndroidManifest.xml:117:13
 	android:name
-		ADDED from AndroidManifest.xml:116:13
-activity#com.jasoftsolutions.mikhuna.activity.FilterMapActivity
-ADDED from AndroidManifest.xml:120:9
+		ADDED from AndroidManifest.xml:110:13
+activity#com.jasoftsolutions.mikhuna.activity.FirstTimeActivity
+ADDED from AndroidManifest.xml:113:9
 	android:label
-		ADDED from AndroidManifest.xml:123:13
+		ADDED from AndroidManifest.xml:115:13
+	android:name
+		ADDED from AndroidManifest.xml:114:13
+activity#com.jasoftsolutions.mikhuna.activity.RestaurantDishCategoryActivity
+ADDED from AndroidManifest.xml:117:9
+	android:label
+		ADDED from AndroidManifest.xml:120:13
 	android:configChanges
-		ADDED from AndroidManifest.xml:122:13
+		ADDED from AndroidManifest.xml:119:13
 	android:parentActivityName
-		ADDED from AndroidManifest.xml:124:13
+		ADDED from AndroidManifest.xml:122:13
 	android:name
+		ADDED from AndroidManifest.xml:118:13
+	android:logo
 		ADDED from AndroidManifest.xml:121:13
-meta-data#android.support.PARENT_ACTIVITY
-ADDED from AndroidManifest.xml:125:13
+activity#com.jasoftsolutions.mikhuna.activity.RestaurantCarteActivity
+ADDED from AndroidManifest.xml:129:9
+	android:label
+		ADDED from AndroidManifest.xml:132:13
+	android:configChanges
+		ADDED from AndroidManifest.xml:131:13
 	android:name
-		ADDED from AndroidManifest.xml:126:17
-	android:value
-		ADDED from AndroidManifest.xml:127:17
+		ADDED from AndroidManifest.xml:130:13
+activity#com.jasoftsolutions.mikhuna.activity.MapActivity
+ADDED from AndroidManifest.xml:134:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:137:13
+	android:label
+		ADDED from AndroidManifest.xml:136:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:139:13
+	android:name
+		ADDED from AndroidManifest.xml:135:13
+	android:logo
+		ADDED from AndroidManifest.xml:138:13
+activity#com.jasoftsolutions.mikhuna.activity.FilterMapActivity
+ADDED from AndroidManifest.xml:146:9
+	android:label
+		ADDED from AndroidManifest.xml:149:13
+	android:configChanges
+		ADDED from AndroidManifest.xml:148:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:151:13
+	android:name
+		ADDED from AndroidManifest.xml:147:13
+	android:logo
+		ADDED from AndroidManifest.xml:150:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:support-v4:20.0.0:16:5
