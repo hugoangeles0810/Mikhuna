@@ -111,7 +111,6 @@ public class RestaurantDishCategoryActivity extends BaseActivity implements
 
     @Override
     protected void onStop() {
-        Log.e(TAG, "OnStop ... ");
         Intent i = ServiceSendLikeDish.getIntentOfActionSendLike(this);
         startService(i);
         RestaurantStore rs = RestaurantStore.getInstance();

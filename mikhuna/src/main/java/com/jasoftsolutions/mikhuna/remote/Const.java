@@ -65,4 +65,9 @@ public final class Const {
      */
     public static final long SPLASH_MIN_DELAY = 3000;
 
+    /**
+     * Máximo número de likes que muestra la vista
+     */
+    public static final int MAX_LIKES = 999;
+
 }

@@ -19,6 +19,7 @@ import com.jasoftsolutions.mikhuna.data.RestaurantManager;
 import com.jasoftsolutions.mikhuna.model.RestaurantDish;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishCategory;
 import com.jasoftsolutions.mikhuna.model.RestaurantDishPresentation;
+import com.jasoftsolutions.mikhuna.remote.Const;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 
 import java.util.ArrayList;
@@ -164,7 +165,7 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
                         dish.setLiked(false);
                         dish.setLikeCount(dish.getLikeCount()>0?dish.getLikeCount() - 1:0);
                     }
-                    holder.countLike.setText(dish.getLikeCount().toString());
+                    setCountTextView(dish, holder.countLike);
                     restaurantManager.updateLikeStateOfDish(dish);
                     int likeState = dish.getLiked()?1:0;
                     restaurantManager.saveTempLikeDish(dish.getServerId(), likeState);
@@ -175,7 +176,7 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
         });
 
         holder.dishName.setText(dish.getName());
-        holder.countLike.setText(dish.getLikeCount().toString());
+        setCountTextView(dish, holder.countLike);
         holder.likeButton.setChecked(dish.getLiked());
         if (dish.getPrice()!=null && dish.getPrice()>0){
             holder.dishPrice.setVisibility(View.VISIBLE);
@@ -233,5 +234,10 @@ public class DishCategoryAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    private void setCountTextView(RestaurantDish dish, TextView view){
+        String countText = dish.getLikeCount()> Const.MAX_LIKES?"999+":dish.getLikeCount().toString();
+        view.setText(countText);
     }
 }
