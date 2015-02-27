@@ -179,7 +179,6 @@ public class RestaurantRemote {
         JsonObject json = new JsonObject();
         json.addProperty("u", mail);
         json.add("data", gson.toJsonTree(dishList));
-        Log.i("Remote", json.toString());
 
         List<NameValuePair> params = new ArrayList();
         NameValuePair likes = new BasicNameValuePair("likes", json.toString());

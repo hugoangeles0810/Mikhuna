@@ -74,8 +74,8 @@ public class RemoteHandler {
                 httpPost.setEntity(new UrlEncodedFormEntity(params));
             }
 
-            Log.e(TAG, "requesting uri ("+method.toString()+"): "+absoluteUrl);
-            Log.e(TAG, "with post data: "+ params.toString());
+            Log.i(TAG, "requesting uri ("+method.toString()+"): "+absoluteUrl);
+            Log.i(TAG, "with post data: "+ params.toString());
 
             httpResponse = httpClient.execute(httpPost);
 
@@ -138,7 +138,7 @@ public class RemoteHandler {
 
             json = IOUtil.getAllTextInput(is);
 //
-            Log.e(TAG, json);
+            Log.i(TAG, json);
 
             result = gson.fromJson(json, c);
 //            result = gson.fromJson(new InputStreamReader(is), c);

@@ -28,7 +28,6 @@ public class ServiceSendLikeDish extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent.getAction().equals(ACTION_SEND_LIKE)){
-            Log.i(TAG, ">> Inicio envio de likes");
             RestaurantManager rm = new RestaurantManager();
             List<TempLikeDish> tempLikeDishs = rm.getAllTempLikeDish();
             String mail = AccountUtil.getDefaultGoogleAccount(this);
@@ -37,17 +36,12 @@ public class ServiceSendLikeDish extends IntentService {
             if (tempLikeDishs != null && !tempLikeDishs.isEmpty()){
                 boolean rpta;
 
-                Log.i(TAG, "Enviando likes ... ");
                 rpta = remote.sendLikeDish(tempLikeDishs, mail);
 
                 if (rpta){
-                    Log.e(TAG, "Exito se registraron los likes");
                     rm.deleteAllTempLikeDish();
                 }
-
-
             }
-            Log.i(TAG, "<< Fin envio de likes");
 
         }
     }
