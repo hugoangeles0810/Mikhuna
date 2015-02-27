@@ -439,13 +439,15 @@ public class RestaurantListActivity extends BaseActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(ACTION_SHOW_RECOMMENDED)){
-                Long restaurantId = intent.getLongExtra(RESTAURANT_ID, 1);
-                if (restaurantId != null){
+                Long restaurantId = intent.getLongExtra(RESTAURANT_ID, -1L);
+                if (restaurantId != -1L){
                     RestaurantDialogFragment dialogFragment =
                             RestaurantDialogFragment.newInstance(restaurantId);
                     dialogFragment.setFromList(true);
                     dialogFragment.show(RestaurantListActivity.this.getSupportFragmentManager(),
                             RestaurantDialogFragment.TAG);
+                }else{
+                    Dialogs.dialogWithMessage(RestaurantListActivity.this, getString(R.string.no_restaurant_recommended)).show();
                 }
             }
         }

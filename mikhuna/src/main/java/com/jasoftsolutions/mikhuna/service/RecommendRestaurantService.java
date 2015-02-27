@@ -16,6 +16,7 @@ import com.jasoftsolutions.mikhuna.util.AccountUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Hugo on 19/02/2015.
@@ -48,13 +49,18 @@ public class RecommendRestaurantService extends IntentService {
                 ExceptionUtil.ignoreException(e);
             }
 
+
             if (restaurantID == null) {
                 RestaurantManager rm = new RestaurantManager();
-                ArrayList<Long> restaurantsId = rm.queryRestaurantServerIds(null, rfp.loadFilter());
-                int index = (int) (Math.random() * restaurantsId.size());
-                restaurantID = restaurantsId.get(index);
-            }
+                List<Restaurant> restaurants = rm.queryRestaurantOpenList(ubigeoId);
 
+                if (restaurants != null && !restaurants.isEmpty()){
+                    int index = (int) (Math.random() * restaurants.size());
+                    restaurantID = restaurants.get(index).getServerId();
+                }else{
+                    restaurantID = -1L;
+                }
+            }
 
             Intent i = new Intent(RestaurantListActivity.ACTION_SHOW_RECOMMENDED);
             i.putExtra(RestaurantListActivity.RESTAURANT_ID, restaurantID);

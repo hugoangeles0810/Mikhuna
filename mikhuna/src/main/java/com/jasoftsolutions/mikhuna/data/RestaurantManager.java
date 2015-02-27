@@ -177,6 +177,19 @@ public class RestaurantManager {
         return result;
     }
 
+    public List<Restaurant> queryRestaurantOpenList(Long ubigeoId){
+        List<Restaurant> restaurants = getRestaurantListFromUbigeo(ubigeoId);
+        List<Restaurant> restaurantsOpen = new ArrayList();
+        for (Restaurant r : restaurants){
+            setRestaurantOpenOrClosed(r);
+            if (r.isOpen()){
+                restaurantsOpen.add(r);
+            }
+        }
+
+        return restaurantsOpen;
+    }
+
     /**
      *
      * @param selection
@@ -210,6 +223,10 @@ public class RestaurantManager {
 
     public List<Restaurant> getRestaurantList(String selection, String[] selectionArgs) {
         return getRestaurantList(selection, selectionArgs, false);
+    }
+
+    public List<Restaurant> getRestaurantListFromUbigeo(Long ubigeoId){
+        return getRestaurantList(Schema.Restaurant.ubigeoServerId + "=?", new String[]{ubigeoId.toString()});
     }
 
     private List<Restaurant> getRestaurantsOrderedByIsOpen(List<Restaurant> restaurantList) {
