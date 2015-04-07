@@ -29,6 +29,9 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Mikhuna_main" >
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
         <uses-library android:name="com.google.android.maps" />
 
         <meta-data
@@ -40,7 +43,8 @@
 
         <activity
             android:name=".activity.MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" >
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,21 +68,33 @@
             android:name=".activity.RestaurantListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label=""
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
-        <!-- <activity -->
-        <!-- android:name="com.jasoftsolutions.mikhuna.activity.LoginActivity" -->
-        <!-- android:configChanges="orientation|keyboardHidden|screenSize" -->
-        <!-- android:label="@string/title_activity_login" -->
-        <!-- android:windowSoftInputMode="adjustResize|stateVisible" > -->
-        <!-- </activity> -->
+         <activity
+             android:name=".activity.LoginActivity"
+             android:label="@string/title_activity_login"
+             android:windowSoftInputMode="adjustResize|stateHidden|adjustPan"
+             android:screenOrientation="portrait">
+         </activity>
+        <activity android:name=".activity.RegisterActivity"
+            android:label="@string/activity_register_label"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:parentActivityName=".activity.LoginActivity"
+            android:screenOrientation="portrait">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.LoginActivity" />
+        </activity>
         <!-- <activity android:name="com.jasoftsolutions.mikhuna.activity.SplashActivity" > -->
         <!-- </activity> -->
         <activity
             android:name=".activity.RestaurantDetailActivity"
             android:label="@string/title_activity_detail"
             android:logo="@android:color/transparent"
-            android:parentActivityName=".activity.RestaurantListActivity">
+            android:parentActivityName=".activity.RestaurantListActivity"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -114,13 +130,15 @@
             android:exported="false"/>
 
         <activity android:name=".activity.PreferencesActivity"
-            android:label="@string/title_activity_preferences">
+            android:label="@string/title_activity_preferences"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.ProblemReportActivity"
             android:label="@string/title_activity_problem_report"
             android:logo="@android:color/transparent"
-            android:parentActivityName=".activity.RestaurantListActivity">
+            android:parentActivityName=".activity.RestaurantListActivity"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -128,14 +146,16 @@
         </activity>
         <activity
             android:name=".activity.FirstTimeActivity"
-            android:label="@string/title_activity_first_time" >
+            android:label="@string/title_activity_first_time"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.RestaurantDishCategoryActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_restaurant_carte"
             android:logo="@android:color/transparent"
-            android:parentActivityName=".activity.RestaurantDetailActivity">
+            android:parentActivityName=".activity.RestaurantDetailActivity"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -145,14 +165,15 @@
         <activity
             android:name=".activity.RestaurantCarteActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/title_activity_restaurant_carte" >
+            android:label="@string/title_activity_restaurant_carte"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.MapActivity"
             android:label="@string/title_activity_map"
-            android:screenOrientation="portrait"
             android:logo="@android:color/transparent"
-            android:parentActivityName=".activity.RestaurantListActivity">
+            android:parentActivityName=".activity.RestaurantListActivity"
+            android:screenOrientation="portrait">
 
             <meta-data
             android:name="android.support.PARENT_ACTIVITY"
@@ -165,11 +186,14 @@
             android:label="@string/title_activity_filter_map"
             android:logo="@android:color/transparent"
             android:parentActivityName=".activity.MapActivity"
-            >
+            android:screenOrientation="portrait">
+            
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jasoftsolutions.mikhuna.activity.MapActivity" />
         </activity>
+
+        <activity android:name="com.facebook.LoginActivity" />
     </application>
 
 </manifest>

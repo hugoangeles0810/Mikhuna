@@ -22,7 +22,7 @@ public class ExceptionUtil {
             try {
                 throw new Exception(title + ":\n" + message, e);
             } catch (Exception se) {
-                BugSenseHandler.sendExceptionMessage(title, message, se);
+                BugSenseHandler.sendException(se);
             }
         }
     }

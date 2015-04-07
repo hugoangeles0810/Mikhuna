@@ -122,7 +122,13 @@ public class MikhunaSQLiteOpenHelper extends SQLiteOpenHelper {
                         .setMessage(R.string.error_database_creation)
                         .setPositiveButton(R.string.msg_ok, null)
                 ;
-                builder.create().show();
+
+                try{
+                    builder.create().show();
+                } catch (Exception e3){
+                    ExceptionUtil.handleException(e3);
+                }
+
             }
         }
     }

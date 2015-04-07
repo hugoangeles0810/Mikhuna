@@ -119,7 +119,7 @@ public class GCMManager {
         }
 
         String registeredUser = getCurrentRegisteredUser();
-        if (!registeredUser.equals(AccountUtil.getDefaultGoogleAccount(context))) {
+        if (registeredUser == null || !registeredUser.equals(AccountUtil.getDefaultGoogleAccount(context))) {
             return false;
         }
 

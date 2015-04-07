@@ -163,4 +163,17 @@ Por favor intente reinstalar la aplicación.</string>
     <string name="title_activity_detail">Detalle </string>
     <string name="title_preferences_activity">Preferencias</string>
 
+    <string name="facebook_app_id">1471838033066907</string>
+    <string name="register_user_name">Nombres</string>
+    <string name="register_user_last_name">Apellidos</string>
+    <string name="register_user_birhtday">Fecha de Nacimiento</string>
+    <string name="register_sex_male">Hombre</string>
+    <string name="register_sex_female">Mujer</string>
+    <string name="activity_register_label">Registro</string>
+    <string name="logo_mikhuna_description">logo de mikhuna</string>
+    <string name="register_label_password">Contraseña</string>
+    <string name="register_label_confirm_password">Confirma contraseña</string>
+    <string name="register_label_contact">Contacto</string>
+    <string name="login_not_now">Ahora no</string>
+
 </resources>

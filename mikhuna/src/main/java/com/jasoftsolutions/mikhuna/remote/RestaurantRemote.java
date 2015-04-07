@@ -16,6 +16,7 @@ import com.jasoftsolutions.mikhuna.model.TempLikeDish;
 import com.jasoftsolutions.mikhuna.remote.json.DishCategoriesResponseData;
 import com.jasoftsolutions.mikhuna.remote.json.RestaurantListJsonResponse;
 import com.jasoftsolutions.mikhuna.remote.json.RestaurantPromotionListJsonResponse;
+import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -191,6 +192,7 @@ public class RestaurantRemote {
                 return true;
             }
         }catch (Exception e){
+            ExceptionUtil.ignoreException(e);
         }
 
         return false;

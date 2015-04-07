@@ -1,40 +1,25 @@
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.jasoftsolutions.mikhuna.activity.LoginActivity">
-
-    <!-- Login progress -->
-    <LinearLayout android:id="@+id/login_status"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <ProgressBar style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:id="@+id/login_status_message"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:fontFamily="sans-serif-light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/login_progress_signing_in" />
-
-    </LinearLayout>
-
-    <!-- Login form -->
-    <ScrollView
-        android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jasoftsolutions.mikhuna.activity.LoginActivity"
+    android:background="@color/gris">
 
         <LinearLayout style="@style/LoginFormContainer"
-            android:orientation="vertical">
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/round_edge"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo_web_small_shadow"
+                android:layout_marginBottom="10dp"
+                android:contentDescription="@string/logo_mikhuna_description" />
+
 
             <EditText
                 android:id="@+id/email"
@@ -43,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="@string/prompt_email" />
+                android:hint="@string/prompt_email"/>
 
             <EditText
                 android:id="@+id/password"
@@ -55,18 +40,62 @@
                 android:inputType="textPassword"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeActionId="@+id/login"
-                android:imeOptions="actionUnspecified" />
+                android:imeOptions="actionUnspecified"/>
 
-            <Button android:id="@+id/sign_in_button"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/action_sign_in_register"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp"
-                android:layout_gravity="right" />
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <Button android:id="@+id/sign_in_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/btn_round_edge"
+                    android:text="@string/action_sign_in_short"/>
+
+                <com.facebook.widget.LoginButton
+                    android:id="@+id/fb_auth_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_margin="10dp"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff80adf5"
+                android:text="¿Olvidaste tu contraseña?"/>
 
         </LinearLayout>
 
-    </ScrollView>
-</merge>
+       <LinearLayout
+           android:layout_alignParentBottom="true"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+
+           <Button
+               android:id="@+id/btn_register"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:background="@drawable/btn_round_edge"
+               android:text="@string/action_sign_in_register"
+               android:layout_margin="2dp"/>
+
+           <Button
+               android:id="@+id/btn_not_now"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:background="@drawable/btn_round_edge"
+               android:layout_margin="2dp"
+               android:text="@string/login_not_now"/>
+
+        </LinearLayout>
+</RelativeLayout>

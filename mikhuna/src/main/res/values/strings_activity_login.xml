@@ -5,8 +5,9 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
 
-    <string name="action_sign_in_register"><b>Iniciar sesión</b> o registrarse</string>
+    <string name="action_sign_in_register">Registrate</string>
     <string name="action_sign_in_short">Iniciar sesión</string>
+    <string name="action_sign_not_now">Ahora no</string>
 
     <string name="action_forgot_password">Recuperar contraseña</string>
 
