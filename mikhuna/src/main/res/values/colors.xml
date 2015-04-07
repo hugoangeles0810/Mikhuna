@@ -3,6 +3,7 @@
     <color name="black_overlay">#66000000</color>
 
     <color name="default_windows_background">#ffffff</color>
+    <color name="gris">#fff5f5f5</color>
 
     <color name="default_text_data_label">@color/black_overlay</color>
     <color name="default_text_data_value">@android:color/primary_text_light</color>
