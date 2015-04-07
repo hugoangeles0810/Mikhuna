@@ -3,6 +3,7 @@ package com.jasoftsolutions.mikhuna.activity.util;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -39,12 +40,33 @@ public class RestaurantViewUtil {
         }
     }
 
+    public static Drawable getRestaurantImageFromImageId(Context context, Integer imageId){
+        try{
+            return ResourcesUtil.getDrawableByName(context, "type_" + imageId);
+        }catch (Resources.NotFoundException nfe){
+            return ResourcesUtil.getDrawableByName(context, "type_1");
+        }
+    }
+
     public static void displaySmallLogo(Restaurant restaurant, ImageView imageView) {
         if (restaurant.getImageId()!=null) {
             imageView.setImageDrawable(getRestaurantLogoFromImageId(imageView.getContext(), restaurant.getImageId()));
         }
         if (restaurant.getSmallLogoUrl()!=null) {
             String absoluteUrl = Const.BACKEND_BASE_URL + restaurant.getSmallLogoUrl();
+            ImageLoader.getInstance().displayImage(absoluteUrl, imageView);
+        }
+    }
+
+    public static void displayRestaurantImage(Restaurant restaurant, ImageView imageView){
+        if (restaurant.getImageId() != null){
+            imageView.setImageDrawable(getRestaurantImageFromImageId(imageView.getContext(), restaurant.getImageId()));
+        }
+
+        if (restaurant.getImageUrl() != null){
+            Log.i("Image", "URL: " + restaurant.getImageUrl());
+            String absoluteUrl = Const.BACKEND_BASE_URL + restaurant.getImageUrl();
+            Log.i("Image", "URL: " + absoluteUrl);
             ImageLoader.getInstance().displayImage(absoluteUrl, imageView);
         }
     }

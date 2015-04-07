@@ -10,4 +10,5 @@
     <color name="dish_name">#47689d</color>
     <color name="dish_price">#f45435</color>
     <color name="presentation_name">#525252</color>
+    <color name="background_restaurant_data">#ff444444</color>
 </resources>

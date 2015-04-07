@@ -1,143 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    style="@style/restaurant_list_item_vertical"
-    >
+    android:orientation="vertical">
+
 
     <ImageView
-        android:id="@+id/restaurant_list_item_logo"
-        android:layout_width="@dimen/image_small"
-        android:layout_height="@dimen/image_small"
-        android:adjustViewBounds="true"
+        android:id="@+id/restaurant_image_url"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
         android:scaleType="fitXY"
         android:layout_gravity="center"
-        android:src="@drawable/ic_launcher"
-        android:contentDescription="@string/restaurant_logo_description"
-        />
+        android:src="@drawable/type_1"/>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_restaurant_data"
+        android:padding="5dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:orientation="vertical"
-            >
+            android:layout_marginBottom="-20dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/restaurant_list_item_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 style="@style/restaurant_list_item_title"
-                />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:singleLine="true"
+                android:text="L'Ancora Grill"/>
 
             <TextView
-                android:id="@+id/restaurant_list_item_description"
-                android:layout_width="wrap_content"
+                android:id="@+id/restaurant_list_item_is_open"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:singleLine="true"
-                android:layout_marginBottom="@dimen/default_listitem_negative_margin"
-                />
+                android:layout_weight="1"
+                style="@style/restaurant_open"
+                android:gravity="right"
+                android:text="Abierto"/>
 
-            <LinearLayout
-                android:id="@+id/restaurant_list_item_min_amount_layout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/default_listitem_negative_margin"
-                >
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/restaurant_min_amount"
-                    android:textColor="@color/black_overlay"
-                    />
+        <TextView
+            android:id="@+id/restaurant_list_item_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            style="@style/restaurant_list_item_description"
+            android:layout_marginTop="0dp"
+            android:paddingTop="0dp"
+            android:text="Pizzas, Pastas y Parrillas *Delivery sólo: Lunes, miercoles y viernes"/>
 
-                <TextView
-                    android:id="@+id/restaurant_list_item_min_amount"
-                    android:layout_marginLeft="3dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black_overlay"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/restaurant_list_item_estimated_arrival_time_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:orientation="horizontal"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="@dimen/default_listitem_negative_margin"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/restaurant_estimated_arrival_time_short"
-                    android:textColor="@color/black_overlay"
-                    />
-
-                <TextView
-                    android:id="@+id/restaurant_list_item_estimated_arrival_time"
-                    android:layout_marginLeft="3dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black_overlay"
-                    />
-
-            </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp">
 
             <RatingBar
                 android:id="@+id/restaurant_list_item_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_alignParentLeft="true"
                 android:isIndicator="true"
                 android:layout_marginTop="@dimen/abc_action_bar_icon_vertical_padding"
                 style="@style/default_rating_bar"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:gravity="right"
-            >
-
-            <TextView
-                android:id="@+id/restaurant_list_item_is_open"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="{Abierto/Cerrado}"
-                />
+                android:numStars="5"/>
 
             <TextView
                 android:id="@+id/restaurant_list_item_service_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black_overlay"
-                android:text="{Delivery/Reservas}"
-                />
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                style="@style/restaurant_list_item_service"
+                android:gravity="right"
+                android:text="Delivery"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
+
 
 </LinearLayout>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--style="@style/restaurant_list_item_vertical"-->
+    <!-->-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/restaurant_list_item_logo"-->
+        <!--android:layout_width="@dimen/image_small"-->
+        <!--android:layout_height="@dimen/image_small"-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:src="@drawable/ic_launcher"-->
+        <!--android:contentDescription="@string/restaurant_logo_description"-->
+        <!--/>-->
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="left"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_marginRight="5dp"-->
+            <!--android:orientation="vertical"-->
+            <!-->-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/restaurant_list_item_title"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--style="@style/restaurant_list_item_title"-->
+                <!--/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/restaurant_list_item_description"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textStyle="bold"-->
+                <!--android:singleLine="true"-->
+                <!--android:layout_marginBottom="@dimen/default_listitem_negative_margin"-->
+                <!--/>-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/restaurant_list_item_min_amount_layout"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="left"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_marginBottom="@dimen/default_listitem_negative_margin"-->
+                <!-->-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/restaurant_min_amount"-->
+                    <!--android:textColor="@color/black_overlay"-->
+                    <!--/>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/restaurant_list_item_min_amount"-->
+                    <!--android:layout_marginLeft="3dp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textColor="@color/black_overlay"-->
+                    <!--/>-->
+
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/restaurant_list_item_estimated_arrival_time_layout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="left"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_marginTop="0dp"-->
+                <!--android:layout_marginBottom="@dimen/default_listitem_negative_margin"-->
+                <!-->-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/restaurant_estimated_arrival_time_short"-->
+                    <!--android:textColor="@color/black_overlay"-->
+                    <!--/>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/restaurant_list_item_estimated_arrival_time"-->
+                    <!--android:layout_marginLeft="3dp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textColor="@color/black_overlay"-->
+                    <!--/>-->
+
+            <!--</LinearLayout>-->
+
+            <!--<RatingBar-->
+                <!--android:id="@+id/restaurant_list_item_rating"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="left"-->
+                <!--android:isIndicator="true"-->
+                <!--android:layout_marginTop="@dimen/abc_action_bar_icon_vertical_padding"-->
+                <!--style="@style/default_rating_bar"-->
+                <!--/>-->
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:gravity="right"-->
+            <!-->-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/restaurant_list_item_is_open"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:text="{Abierto/Cerrado}"-->
+                <!--/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/restaurant_list_item_service_type"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@color/black_overlay"-->
+                <!--android:text="{Delivery/Reservas}"-->
+                <!--/>-->
+
+        <!--</LinearLayout>-->
+
+    <!--</RelativeLayout>-->
+
+<!--</LinearLayout>-->

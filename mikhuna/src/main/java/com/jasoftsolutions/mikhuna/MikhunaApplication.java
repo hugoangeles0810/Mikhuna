@@ -7,6 +7,7 @@ import com.jasoftsolutions.mikhuna.data.MikhunaSQLiteOpenHelper;
 import com.jasoftsolutions.mikhuna.google.gcm.GCMManager;
 import com.jasoftsolutions.mikhuna.remote.Const;
 import com.jasoftsolutions.mikhuna.routing.Routes;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -61,11 +62,11 @@ public class MikhunaApplication extends Application {
     private void setupImageLoader() {
         // Habilitar la cache de imágenes por defecto
         DisplayImageOptions displayImageOptions=new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .build();
         ImageLoaderConfiguration configuration=new ImageLoaderConfiguration.Builder(getApplicationContext())
                 .defaultDisplayImageOptions(displayImageOptions)
+                .discCacheSize(5*1024*1024)
                 .build();
         ImageLoader.getInstance().init(configuration);
     }

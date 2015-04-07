@@ -50,16 +50,17 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
             holder=new ViewHolder();
             holder.titleTextView=(TextView)listItem.findViewById(R.id.restaurant_list_item_title);
             holder.descriptionTextView=(TextView)listItem.findViewById(R.id.restaurant_list_item_description);
-            holder.minAmountTextViewLayout=listItem.findViewById(R.id.restaurant_list_item_min_amount_layout);
-            holder.minAmountTextView=(TextView)listItem.findViewById(R.id.restaurant_list_item_min_amount);
+//            holder.minAmountTextViewLayout=listItem.findViewById(R.id.restaurant_list_item_min_amount_layout);
+//            holder.minAmountTextView=(TextView)listItem.findViewById(R.id.restaurant_list_item_min_amount);
 //            holder.phoneTextView=(TextView)listItem.findViewById(R.id.restaurant_list_item_phone);
-            holder.logoImageView=(ImageView)listItem.findViewById(R.id.restaurant_list_item_logo);
+//            holder.logoImageView=(ImageView)listItem.findViewById(R.id.restaurant_list_item_logo);
             holder.ratingBar=(RatingBar)listItem.findViewById(R.id.restaurant_list_item_rating);
 //            holder.callButtonImageView=(ImageView)listItem.findViewById(R.id.restaurant_list_item_call_action);
-            holder.estimatedArrivalTimeTextViewLayout=listItem.findViewById(R.id.restaurant_list_item_estimated_arrival_time_layout);
-            holder.estimatedArrivalTimeTextView=(TextView)listItem.findViewById(R.id.restaurant_list_item_estimated_arrival_time);
+//            holder.estimatedArrivalTimeTextViewLayout=listItem.findViewById(R.id.restaurant_list_item_estimated_arrival_time_layout);
+//            holder.estimatedArrivalTimeTextView=(TextView)listItem.findViewById(R.id.restaurant_list_item_estimated_arrival_time);
             holder.isOpenTextView = (TextView)listItem.findViewById(R.id.restaurant_list_item_is_open);
             holder.serviceTypeTextView = (TextView)listItem.findViewById(R.id.restaurant_list_item_service_type);
+            holder.imageBanner = (ImageView) listItem.findViewById(R.id.restaurant_image_url);
 
             // Sólo es necesario una vez
 //            holder.callButtonImageView.setOnClickListener(callButtonListener);
@@ -74,23 +75,24 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
         holder.titleTextView.setText(restaurant.getName());
         RestaurantViewUtil.displayRestaurantDescription(restaurant, holder.descriptionTextView);
 
-        float minAmount=0;
-        if (restaurant.getMinAmount()!=null) {
-            minAmount=restaurant.getMinAmount();
-        }
+//        float minAmount=0;
+//        if (restaurant.getMinAmount()!=null) {
+//            minAmount=restaurant.getMinAmount();
+//        }
 
 
-        if (restaurant.isDelivery()) {
-            holder.estimatedArrivalTimeTextViewLayout.setVisibility(View.VISIBLE);
-            holder.minAmountTextViewLayout.setVisibility(View.VISIBLE);
-            holder.minAmountTextView.setText(StringUtil.currencyFormat(restaurant.getCurrency(), minAmount));
-            holder.estimatedArrivalTimeTextView.setText(RestaurantViewUtil.getStandardDeliveryTime(restaurant));
-        } else {
-            holder.estimatedArrivalTimeTextViewLayout.setVisibility(View.GONE);
-            holder.minAmountTextViewLayout.setVisibility(View.INVISIBLE);
-        }
+//        if (restaurant.isDelivery()) {
+//            holder.estimatedArrivalTimeTextViewLayout.setVisibility(View.VISIBLE);
+//            holder.minAmountTextViewLayout.setVisibility(View.VISIBLE);
+//            holder.minAmountTextView.setText(StringUtil.currencyFormat(restaurant.getCurrency(), minAmount));
+//            holder.estimatedArrivalTimeTextView.setText(RestaurantViewUtil.getStandardDeliveryTime(restaurant));
+//        } else {
+//            holder.estimatedArrivalTimeTextViewLayout.setVisibility(View.GONE);
+//            holder.minAmountTextViewLayout.setVisibility(View.INVISIBLE);
+//        }
 
-        RestaurantViewUtil.displaySmallLogo(restaurant, holder.logoImageView);
+//        RestaurantViewUtil.displaySmallLogo(restaurant, holder.logoImageView);
+        RestaurantViewUtil.displayRestaurantImage(restaurant, holder.imageBanner);
         RestaurantViewUtil.setRating(restaurant, holder.ratingBar);
 
         RestaurantViewUtil.showRestaurantIsOpen(restaurant, holder.isOpenTextView);
@@ -111,6 +113,7 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
 
         public TextView isOpenTextView;
         public TextView serviceTypeTextView;
+        public ImageView imageBanner;
 
     }
 }

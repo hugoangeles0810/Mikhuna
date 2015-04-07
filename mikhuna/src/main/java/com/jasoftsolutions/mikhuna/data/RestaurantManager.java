@@ -812,6 +812,8 @@ public class RestaurantManager {
                 val.put(Schema.Restaurant.timetableDescription, r.getTimetableDescription());
                 val.put(Schema.Restaurant.numberProductCategory, r.getNumberProductCategory());
                 val.put(Schema.Restaurant.state, r.getState());
+                val.put(Schema.Restaurant.imageUrl, r.getImageUrl());
+                val.put(Schema.Restaurant.orientation, r.getOrientation());
 
 
                 try {
