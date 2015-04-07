@@ -41,7 +41,9 @@ public final class Schema {
             ubigeoServerId = "ubigeo_server_id",
             categoryLastUpdate = "category_last_update",
             likeDishLastUpdate = "like_dish_last_update",
-            state = "state"
+            state = "state",
+            imageUrl = "image_url",
+            orientation = "orientation"
         ;
     }
 

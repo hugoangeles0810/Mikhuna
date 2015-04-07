@@ -63,7 +63,9 @@ public class RestaurantManager {
                 Schema.Restaurant.numberProductCategory,
                 Schema.Restaurant.categoryLastUpdate,
                 Schema.Restaurant.likeDishLastUpdate,
-                Schema.Restaurant.state
+                Schema.Restaurant.state,
+                Schema.Restaurant.imageUrl,
+                Schema.Restaurant.orientation
         }, selection, selectionArgs, groupBy, having, orderBy);
     }
 
@@ -95,7 +97,8 @@ public class RestaurantManager {
         r.setCategoryLastUpdate(cursor.getLong(23));
         r.setLikeDishLastUpdate(cursor.getLong(24));
         r.setState(cursor.getInt(25));
-
+        r.setImageUrl(cursor.getString(26));
+        r.setOrientation(cursor.getInt(27));
         return r;
     }
 

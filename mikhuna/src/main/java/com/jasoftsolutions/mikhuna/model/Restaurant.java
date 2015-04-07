@@ -106,6 +106,12 @@ public class Restaurant extends AbstractModel implements
     @SerializedName("s")
     private Integer state;
 
+    @SerializedName("img_l")
+    private String imageUrl;
+
+    @SerializedName("of")
+    private Integer orientation;
+
     public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
         @Override
         public Restaurant createFromParcel(Parcel source) {
@@ -368,6 +374,22 @@ public class Restaurant extends AbstractModel implements
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Integer getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(Integer orientation) {
+        this.orientation = orientation;
     }
 
     @Override

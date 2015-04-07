@@ -213,6 +213,11 @@ public class SchemaChanges {
                             Schema.RestaurantDish.state + " integer default 0",
                     "alter table "+ Schema.RestaurantDishPresentation._tableName + " add " +
                             Schema.RestaurantDishPresentation.state + " integer default 0",
+                    "alter table "+ Schema.Restaurant._tableName + " add " +
+                            Schema.Restaurant.imageUrl + " text",
+                    "alter table "+ Schema.Restaurant._tableName + " add " +
+                            Schema.Restaurant.orientation + " integer",
+
             }
     };
 
@@ -268,7 +273,11 @@ public class SchemaChanges {
                     "alter table " + Schema.RestaurantDish._tableName + " drop " +
                             Schema.RestaurantDish.state,
                     "alter table " + Schema.RestaurantDishPresentation._tableName + " drop " +
-                            Schema.RestaurantDishPresentation.state
+                            Schema.RestaurantDishPresentation.state,
+                    "alter table " + Schema.Restaurant._tableName + " drop " +
+                            Schema.Restaurant.imageUrl,
+                    "alter table " + Schema.Restaurant._tableName + " drop " +
+                            Schema.Restaurant.orientation
             }
     };
 
