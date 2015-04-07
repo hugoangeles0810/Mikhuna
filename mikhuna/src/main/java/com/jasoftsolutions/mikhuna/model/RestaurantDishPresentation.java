@@ -14,6 +14,8 @@ public class RestaurantDishPresentation extends AbstractModel {
     @SerializedName("price")
     private Double cost;
     private String costText;
+    @SerializedName("s")
+    private Integer state;
 
     public RestaurantDishPresentation(){}
 
@@ -66,5 +68,13 @@ public class RestaurantDishPresentation extends AbstractModel {
     public String getCostText() { return costText; }
     public void setCostText(String costText) {
         this.costText = costText;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

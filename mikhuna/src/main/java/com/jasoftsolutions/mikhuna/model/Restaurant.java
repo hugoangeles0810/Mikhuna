@@ -103,6 +103,9 @@ public class Restaurant extends AbstractModel implements
     @SerializedName("servi")
     private List<Service> services;
 
+    @SerializedName("s")
+    private Integer state;
+
     public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
         @Override
         public Restaurant createFromParcel(Parcel source) {
@@ -357,6 +360,14 @@ public class Restaurant extends AbstractModel implements
 
     public void setLikeDishLastUpdate(Long likeDishLastUpdate) {
         this.likeDishLastUpdate = likeDishLastUpdate;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     @Override

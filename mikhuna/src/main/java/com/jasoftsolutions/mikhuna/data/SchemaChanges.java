@@ -202,6 +202,17 @@ public class SchemaChanges {
                             ")",
                     "alter table " + Schema.Restaurant._tableName + " add "+
                             Schema.Restaurant.likeDishLastUpdate + " integer default 0",
+            },
+            // Version 10
+            new String[]{
+                    "alter table "+ Schema.Restaurant._tableName + " add " +
+                            Schema.Restaurant.state + " integer default 0",
+                    "alter table "+ Schema.RestaurantDishCategory._tableName + " add " +
+                            Schema.RestaurantDishCategory.state + " integer default 0",
+                    "alter table "+ Schema.RestaurantDish._tableName + " add " +
+                            Schema.RestaurantDish.state + " integer default 0",
+                    "alter table "+ Schema.RestaurantDishPresentation._tableName + " add " +
+                            Schema.RestaurantDishPresentation.state + " integer default 0",
             }
     };
 
@@ -248,6 +259,16 @@ public class SchemaChanges {
                     "drop table if exists "+ Schema.TempLikeDish._tableName,
                     "alter table "+ Schema.Restaurant._tableName + " drop " +
                             Schema.Restaurant.likeDishLastUpdate
+            },
+            new String[]{ // De 10 a 9
+                    "alter table " + Schema.Restaurant._tableName + " drop " +
+                            Schema.Restaurant.state,
+                    "alter table " + Schema.RestaurantDishCategory._tableName + " drop " +
+                            Schema.RestaurantDishCategory.state,
+                    "alter table " + Schema.RestaurantDish._tableName + " drop " +
+                            Schema.RestaurantDish.state,
+                    "alter table " + Schema.RestaurantDishPresentation._tableName + " drop " +
+                            Schema.RestaurantDishPresentation.state
             }
     };
 

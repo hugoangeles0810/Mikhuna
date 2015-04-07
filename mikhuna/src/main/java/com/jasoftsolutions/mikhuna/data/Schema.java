@@ -40,7 +40,8 @@ public final class Schema {
             numberProductCategory = "number_product_category",
             ubigeoServerId = "ubigeo_server_id",
             categoryLastUpdate = "category_last_update",
-            likeDishLastUpdate = "like_dish_last_update"
+            likeDishLastUpdate = "like_dish_last_update",
+            state = "state"
         ;
     }
 
@@ -54,7 +55,8 @@ public final class Schema {
             name = "name",
             description = "description",
             position = "position",
-            dishesLastUpdate = "dishes_last_update"
+            dishesLastUpdate = "dishes_last_update",
+            state = "state"
         ;
     }
 
@@ -69,7 +71,8 @@ public final class Schema {
             position = "position",
             price = "price",
             liked = "liked",
-            likeCount = "like_count"
+            likeCount = "like_count",
+            state = "state"
         ;
     }
 
@@ -79,7 +82,8 @@ public final class Schema {
            restaurantDishServerId = "restaurant_dish_server_id",
            name = "name",
            position = "position",
-           cost = "cost"
+           cost = "cost",
+           state = "state"
         ;
     }
 

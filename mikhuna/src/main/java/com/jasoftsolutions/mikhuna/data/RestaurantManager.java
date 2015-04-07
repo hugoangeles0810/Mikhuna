@@ -48,6 +48,8 @@ public class RestaurantManager {
 
     private static final String TAG = RestaurantManager.class.getSimpleName();
 
+    private static final String ACTIVE = "1";
+
     private Cursor defaultRestaurantQuery(SQLiteDatabase db, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
         return db.query(Schema.Restaurant._tableName, new String[]{
                 Schema.Restaurant.id, Schema.Restaurant.name, Schema.Restaurant.description,
@@ -60,7 +62,8 @@ public class RestaurantManager {
                 Schema.Restaurant.timetableDescription,
                 Schema.Restaurant.numberProductCategory,
                 Schema.Restaurant.categoryLastUpdate,
-                Schema.Restaurant.likeDishLastUpdate
+                Schema.Restaurant.likeDishLastUpdate,
+                Schema.Restaurant.state
         }, selection, selectionArgs, groupBy, having, orderBy);
     }
 
@@ -91,6 +94,7 @@ public class RestaurantManager {
         r.setNumberProductCategory(cursor.getInt(22));
         r.setCategoryLastUpdate(cursor.getLong(23));
         r.setLikeDishLastUpdate(cursor.getLong(24));
+        r.setState(cursor.getInt(25));
 
         return r;
     }
@@ -110,6 +114,9 @@ public class RestaurantManager {
         ArrayList<String> selection = new ArrayList<String>();
         ArrayList<String> args = new ArrayList<String>();
         String restaurantCategories = null;
+
+        selection.add(Schema.Restaurant.state+"=?");
+        args.add(ACTIVE);
 
         if (name != null && name.trim().length() > 0) {
             selection.add(Schema.Restaurant.name + " like ?");
@@ -527,9 +534,10 @@ public class RestaurantManager {
                         Schema.RestaurantDishCategory.id, Schema.RestaurantDishCategory.serverId,
                         Schema.RestaurantDishCategory.restaurantServerId, Schema.RestaurantDishCategory.name,
                         Schema.RestaurantDishCategory.description,
-                        Schema.RestaurantDishCategory.position, Schema.RestaurantDishCategory.dishesLastUpdate
-                }, Schema.RestaurantDishCategory.restaurantServerId + "=?",
-                new String[] { String.valueOf(restaurantServerId) }, null, null,
+                        Schema.RestaurantDishCategory.position, Schema.RestaurantDishCategory.dishesLastUpdate,
+                        Schema.RestaurantDishCategory.state
+                }, Schema.RestaurantDishCategory.restaurantServerId + "=?" + " and " + Schema.RestaurantDishCategory.state+"=?",
+                new String[] { String.valueOf(restaurantServerId), ACTIVE }, null, null,
                 Schema.RestaurantDishCategory.position + ", " + Schema.RestaurantDishCategory.name
         );
 
@@ -545,7 +553,7 @@ public class RestaurantManager {
                 rdc.setDescription(cursor.getString(4));
                 rdc.setPosition(cursor.getInt(5));
                 rdc.setDishesLastUpdate(cursor.getLong(6));
-
+                rdc.setState(cursor.getInt(7));
                 result.add(rdc);
             } while (cursor.moveToNext());
         }
@@ -561,9 +569,10 @@ public class RestaurantManager {
                         Schema.RestaurantDish.restaurantDishCategoryServerId, Schema.RestaurantDish.name,
                         Schema.RestaurantDish.description, Schema.RestaurantDish.position,
                         Schema.RestaurantDish.price, Schema.RestaurantDish.liked,
-                        Schema.RestaurantDish.likeCount
-                }, Schema.RestaurantDish.restaurantDishCategoryServerId + "=?",
-                new String[] { String.valueOf(dishCategoryServerId) }, null, null,
+                        Schema.RestaurantDish.likeCount,
+                        Schema.RestaurantDishPresentation.state
+                }, Schema.RestaurantDish.restaurantDishCategoryServerId + "=?" + " and " + Schema.RestaurantDish.state + "=?",
+                new String[] { String.valueOf(dishCategoryServerId), ACTIVE }, null, null,
                 Schema.RestaurantDish.position + ", " + Schema.RestaurantDish.name
         );
 
@@ -581,7 +590,7 @@ public class RestaurantManager {
                 rd.setPrice(cursor.getDouble(6));
                 rd.setLiked(DbUtil.getCursorBoolean(cursor, 7));
                 rd.setLikeCount(cursor.getLong(8));
-
+                rd.setState(cursor.getInt(9));
                 result.add(rd);
             } while (cursor.moveToNext());
         }
@@ -596,9 +605,10 @@ public class RestaurantManager {
         Cursor cursor = db.query(Schema.RestaurantDishPresentation._tableName, new String[]{
                     Schema.RestaurantDishPresentation.id, Schema.RestaurantDishPresentation.serverId,
                     Schema.RestaurantDishPresentation.restaurantDishServerId, Schema.RestaurantDishPresentation.name,
-                    Schema.RestaurantDishPresentation.cost, Schema.RestaurantDishPresentation.position
-            }, Schema.RestaurantDishPresentation.restaurantDishServerId + "=?",
-            new String[]{ String.valueOf(dishServerId) }, null, null,
+                    Schema.RestaurantDishPresentation.cost, Schema.RestaurantDishPresentation.position,
+                    Schema.RestaurantDishPresentation.state
+            }, Schema.RestaurantDishPresentation.restaurantDishServerId + "=?" + " and " + Schema.RestaurantDishPresentation.state + "=?",
+            new String[]{ String.valueOf(dishServerId), ACTIVE }, null, null,
                 Schema.RestaurantDishPresentation.position + ", " + Schema.RestaurantDishPresentation.name
         );
 
@@ -613,6 +623,7 @@ public class RestaurantManager {
                 p.setName(cursor.getString(3));
                 p.setCost(cursor.getDouble(4));
                 p.setPosition(cursor.getInt(5));
+                p.setState(cursor.getInt(6));
                 presentations.add(p);
             }while(cursor.moveToNext());
         }
@@ -797,6 +808,8 @@ public class RestaurantManager {
                 val.put(Schema.Restaurant.ubigeoServerId, r.getUbigeoServerId());
                 val.put(Schema.Restaurant.timetableDescription, r.getTimetableDescription());
                 val.put(Schema.Restaurant.numberProductCategory, r.getNumberProductCategory());
+                val.put(Schema.Restaurant.state, r.getState());
+
 
                 try {
                     r.setId(db.insertOrThrow(Schema.Restaurant._tableName, null, val));
@@ -893,6 +906,7 @@ public class RestaurantManager {
             val.put(Schema.RestaurantDishCategory.description, rdc.getDescription());
             val.put(Schema.RestaurantDishCategory.position, rdc.getPosition());
             val.put(Schema.RestaurantDishCategory.dishesLastUpdate, rdc.getDishesLastUpdate());
+            val.put(Schema.RestaurantDishCategory.state, rdc.getState());
 
             try {
                 db.insertOrThrow(Schema.RestaurantDishCategory._tableName, null, val);
@@ -938,6 +952,7 @@ public class RestaurantManager {
             val.put(Schema.RestaurantDish.price, rd.getPrice());
             val.put(Schema.RestaurantDish.liked, rd.getLiked());
             val.put(Schema.RestaurantDish.likeCount, rd.getLikeCount());
+            val.put(Schema.RestaurantDish.state, rd.getState());
 
             try {
                 db.insertOrThrow(Schema.RestaurantDish._tableName, null, val);
@@ -983,6 +998,7 @@ public class RestaurantManager {
             val.put(Schema.RestaurantDishPresentation.position, dp.getPosition());
             val.put(Schema.RestaurantDishPresentation.cost, dp.getCost());
             val.put(Schema.RestaurantDishPresentation.restaurantDishServerId, dp.getRestaurantDishServerId());
+            val.put(Schema.RestaurantDishPresentation.state, dp.getState());
 
             try {
                     db.insertOrThrow(Schema.RestaurantDishPresentation._tableName, null, val);
@@ -1531,5 +1547,37 @@ public class RestaurantManager {
         }
 
         MikhunaSQLiteOpenHelper.getInstance().safeClose(db);
+    }
+
+    private void deleteModelWithStateCero(String table){
+        SQLiteDatabase db = MikhunaSQLiteOpenHelper.getInstance().getWritableDatabase();
+
+        try {
+            db.delete(table, "state=0", null);
+        }catch (Exception e){
+            ExceptionUtil.ignoreException(e);
+        }
+    }
+
+    public void deleteRestaurantsWithStateZero(){
+        deleteModelWithStateCero(Schema.Restaurant._tableName);
+    }
+
+    public void deleteRestaurantDishCategoriesWithStateZero(){
+        deleteModelWithStateCero(Schema.RestaurantDishCategory._tableName);
+    }
+
+    public void deleteRestaurantDishesWithStateZero(){
+        deleteModelWithStateCero(Schema.RestaurantDish._tableName);
+    }
+
+    public void deleteRestaurantDishPresentatiosWithStateZero(){
+        deleteModelWithStateCero(Schema.RestaurantDishPresentation._tableName);
+    }
+
+    public void deleteElementsOfCarteWithStateZero(){
+        deleteRestaurantDishPresentatiosWithStateZero();
+        deleteRestaurantDishesWithStateZero();
+        deleteRestaurantDishCategoriesWithStateZero();
     }
 }

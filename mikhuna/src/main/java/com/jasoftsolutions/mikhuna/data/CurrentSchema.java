@@ -169,7 +169,16 @@ public class CurrentSchema {
                     Schema.TempLikeDish.id + " integer primary key,"+
                     Schema.TempLikeDish.dishId + " integer unique,"+
                     Schema.TempLikeDish.likeState + " integer"+
-                    ")"
+                    ")",
+            // Version 10
+            "alter table "+ Schema.Restaurant._tableName + " add " +
+                    Schema.Restaurant.state + " integer default 0",
+            "alter table "+ Schema.RestaurantDishCategory._tableName + " add " +
+                    Schema.RestaurantDishCategory.state + " integer default 0",
+            "alter table "+ Schema.RestaurantDish._tableName + " add " +
+                    Schema.RestaurantDish.state + " integer default 0",
+            "alter table "+ Schema.RestaurantDishPresentation._tableName + " add " +
+                    Schema.RestaurantDishPresentation.state + " integer default 0"
     };
 
 }

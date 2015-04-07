@@ -1,5 +1,7 @@
 package com.jasoftsolutions.mikhuna.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 /**
@@ -13,6 +15,8 @@ public class RestaurantDishCategory extends AbstractModel {
     private Integer position;
     private Long dishesLastUpdate;
     private ArrayList<RestaurantDish> restaurantDishes;
+    @SerializedName("s")
+    private Integer state;
 
     public RestaurantDishCategory() {}
 
@@ -71,6 +75,14 @@ public class RestaurantDishCategory extends AbstractModel {
     public ArrayList<RestaurantDish> getRestaurantDishes() { return restaurantDishes; }
     public void setRestaurantDishes(ArrayList<RestaurantDish> restaurantDishes) {
         this.restaurantDishes = restaurantDishes;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     @Override

@@ -87,7 +87,7 @@ public class RestaurantsUpdaterTask extends Thread {
         if (restaurantList!=null) {
             RestaurantManager rm=new RestaurantManager();
             rm.saveRestaurants(restaurantList.getResults());
-
+            rm.deleteRestaurantsWithStateZero();
             updatePreferences.setRestaurantListLastUpdate(ubigeoId, restaurantList.getLastUpdate());
 
             return true;

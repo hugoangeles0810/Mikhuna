@@ -286,6 +286,7 @@ public class RestaurantStore extends AbstractStore {
 
                 if (!status.get("failed") && responseData.getCategories()!=null){
                     rm.saveRestaurantDishCategories(responseData.getCategories());
+                    rm.deleteElementsOfCarteWithStateZero();
                     rm.updateRestaurantCategoryLastUpdate(restaurantServerId, responseData.getLastUpdate());
                 }
 

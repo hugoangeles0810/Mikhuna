@@ -19,6 +19,8 @@ public class RestaurantDish extends AbstractModel {
     @SerializedName("cl")
     private Long likeCount;
     private List<RestaurantDishPresentation> dishPresentations;
+    @SerializedName("s")
+    private Integer state;
 
     @SerializedName("l")
     private Integer likedInt;
@@ -113,6 +115,14 @@ public class RestaurantDish extends AbstractModel {
     public List<RestaurantDishPresentation> getDishPresentations() { return dishPresentations; }
     public void setDishPresentations(List<RestaurantDishPresentation> dishPresentations) {
         this.dishPresentations = dishPresentations;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     @Override
