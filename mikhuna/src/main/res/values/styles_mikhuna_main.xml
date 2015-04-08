@@ -41,16 +41,22 @@
         <item name="actionModeBackground">@drawable/cab_background_top_mikhuna_main</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_mikhuna_main</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Mikhuna_main</item>
+        <item name="actionMenuTextColor">@color/default_text_color</item>
 
                 <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.Mikhuna_main.Widget</item>
     </style>
 
-    <style name="ActionBar.Solid.Mikhuna_main" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+    <style name="ActionBar.Solid.Mikhuna_main" parent="@style/Widget.AppCompat.Light.Base.ActionBar.Solid">
         <item name="background">@color/apptheme_color_actionbar</item>
-        <item name="backgroundStacked">@drawable/ab_stacked_solid_mikhuna_main</item>
-        <item name="backgroundSplit">@drawable/ab_bottom_solid_mikhuna_main</item>
+        <item name="backgroundStacked">@color/apptheme_color_stacked</item>
+        <item name="backgroundSplit">@color/apptheme_color_stacked</item>
         <item name="progressBarStyle">@style/ProgressBar.Mikhuna_main</item>
+        <item name="titleTextStyle">@style/Mikhuna_main.ActionBar.Text</item>
+    </style>
+
+    <style name="Mikhuna_main.ActionBar.Text" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/default_text_color</item>
     </style>
 
     <style name="ActionBar.Transparent.Mikhuna_main" parent="@style/Widget.AppCompat.ActionBar">
@@ -59,7 +65,7 @@
     </style>
 	
     <style name="PopupMenu.Mikhuna_main" parent="@style/Widget.AppCompat.PopupMenu">	
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_mikhuna_main</item>	
+        <item name="android:popupBackground">@color/apptheme_color_stacked</item>
     </style>
 	
     <style name="DropDownListView.Mikhuna_main" parent="@style/Widget.AppCompat.ListView.DropDown">
