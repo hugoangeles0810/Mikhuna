@@ -30,7 +30,7 @@ public final class Const {
     /**
      * Tiempo máximo de espera para la actualización de datos desde el servidor
      */
-    public static final int MAX_UPDATING_MILLISECONDS_DELAY = 6000;
+    public static final int MAX_UPDATING_MILLISECONDS_DELAY = 7000;
 
     /**
      * Indica la cantidad máxima de audits que se pueden enviar por post
@@ -63,7 +63,7 @@ public final class Const {
     /**
      * Tiempo mínimo que debe permanecer visible la pantalla de bienvenida
      */
-    public static final long SPLASH_MIN_DELAY = 3000;
+    public static final long SPLASH_MIN_DELAY = 1500;
 
     /**
      * Máximo número de likes que muestra la vista
