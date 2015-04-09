@@ -55,8 +55,6 @@ public class RestaurantListFragment extends Fragment {
     private RestaurantListFilter restaurantListFilter;
     private String restaurantNameQuery;
 
-    private SwipeRefreshLayout restaurantsRefreshLayout;
-    private boolean firstTimeLoad;
 
     /**
      * Indica cuál es la posición (en el adaptador de datos del listado) del último restaurant
@@ -78,15 +76,9 @@ public class RestaurantListFragment extends Fragment {
 //        }
 
 //        showRestaurantList(restaurantList, rootView);
-        firstTimeLoad = true;
         restaurantListViewPanel = rootView.findViewById(R.id.restaurant_list_panel);
         restaurantCounter = (TextView) rootView.findViewById(R.id.restaurant_count);
         restaurantCounterContainer = rootView.findViewById(R.id.restaurant_count_container);
-        restaurantsRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.restaurants_swipe_container);
-        restaurantsRefreshLayout.setColorSchemeResources(
-                R.color.orange,
-                R.color.green,
-                R.color.blue);
         restaurantListView=(ListView)rootView.findViewById(R.id.restaurant_list);
         restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -121,13 +113,6 @@ public class RestaurantListFragment extends Fragment {
                     showRestaurantCounter();
                 }
                 lastVisibleItem = firstVisibleItem;
-            }
-        });
-
-        restaurantsRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshRestaurantList();
             }
         });
 
@@ -262,21 +247,12 @@ public class RestaurantListFragment extends Fragment {
 
     private void showLoading(boolean show) {
         try {
-            if (firstTimeLoad){
-                if (show) {
-                    loadingLayout.setVisibility(View.VISIBLE);
-                    listViewContainerFrame.setVisibility(View.GONE);
-                }
-            } else {
-                if (loadingLayout.getVisibility() == View.VISIBLE &&
-                        listViewContainerFrame.getVisibility() == View.GONE){
-                    loadingLayout.setVisibility(View.GONE);
-                    listViewContainerFrame.setVisibility(View.VISIBLE);
-                }else{
-                    restaurantsRefreshLayout.setRefreshing(show);
-                }
-
-
+            if (show) {
+                loadingLayout.setVisibility(View.VISIBLE);
+                listViewContainerFrame.setVisibility(View.GONE);
+            }else {
+                loadingLayout.setVisibility(View.GONE);
+                listViewContainerFrame.setVisibility(View.VISIBLE);
             }
 
         } catch (Exception e) {
@@ -319,7 +295,6 @@ public class RestaurantListFragment extends Fragment {
 
             @Override
             protected void onPostExecute(List<Restaurant> restaurantList) {
-                if (firstTimeLoad) firstTimeLoad = false;
                 showLoading(false);
                 if (restaurantList != null && restaurantList.size() > 0) {
                     showEmptyListMessage(false);
