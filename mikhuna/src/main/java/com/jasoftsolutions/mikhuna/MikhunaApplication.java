@@ -62,6 +62,7 @@ public class MikhunaApplication extends Application {
     private void setupImageLoader() {
         // Habilitar la cache de imágenes por defecto
         DisplayImageOptions displayImageOptions=new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .build();
         ImageLoaderConfiguration configuration=new ImageLoaderConfiguration.Builder(getApplicationContext())
