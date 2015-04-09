@@ -189,78 +189,102 @@ category#com.jasoftsolutions.mikhuna
 ADDED from AndroidManifest.xml:97:17
 	android:name
 		ADDED from AndroidManifest.xml:97:27
-service#com.jasoftsolutions.mikhuna.google.gcm.GCMIntentService
+receiver#com.jasoftsolutions.mikhuna.service.InternetBroadcastReceiver
 ADDED from AndroidManifest.xml:101:9
 	android:name
-		ADDED from AndroidManifest.xml:101:18
+		ADDED from AndroidManifest.xml:101:19
+intent-filter#android.net.conn.CONNECTIVITY_CHANGE+android.net.wifi.WIFI_STATE_CHANGED
+ADDED from AndroidManifest.xml:102:13
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from AndroidManifest.xml:103:17
+	android:name
+		ADDED from AndroidManifest.xml:103:25
+action#android.net.wifi.WIFI_STATE_CHANGED
+ADDED from AndroidManifest.xml:104:17
+	android:name
+		ADDED from AndroidManifest.xml:104:25
+service#com.jasoftsolutions.mikhuna.google.gcm.GCMIntentService
+ADDED from AndroidManifest.xml:108:9
+	android:name
+		ADDED from AndroidManifest.xml:108:18
 service#com.jasoftsolutions.mikhuna.service.RecommendRestaurantService
-ADDED from AndroidManifest.xml:103:9
+ADDED from AndroidManifest.xml:110:9
 	android:exported
-		ADDED from AndroidManifest.xml:104:13
-	android:name
-		ADDED from AndroidManifest.xml:103:18
-activity#com.jasoftsolutions.mikhuna.activity.PreferencesActivity
-ADDED from AndroidManifest.xml:106:9
-	android:label
-		ADDED from AndroidManifest.xml:107:13
-	android:name
-		ADDED from AndroidManifest.xml:106:19
-activity#com.jasoftsolutions.mikhuna.activity.ProblemReportActivity
-ADDED from AndroidManifest.xml:109:9
-	android:label
 		ADDED from AndroidManifest.xml:111:13
 	android:name
-		ADDED from AndroidManifest.xml:110:13
-activity#com.jasoftsolutions.mikhuna.activity.FirstTimeActivity
+		ADDED from AndroidManifest.xml:110:18
+service#com.jasoftsolutions.mikhuna.service.ServiceSendLikeDish
 ADDED from AndroidManifest.xml:113:9
-	android:label
-		ADDED from AndroidManifest.xml:115:13
-	android:name
+	android:exported
 		ADDED from AndroidManifest.xml:114:13
-activity#com.jasoftsolutions.mikhuna.activity.RestaurantDishCategoryActivity
-ADDED from AndroidManifest.xml:117:9
-	android:label
-		ADDED from AndroidManifest.xml:120:13
-	android:configChanges
-		ADDED from AndroidManifest.xml:119:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:122:13
 	android:name
-		ADDED from AndroidManifest.xml:118:13
-	android:logo
+		ADDED from AndroidManifest.xml:113:18
+activity#com.jasoftsolutions.mikhuna.activity.PreferencesActivity
+ADDED from AndroidManifest.xml:116:9
+	android:label
+		ADDED from AndroidManifest.xml:117:13
+	android:name
+		ADDED from AndroidManifest.xml:116:19
+activity#com.jasoftsolutions.mikhuna.activity.ProblemReportActivity
+ADDED from AndroidManifest.xml:119:9
+	android:label
 		ADDED from AndroidManifest.xml:121:13
-activity#com.jasoftsolutions.mikhuna.activity.RestaurantCarteActivity
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:123:13
+	android:name
+		ADDED from AndroidManifest.xml:120:13
+	android:logo
+		ADDED from AndroidManifest.xml:122:13
+activity#com.jasoftsolutions.mikhuna.activity.FirstTimeActivity
 ADDED from AndroidManifest.xml:129:9
 	android:label
-		ADDED from AndroidManifest.xml:132:13
-	android:configChanges
 		ADDED from AndroidManifest.xml:131:13
 	android:name
 		ADDED from AndroidManifest.xml:130:13
-activity#com.jasoftsolutions.mikhuna.activity.MapActivity
-ADDED from AndroidManifest.xml:134:9
-	android:screenOrientation
-		ADDED from AndroidManifest.xml:137:13
+activity#com.jasoftsolutions.mikhuna.activity.RestaurantDishCategoryActivity
+ADDED from AndroidManifest.xml:133:9
 	android:label
 		ADDED from AndroidManifest.xml:136:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:139:13
-	android:name
-		ADDED from AndroidManifest.xml:135:13
-	android:logo
-		ADDED from AndroidManifest.xml:138:13
-activity#com.jasoftsolutions.mikhuna.activity.FilterMapActivity
-ADDED from AndroidManifest.xml:146:9
-	android:label
-		ADDED from AndroidManifest.xml:149:13
 	android:configChanges
-		ADDED from AndroidManifest.xml:148:13
+		ADDED from AndroidManifest.xml:135:13
 	android:parentActivityName
-		ADDED from AndroidManifest.xml:151:13
+		ADDED from AndroidManifest.xml:138:13
 	android:name
-		ADDED from AndroidManifest.xml:147:13
+		ADDED from AndroidManifest.xml:134:13
 	android:logo
-		ADDED from AndroidManifest.xml:150:13
+		ADDED from AndroidManifest.xml:137:13
+activity#com.jasoftsolutions.mikhuna.activity.RestaurantCarteActivity
+ADDED from AndroidManifest.xml:145:9
+	android:label
+		ADDED from AndroidManifest.xml:148:13
+	android:configChanges
+		ADDED from AndroidManifest.xml:147:13
+	android:name
+		ADDED from AndroidManifest.xml:146:13
+activity#com.jasoftsolutions.mikhuna.activity.MapActivity
+ADDED from AndroidManifest.xml:150:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:153:13
+	android:label
+		ADDED from AndroidManifest.xml:152:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:155:13
+	android:name
+		ADDED from AndroidManifest.xml:151:13
+	android:logo
+		ADDED from AndroidManifest.xml:154:13
+activity#com.jasoftsolutions.mikhuna.activity.FilterMapActivity
+ADDED from AndroidManifest.xml:162:9
+	android:label
+		ADDED from AndroidManifest.xml:165:13
+	android:configChanges
+		ADDED from AndroidManifest.xml:164:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:167:13
+	android:name
+		ADDED from AndroidManifest.xml:163:13
+	android:logo
+		ADDED from AndroidManifest.xml:166:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:support-v4:20.0.0:16:5
