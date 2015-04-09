@@ -116,6 +116,7 @@ Por favor intente reinstalar la aplicación.</string>
     <string name="action_search">Buscar</string>
     <string name="action_filter">Filtros</string>
     <string name="action_refresh">Actualizar</string>
+    <string name="action_map">Mapa</string>
     <string name="action_share">Compartir</string>
     <string name="search_name_hint">Nombre</string>
     <string name="label_name">Nombre</string>

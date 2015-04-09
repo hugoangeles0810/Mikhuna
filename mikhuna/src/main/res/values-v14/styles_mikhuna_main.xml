@@ -29,7 +29,7 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_mikhuna_main</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_mikhuna_main</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Mikhuna_main</item>
-        <item name="actionMenuTextColor">@color/default_text_color</item>
+        <item name="android:actionOverflowButtonStyle">@style/OverFlow</item>
         
                 <!-- Light.DarkActionBar specific -->
         <item name="android:actionBarWidgetTheme">@style/Theme.Mikhuna_main.Widget</item>
@@ -45,7 +45,7 @@
         <item name="android:backgroundStacked">@color/apptheme_color_stacked</item>
         <item name="android:backgroundSplit">@color/apptheme_color_stacked</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Mikhuna_main</item>
-        <item name="titleTextStyle">@style/Mikhuna_main.ActionBar.Text</item>
+        <item name="android:titleTextStyle">@style/Mikhuna_main.ActionBar.Text</item>
     </style>
 
     <style name="Mikhuna_main.ActionBar.Text" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
@@ -61,6 +61,10 @@
     <style name="Theme.Mikhuna_main.Widget" parent="@style/Theme.AppCompat">
         <item name="android:popupMenuStyle">@style/PopupMenu.Mikhuna_main</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Mikhuna_main</item>
+    </style>
+
+    <style name="OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_action_overflow</item>
     </style>
 
 </resources>

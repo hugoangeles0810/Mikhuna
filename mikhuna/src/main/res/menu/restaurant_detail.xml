@@ -4,7 +4,7 @@
     tools:context="com.jasoftsolutions.mikhuna.activity.RestaurantDetailActivity" >
 
     <item android:id="@+id/action_share"
-        android:icon="@android:drawable/ic_menu_share"
+        android:icon="@drawable/ic_action_share"
         android:title="@string/action_share"
         app:showAsAction="always"
         />

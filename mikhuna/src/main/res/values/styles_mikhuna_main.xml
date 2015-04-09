@@ -17,7 +17,7 @@
      limitations under the License.
 -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.Mikhuna_main" parent="@style/Theme.Mikhuna_main_extra" />
 
@@ -41,17 +41,17 @@
         <item name="actionModeBackground">@drawable/cab_background_top_mikhuna_main</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_mikhuna_main</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Mikhuna_main</item>
-        <item name="actionMenuTextColor">@color/default_text_color</item>
 
                 <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.Mikhuna_main.Widget</item>
     </style>
 
-    <style name="ActionBar.Solid.Mikhuna_main" parent="@style/Widget.AppCompat.Light.Base.ActionBar.Solid">
+    <style name="ActionBar.Solid.Mikhuna_main" parent="@style/Widget.AppCompat.ActionBar">
         <item name="background">@color/apptheme_color_actionbar</item>
         <item name="backgroundStacked">@color/apptheme_color_stacked</item>
         <item name="backgroundSplit">@color/apptheme_color_stacked</item>
         <item name="progressBarStyle">@style/ProgressBar.Mikhuna_main</item>
+        <item name="android:titleTextStyle" tools:targetApi="11">@style/Mikhuna_main.ActionBar.Text</item>
         <item name="titleTextStyle">@style/Mikhuna_main.ActionBar.Text</item>
     </style>
 
@@ -65,7 +65,7 @@
     </style>
 	
     <style name="PopupMenu.Mikhuna_main" parent="@style/Widget.AppCompat.PopupMenu">	
-        <item name="android:popupBackground">@color/apptheme_color_stacked</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_mikhuna_main</item>
     </style>
 	
     <style name="DropDownListView.Mikhuna_main" parent="@style/Widget.AppCompat.ListView.DropDown">
@@ -94,6 +94,10 @@
     <style name="Theme.Mikhuna_main.Widget" parent="@style/Theme.AppCompat">
         <item name="popupMenuStyle">@style/PopupMenu.Mikhuna_main</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Mikhuna_main</item>
+    </style>
+
+    <style name="OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_action_overflow</item>
     </style>
 
 </resources>

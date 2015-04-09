@@ -3,6 +3,7 @@
     <color name="apptheme_color">#ffbb33</color>
     <color name="apptheme_color_actionbar">#ffffffff</color>
     <color name="apptheme_color_stacked">#fffe5824</color>
+    <color name="apptheme_color_focused_button">#ffcd5950</color>
     <color name="apptheme_color_tenuous">#ffd2cfd0</color>
     <color name="default_text_color">#ff737373</color>
 </resources>

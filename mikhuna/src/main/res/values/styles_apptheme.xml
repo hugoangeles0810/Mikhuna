@@ -4,14 +4,14 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="ButtonAppTheme" parent="android:Widget.Button">
-	    <item name="android:background">@drawable/apptheme_btn_default_holo_light</item>
+	    <item name="android:background">@drawable/btn_round_edge</item>
         <item name="android:minHeight">48dip</item>
         <item name="android:minWidth">64dip</item>
         <item name="android:textColor">#ffffff</item>
     </style>
 
     <style name="ImageButtonAppTheme" parent="android:Widget.ImageButton">
-        <item name="android:background">@drawable/apptheme_btn_default_holo_light</item>
+        <item name="android:background">@drawable/btn_round_edge</item>
     </style>
 
     <style name="EditTextAppTheme" parent="android:Widget.EditText">

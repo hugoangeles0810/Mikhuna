@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,10 +49,14 @@ public class RestaurantListFragment extends Fragment {
     private TextView emptyRestaurantListMessage;
 
     private TextView restaurantCounter;
+    private View restaurantCounterContainer;
     private boolean restaurantCounterAnimation;
 
     private RestaurantListFilter restaurantListFilter;
     private String restaurantNameQuery;
+
+    private SwipeRefreshLayout restaurantsRefreshLayout;
+    private boolean firstTimeLoad;
 
     /**
      * Indica cuál es la posición (en el adaptador de datos del listado) del último restaurant
@@ -73,10 +78,15 @@ public class RestaurantListFragment extends Fragment {
 //        }
 
 //        showRestaurantList(restaurantList, rootView);
-
+        firstTimeLoad = true;
         restaurantListViewPanel = rootView.findViewById(R.id.restaurant_list_panel);
         restaurantCounter = (TextView) rootView.findViewById(R.id.restaurant_count);
-
+        restaurantCounterContainer = rootView.findViewById(R.id.restaurant_count_container);
+        restaurantsRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.restaurants_swipe_container);
+        restaurantsRefreshLayout.setColorSchemeResources(
+                R.color.orange,
+                R.color.green,
+                R.color.blue);
         restaurantListView=(ListView)rootView.findViewById(R.id.restaurant_list);
         restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -114,6 +124,13 @@ public class RestaurantListFragment extends Fragment {
             }
         });
 
+        restaurantsRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshRestaurantList();
+            }
+        });
+
         emptyRestaurantListFrame = (FrameLayout)rootView.findViewById(R.id.empty_restaurant_list_frame);
         emptyRestaurantListMessage = (TextView)rootView.findViewById(R.id.empty_restaurant_list_message);
 
@@ -129,12 +146,11 @@ public class RestaurantListFragment extends Fragment {
                 AnalyticsConst.Action.RESTAURANT_LIST);
 
         refreshRestaurantList();
-
         return rootView;
     }
 
     private void showRestaurantCounter() {
-        if (restaurantCounter != null && restaurantCounter.getVisibility() == View.GONE
+        if (restaurantCounterContainer != null && restaurantCounterContainer.getVisibility() == View.GONE
                 && !restaurantCounterAnimation) {
             Animation slide = AnimationUtils.loadAnimation(getActivity(), R.anim.abc_slide_in_bottom);
             slide.setAnimationListener(new Animation.AnimationListener() {
@@ -145,7 +161,7 @@ public class RestaurantListFragment extends Fragment {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    restaurantCounter.setVisibility(View.VISIBLE);
+                    restaurantCounterContainer.setVisibility(View.VISIBLE);
                     restaurantCounterAnimation = false;
                 }
 
@@ -154,18 +170,18 @@ public class RestaurantListFragment extends Fragment {
 
                 }
             });
-            restaurantCounter.startAnimation(slide);
+            restaurantCounterContainer.startAnimation(slide);
         }
     }
 
     private void hideRestaurantCounter() {
-        if (restaurantCounter != null && restaurantCounter.getVisibility() == View.VISIBLE
+        if (restaurantCounterContainer != null && restaurantCounterContainer.getVisibility() == View.VISIBLE
                 && !restaurantCounterAnimation) {
             Animation slide = AnimationUtils.loadAnimation(getActivity(), R.anim.abc_slide_out_bottom);
             slide.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
-                    restaurantCounter.setVisibility(View.GONE);
+                    restaurantCounterContainer.setVisibility(View.GONE);
                     restaurantCounterAnimation = true;
                 }
 
@@ -179,7 +195,7 @@ public class RestaurantListFragment extends Fragment {
 
                 }
             });
-            restaurantCounter.startAnimation(slide);
+            restaurantCounterContainer.startAnimation(slide);
         }
     }
 
@@ -246,13 +262,23 @@ public class RestaurantListFragment extends Fragment {
 
     private void showLoading(boolean show) {
         try {
-            if (show) {
-                loadingLayout.setVisibility(View.VISIBLE);
-                listViewContainerFrame.setVisibility(View.GONE);
+            if (firstTimeLoad){
+                if (show) {
+                    loadingLayout.setVisibility(View.VISIBLE);
+                    listViewContainerFrame.setVisibility(View.GONE);
+                }
             } else {
-                loadingLayout.setVisibility(View.GONE);
-                listViewContainerFrame.setVisibility(View.VISIBLE);
+                if (loadingLayout.getVisibility() == View.VISIBLE &&
+                        listViewContainerFrame.getVisibility() == View.GONE){
+                    loadingLayout.setVisibility(View.GONE);
+                    listViewContainerFrame.setVisibility(View.VISIBLE);
+                }else{
+                    restaurantsRefreshLayout.setRefreshing(show);
+                }
+
+
             }
+
         } catch (Exception e) {
             ExceptionUtil.handleException(e);
         }
@@ -293,6 +319,7 @@ public class RestaurantListFragment extends Fragment {
 
             @Override
             protected void onPostExecute(List<Restaurant> restaurantList) {
+                if (firstTimeLoad) firstTimeLoad = false;
                 showLoading(false);
                 if (restaurantList != null && restaurantList.size() > 0) {
                     showEmptyListMessage(false);

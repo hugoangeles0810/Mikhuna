@@ -811,6 +811,7 @@ public class RestaurantManager {
                 val.put(Schema.Restaurant.ubigeoServerId, r.getUbigeoServerId());
                 val.put(Schema.Restaurant.timetableDescription, r.getTimetableDescription());
                 val.put(Schema.Restaurant.numberProductCategory, r.getNumberProductCategory());
+                if (r.getState() == null) r.setState(Integer.parseInt(ACTIVE));
                 val.put(Schema.Restaurant.state, r.getState());
                 val.put(Schema.Restaurant.imageUrl, r.getImageUrl());
                 val.put(Schema.Restaurant.orientation, r.getOrientation());

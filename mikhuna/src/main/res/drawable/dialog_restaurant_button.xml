@@ -3,7 +3,7 @@
 
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="@color/apptheme_color_stacked" />
+            <solid android:color="@color/apptheme_color_focused_button" />
 
             <corners android:radius="12dp" />
 
@@ -14,7 +14,7 @@
 
     <item android:state_focused="true">
         <shape>
-            <solid android:color="@color/apptheme_color_stacked" />
+            <solid android:color="@color/apptheme_color_focused_button" />
 
             <corners android:radius="12dp" />
 
@@ -25,7 +25,7 @@
 
     <item>
         <shape>
-            <solid android:color="@color/apptheme_color_actionbar" />
+            <solid android:color="@color/apptheme_color_stacked" />
 
             <corners android:radius="12dp" />
 

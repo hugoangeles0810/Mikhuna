@@ -39,24 +39,47 @@
             android:orientation="vertical"
             >
 
-            <ListView
-                android:id="@+id/restaurant_list"
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/restaurants_swipe_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:dividerHeight="@dimen/restaurant_list_item_divider_height"
-                android:layout_alignParentBottom="true"
-                />
+                android:layout_height="match_parent">
+                <ListView
+                    android:id="@+id/restaurant_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:dividerHeight="@dimen/restaurant_list_item_divider_height"
+                    android:layout_alignParentBottom="true"
+                    />
 
-            <TextView
-                android:id="@+id/restaurant_count"
-                android:layout_width="match_parent"
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <LinearLayout
+                android:id="@+id/restaurant_count_container"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="@dimen/text_size_small"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="15dp"
                 android:layout_alignParentBottom="true"
-                android:paddingLeft="@dimen/abc_dropdownitem_text_padding_left"
-                android:background="@color/default_windows_background"
-                />
+                android:layout_alignParentRight="true"
+                android:background="@drawable/animation_container_around">
+
+                <TextView
+                    android:id="@+id/restaurant_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_size_small"
+                    android:paddingLeft="@dimen/abc_dropdownitem_text_padding_left"
+                    android:background="#ff777777"
+                    android:textColor="#ffffffff"
+                    android:text="47 restaurantes encontrados"
+                    />
+
+            </LinearLayout>
+
+
 
         </RelativeLayout>
 

@@ -45,12 +45,14 @@
     <style name="emphasis_horizontal_separator_line" parent="emphasis_separator_line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">2dp</item>
+        <item name="android:background">@color/apptheme_color_stacked</item>
         <item name="android:layout_marginTop">@dimen/default_separator_margin_1</item>
         <item name="android:layout_marginBottom">@dimen/default_separator_margin_1</item>
     </style>
     <style name="emphasis_vertical_separator_line" parent="emphasis_separator_line">
         <item name="android:layout_width">2dp</item>
         <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/apptheme_color_stacked</item>
         <item name="android:layout_marginLeft">@dimen/default_separator_margin_1</item>
         <item name="android:layout_marginRight">@dimen/default_separator_margin_1</item>
     </style>
@@ -78,7 +80,7 @@
     <style name="restaurant_list_item_title">
         <item name="android:textColor">#ffffffff</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">17sp</item>
     </style>
 
     <style name="restaurant_list_item_description">

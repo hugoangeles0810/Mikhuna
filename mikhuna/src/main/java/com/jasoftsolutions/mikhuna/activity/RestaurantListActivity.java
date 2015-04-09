@@ -20,6 +20,8 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.jasoftsolutions.mikhuna.R;
@@ -222,6 +224,7 @@ public class RestaurantListActivity extends BaseActivity
         return true;
     }
 
+
     private void showOptionsMenu(int position) {
         try {
             boolean isListPosition = (RestaurantListSectionsPagerAdapter.RESTAURANT_LIST_POSITION == position);
@@ -238,6 +241,14 @@ public class RestaurantListActivity extends BaseActivity
     }
 
     private void setupSearchView(final SearchView searchView) {
+        ImageView img = (ImageView) searchView.findViewById(android.support.v7.appcompat.R.id.search_button);
+        ImageView img2 = (ImageView) searchView.findViewById(android.support.v7.appcompat.R.id.search_mag_icon);
+        ImageView imgClose = (ImageView) searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        EditText editText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        editText.setTextColor(getResources().getColor(R.color.default_text_color));
+        img.setImageResource(R.drawable.ic_action_search);
+        img2.setImageResource(R.drawable.ic_action_search);
+        imgClose.setImageResource(R.drawable.ic_action_cancel);
         searchView.setQueryHint(getString(R.string.search_name_hint));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

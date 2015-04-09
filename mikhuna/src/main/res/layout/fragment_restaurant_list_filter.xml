@@ -24,6 +24,8 @@
                 android:id="@+id/button_apply_filter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/btn_round_edge"
+                android:layout_margin="5dp"
                 android:text="@string/label_apply_filter"
                 />
 
