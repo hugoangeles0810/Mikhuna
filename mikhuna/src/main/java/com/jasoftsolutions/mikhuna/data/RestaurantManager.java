@@ -813,8 +813,8 @@ public class RestaurantManager {
                 val.put(Schema.Restaurant.numberProductCategory, r.getNumberProductCategory());
                 if (r.getState() == null) r.setState(Integer.parseInt(ACTIVE));
                 val.put(Schema.Restaurant.state, r.getState());
-                val.put(Schema.Restaurant.imageUrl, r.getImageUrl());
-                val.put(Schema.Restaurant.orientation, r.getOrientation());
+                if (r.getImageUrl()!= null) val.put(Schema.Restaurant.imageUrl, r.getImageUrl());
+                if (r.getOrientation() != null) val.put(Schema.Restaurant.orientation, r.getOrientation());
 
 
                 try {

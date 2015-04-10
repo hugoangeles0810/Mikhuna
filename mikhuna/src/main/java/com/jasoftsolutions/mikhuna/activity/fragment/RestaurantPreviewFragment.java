@@ -155,10 +155,10 @@ public class RestaurantPreviewFragment extends Fragment {
                 estimatedArrivalTimeTextView.setText(RestaurantViewUtil.getStandardDeliveryTime(mRestaurant));
             } else {
                 estimatedArrivalTimeTextViewLayout.setVisibility(View.GONE);
-                minAmountTextViewLayout.setVisibility(View.INVISIBLE);
+                minAmountTextViewLayout.setVisibility(View.GONE);
             }
 
-            RestaurantViewUtil.displaySmallLogo(mRestaurant, logoImageView);
+            RestaurantViewUtil.displayRestaurantImage(mRestaurant, logoImageView);
             RestaurantViewUtil.setRating(mRestaurant, ratingBar);
 
             RestaurantViewUtil.showRestaurantIsOpen(mRestaurant, isOpenTextView);

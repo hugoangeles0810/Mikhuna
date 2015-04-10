@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jasoftsolutions.mikhuna.R;
@@ -36,7 +38,8 @@ public class RestaurantPromotionListReducedAdapter extends ArrayAdapter<Restaura
             listItem = inflater.inflate(R.layout.reduced_restaurant_promotion_listitem, null);
 
             holder=new ViewHolder();
-            holder.logoImageView = (ImageView)listItem.findViewById(R.id.restaurant_promotion_listitem_logo);
+//            holder.logoImageView = (ImageView)listItem.findViewById(R.id.restaurant_promotion_listitem_logo);
+            holder.promotionImageView = (ImageView) listItem.findViewById(R.id.promotion_image);
             holder.restaurantNameTextView = (TextView)listItem.findViewById(R.id.restaurant_promotion_listitem_restaurant_name);
             holder.titleTextView = (TextView)listItem.findViewById(R.id.restaurant_promotion_listitem_title);
             holder.descriptionTextView = (TextView)listItem.findViewById(R.id.restaurant_promotion_listitem_description);
@@ -48,11 +51,13 @@ public class RestaurantPromotionListReducedAdapter extends ArrayAdapter<Restaura
             holder = (ViewHolder)listItem.getTag(R.id.tag_view_holder);
         }
 
-        RestaurantViewUtil.displaySmallLogo(restaurantPromotion.getRestaurant(), holder.logoImageView);
+//        RestaurantViewUtil.displaySmallLogo(restaurantPromotion.getRestaurant(), holder.logoImageView);
+        RestaurantViewUtil.displayRestaurantImage(restaurantPromotion.getRestaurant(), holder.promotionImageView);
         holder.restaurantNameTextView.setText(restaurantPromotion.getRestaurant().getName());
         holder.titleTextView.setText(restaurantPromotion.getTitle());
         holder.descriptionTextView.setText(restaurantPromotion.getDescription());
         RestaurantViewUtil.displayRestaurantPromotionValidity(restaurantPromotion, holder.validityTextView);
+
 
         return listItem;
 	}
@@ -63,5 +68,6 @@ public class RestaurantPromotionListReducedAdapter extends ArrayAdapter<Restaura
         public TextView descriptionTextView;
         public TextView validityTextView;
         public ImageView logoImageView;
+        public ImageView promotionImageView;
     }
 }
