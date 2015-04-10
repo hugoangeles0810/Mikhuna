@@ -18,7 +18,7 @@ public class ShakeListener implements SensorListener {
     private static final int TIME_THRESHOLD = 100;
     private static final int SHAKE_TIMEOUT = 400;  // Tiempo máximo entre movimientos (sirve para reiniciar SHAKE_COUNT)
     private static final long SHAKE_OFFSET = 2000; // Tiempo mínimo entre notifaciones al listener.
-    private static final int SHAKE_COUNT = 5; // Minimo de Shakes para notificar al listener //4
+    private static final int SHAKE_COUNT = 4; // Minimo de Shakes para notificar al listener //4
 
     private SensorManager mSensorMgr;
     private float mLastX = -1.0f;
