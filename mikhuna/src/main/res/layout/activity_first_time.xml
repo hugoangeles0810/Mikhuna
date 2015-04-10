@@ -1,10 +1,26 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jasoftsolutions.mikhuna.activity.FirstTimeActivity"
-    tools:ignore="MergeRootFrame" >
+    tools:context="com.jasoftsolutions.mikhuna.activity.FirstTimeActivity">
+
+
+    <ImageView
+        android:id="@+id/img_new_functionality"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:visibility="visible"
+        android:src="@drawable/splash"/>
+
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="MergeRootFrame">
+
+    </FrameLayout>
 
 
 

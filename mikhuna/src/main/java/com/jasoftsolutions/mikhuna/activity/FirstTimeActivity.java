@@ -2,6 +2,8 @@ package com.jasoftsolutions.mikhuna.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.jasoftsolutions.mikhuna.R;
 import com.jasoftsolutions.mikhuna.activity.fragment.RestaurantListFilterFragment;
@@ -27,6 +29,14 @@ public class FirstTimeActivity extends BaseActivity implements ApplyActionListen
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_first_time);
+
+        final ImageView img = (ImageView) findViewById(R.id.img_new_functionality);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img.setVisibility(View.GONE);
+            }
+        });
 
         restaurantListFilterPreferences = new RestaurantListFilterPreferences(this);
         addRestaurantListFilterFragment(savedInstanceState);
