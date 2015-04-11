@@ -3,6 +3,7 @@ package com.jasoftsolutions.mikhuna.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,10 +11,12 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.jasoftsolutions.mikhuna.R;
+import com.jasoftsolutions.mikhuna.activity.fragment.dialog.Dialogs;
 import com.jasoftsolutions.mikhuna.activity.preferences.RestaurantListFilterPreferences;
 import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
 import com.jasoftsolutions.mikhuna.data.RestaurantManager;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
+import com.jasoftsolutions.mikhuna.model.Version;
 import com.jasoftsolutions.mikhuna.remote.Const;
 import com.jasoftsolutions.mikhuna.remote.LastResourceUpdatePreferences;
 import com.jasoftsolutions.mikhuna.remote.ManagementUpdaterThread;
@@ -187,45 +190,63 @@ public class MainActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(Boolean result) {
+            LastResourceUpdatePreferences lru = new LastResourceUpdatePreferences(MainActivity.this);
+            final Version version = lru.getVersion();
             if (result) {
-                triggerQueue.completeOne();
+                if (version.getState() == Version.VERSION_OK) {
+                    triggerQueue.completeOne();
+                }else{
+                    showDialog(Dialogs.dialogUpdateApp(MainActivity.this, version));
+                }
             } else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setCancelable(false);
 
-                builder.setMessage(R.string.message_dialog_no_server_response);
+                AlertDialog dialog;
+                if (version.getState() == Version.VERSION_OK){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setCancelable(false);
 
-                builder.setPositiveButton(R.string.dialog_button_retry, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        loadManagementData();
+                    builder.setMessage(R.string.message_dialog_no_server_response);
+
+                    builder.setPositiveButton(R.string.dialog_button_retry, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            loadManagementData();
+                        }
+                    });
+
+                    if (lru.getManagementLastUpdate() > 0) {
+                        builder.setNeutralButton(R.string.dialog_button_continue, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                triggerQueue.completeOne();
+                            }
+                        });
+                    } else {
+                        builder.setNegativeButton(R.string.dialog_button_close, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        });
                     }
-                });
 
-                if (new LastResourceUpdatePreferences(MainActivity.this).getManagementLastUpdate() > 0) {
-                    builder.setNeutralButton(R.string.dialog_button_continue, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            triggerQueue.completeOne();
-                        }
-                    });
-                } else {
-                    builder.setNegativeButton(R.string.dialog_button_close, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    });
+                    dialog = builder.create();
+                }else{
+                    dialog = Dialogs.dialogUpdateApp(MainActivity.this, version);
                 }
 
-                try {
-                    builder.create().show();
-                } catch (WindowManager.BadTokenException bte) {
-                    ExceptionUtil.ignoreException(bte);
-                } catch (Exception e) {
-                    ExceptionUtil.handleException(e);
-                }
+                showDialog(dialog);
             }
+        }
+    }
+
+    public void showDialog(AlertDialog dialog){
+        try {
+            dialog.show();
+        } catch (WindowManager.BadTokenException bte) {
+            ExceptionUtil.ignoreException(bte);
+        } catch (Exception e) {
+            ExceptionUtil.handleException(e);
         }
     }
 }

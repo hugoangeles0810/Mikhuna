@@ -81,6 +81,7 @@ Por favor intente reinstalar la aplicación.</string>
     <string name="dialog_button_cancel">Cancelar</string>
     <string name="dialog_button_close">Cerrar</string>
     <string name="dialog_button_continue">Continuar</string>
+    <string name="dialog_button_update">Actualizar</string>
     <string name="restaurant_detail_incomplete_data">Debido a problemas de conexión, los datos de este restaurante aún están incompletos. Verifique su conexión a internet y luego reintente.</string>
     <string name="restaurant_carte_incomplete">Debido a problemas de conexión, la carta de este restaurante podría estar incompleta. Verifique su conexión a internet y luego reintente.</string>
     <string name="error_conexion">Error de conexión</string>

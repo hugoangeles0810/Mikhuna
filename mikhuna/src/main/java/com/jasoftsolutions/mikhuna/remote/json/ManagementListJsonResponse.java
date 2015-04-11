@@ -3,6 +3,7 @@ package com.jasoftsolutions.mikhuna.remote.json;
 import com.google.gson.annotations.SerializedName;
 import com.jasoftsolutions.mikhuna.model.RestaurantCategory;
 import com.jasoftsolutions.mikhuna.model.Ubigeo;
+import com.jasoftsolutions.mikhuna.model.Version;
 
 import java.io.Serializable;
 import java.util.List;
@@ -25,6 +26,9 @@ public class ManagementListJsonResponse implements Serializable {
 
 	@SerializedName("resultsRC")
 	private List<RestaurantCategory> restCatResults;
+
+    @SerializedName("version")
+    private Version version;
 
     private Long lastUpdate;
 
@@ -61,5 +65,12 @@ public class ManagementListJsonResponse implements Serializable {
     }
     public void setLastUpdate(Long lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    public Version getVersion() {
+        return version;
+    }
+    public void setVersion(Version version) {
+        this.version = version;
     }
 }

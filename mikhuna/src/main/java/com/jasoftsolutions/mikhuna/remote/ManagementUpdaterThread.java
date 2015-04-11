@@ -52,6 +52,7 @@ public class ManagementUpdaterThread extends Thread {
             manager.saveRestCategories(response.getRestCatResults());
 
             lru.setManagementLastUpdate(response.getLastUpdate());
+            lru.setVersion(response.getVersion());
 
             result = true;
         } else {
