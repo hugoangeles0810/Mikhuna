@@ -2,114 +2,140 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context="com.jasoftsolutions.mikhuna.activity.fragment.RestaurantDetailFragment">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView android:id="@+id/restaurant_detail_logo"
-        android:layout_width="@dimen/image_small"
-        android:layout_height="@dimen/image_small"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_launcher"
-        android:contentDescription="@string/restaurant_logo_description"
-        />
+        <ImageView
+            android:id="@+id/restaurant_image_large"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/type_1"/>
+
+        <com.jasoftsolutions.mikhuna.activity.ui.HeaderRoundedView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:layout_gravity="bottom"/>
+
+        <ImageView
+            android:id="@+id/restaurant_detail_logo"
+            android:layout_width="@dimen/image_small"
+            android:layout_height="@dimen/image_small"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_gravity="center|bottom"
+            android:src="@drawable/ic_launcher"
+            android:contentDescription="@string/restaurant_logo_description"
+            android:background="@android:color/white"
+            />
+
+     </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:orientation="vertical"
-        >
-
-        <TextView
-            android:id="@+id/restaurant_detail_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/restaurant_list_item_title"
-            android:textColor="#000000"
-            android:text="{Nombre del restaurant}"
-            />
-
-        <RatingBar
-            android:id="@+id/restaurant_detail_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:isIndicator="true"
-            style="@style/default_rating_bar"
-            />
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/restaurant_minamount_and_delivery_layout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
-            <LinearLayout
-                android:id="@+id/restaurant_detail_min_amount_layout"
+            <TextView
+                android:id="@+id/restaurant_detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/default_text_margin"
-                android:gravity="left"
+                style="@style/restaurant_list_item_title"
+                android:textColor="#000000"
+                android:gravity="center_horizontal"
+                android:text="{Nombre del restaurant}"
+                />
+
+            <RatingBar
+                android:id="@+id/restaurant_detail_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                style="@style/default_rating_bar"
+                />
+
+            <LinearLayout
+                android:id="@+id/restaurant_minamount_and_delivery_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/restaurant_detail_min_amount_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/restaurant_min_amount"
-                    android:textColor="@color/default_text_data_label"
-                    />
+                    android:layout_marginRight="@dimen/default_text_margin"
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    >
 
-                <TextView
-                    android:id="@+id/restaurant_detail_min_amount"
-                    android:layout_marginLeft="3dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/restaurant_min_amount"
+                        android:textColor="@color/default_text_data_label"
+                        />
+
+                    <TextView
+                        android:id="@+id/restaurant_detail_min_amount"
+                        android:layout_marginLeft="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="{Mínimo}"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/restaurant_detail_shipping_cost_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="{Mínimo}"
-                    />
+                    android:gravity="left"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/restaurant_shipping_cost"
+                        android:textColor="@color/black_overlay"
+                        />
+
+                    <TextView
+                        android:id="@+id/restaurant_detail_shipping_cost"
+                        android:layout_marginLeft="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="{Envío}"
+                        />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/restaurant_detail_shipping_cost_layout"
+            <TextView
+                android:id="@+id/restaurant_detail_service_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-                android:orientation="horizontal"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/restaurant_shipping_cost"
-                    android:textColor="@color/black_overlay"
-                    />
-
-                <TextView
-                    android:id="@+id/restaurant_detail_shipping_cost"
-                    android:layout_marginLeft="3dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="{Envío}"
-                    />
-
-            </LinearLayout>
+                android:text="{Delivery/Reservas}"
+                />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/restaurant_detail_service_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="{Delivery/Reservas}"
-            />
 
     </LinearLayout>
+
 
 </LinearLayout>

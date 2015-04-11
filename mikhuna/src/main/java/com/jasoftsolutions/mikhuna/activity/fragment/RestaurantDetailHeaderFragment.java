@@ -60,7 +60,9 @@ public class RestaurantDetailHeaderFragment extends Fragment {
                 }
 
                 ImageView logo=(ImageView)rootView.findViewById(R.id.restaurant_detail_logo);
+                ImageView imageLarge = (ImageView) rootView.findViewById(R.id.restaurant_image_large);
                 RestaurantViewUtil.displaySmallLogo(r, logo);
+                RestaurantViewUtil.displayRestaurantImage(r, imageLarge);
 
                 TextView titleTextView=(TextView)rootView.findViewById(R.id.restaurant_detail_title);
                 titleTextView.setText(r.getName());
