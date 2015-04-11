@@ -137,8 +137,6 @@ public class RestaurantPromotionsListFragment extends Fragment {
         if (show) {
             promotionsListView.setVisibility(View.GONE);
             emptyRestaurantPromotionsListFrame.setVisibility(View.VISIBLE);
-
-            RestaurantManager rm = new RestaurantManager();
         } else {
             promotionsListView.setVisibility(View.VISIBLE);
             emptyRestaurantPromotionsListFrame.setVisibility(View.GONE);

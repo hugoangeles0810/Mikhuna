@@ -1053,7 +1053,8 @@ public class RestaurantManager {
                 Schema.RestaurantPromotion.id, Schema.RestaurantPromotion.serverId,
                 Schema.RestaurantPromotion.restaurantServerId, Schema.RestaurantPromotion.title,
                 Schema.RestaurantPromotion.startDate, Schema.RestaurantPromotion.finishDate,
-                Schema.RestaurantPromotion.description, Schema.RestaurantPromotion.weight
+                Schema.RestaurantPromotion.description, Schema.RestaurantPromotion.weight,
+                Schema.RestaurantPromotion.photoUrl
             }, selection, args, null, null, Schema.RestaurantPromotion.weight + " desc, " +
                 Schema.RestaurantPromotion.finishDate + " asc");
 
@@ -1075,6 +1076,7 @@ public class RestaurantManager {
                 rp.setFinishDate(cursor.getLong(5));
                 rp.setDescription(cursor.getString(6));
                 rp.setWeight(cursor.getInt(7));
+                rp.setPhotoUrl(cursor.getString(8));
 
                 result.add(rp);
             } while (cursor.moveToNext());
@@ -1165,6 +1167,7 @@ public class RestaurantManager {
                 val.put(Schema.RestaurantPromotion.finishDate, rp.getFinishDate());
                 val.put(Schema.RestaurantPromotion.description, rp.getDescription());
                 val.put(Schema.RestaurantPromotion.weight, rp.getWeight());
+                val.put(Schema.RestaurantPromotion.photoUrl, rp.getPhotoUrl());
 
                 try {
                     rp.setId(db.insertOrThrow(Schema.RestaurantPromotion._tableName, null, val));

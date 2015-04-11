@@ -171,7 +171,8 @@ public final class Schema {
             startDate = "start_date",
             finishDate = "finish_date",
             description = "description",
-            weight = "weight"
+            weight = "weight",
+            photoUrl = "photoUrl"
         ;
     }
 

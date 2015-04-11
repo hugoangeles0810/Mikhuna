@@ -2,6 +2,7 @@ package com.jasoftsolutions.mikhuna.activity.util;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,8 @@ import com.jasoftsolutions.mikhuna.util.ArrayUtil;
 import com.jasoftsolutions.mikhuna.util.DateUtil;
 import com.jasoftsolutions.mikhuna.util.ResourcesUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -64,10 +67,44 @@ public class RestaurantViewUtil {
         }
 
         if (restaurant.getImageUrl() != null){
-            Log.i("Image", "URL: " + restaurant.getImageUrl());
             String absoluteUrl = Const.BACKEND_BASE_URL + restaurant.getImageUrl();
-            Log.i("Image", "URL: " + absoluteUrl);
             ImageLoader.getInstance().displayImage(absoluteUrl, imageView);
+        }
+    }
+
+    public static void displayPromotionImage(final RestaurantPromotion rp, final ImageView imageView){
+
+        if (rp.getRestaurant().getImageId() != null){
+            imageView.setImageDrawable(
+                    getRestaurantImageFromImageId(imageView.getContext(), rp.getRestaurant().getImageId()));
+        }
+
+        if (rp.getPhotoUrl() != null){
+            ImageLoader.getInstance().displayImage(Const.BACKEND_BASE_URL + rp.getPhotoUrl(), imageView, new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String s, View view) {
+
+                }
+
+                @Override
+                public void onLoadingFailed(String s, View view, FailReason failReason) {
+                    ImageLoader.getInstance()
+                            .displayImage(Const.BACKEND_BASE_URL + rp.getRestaurant().getImageUrl(), imageView);
+                }
+
+                @Override
+                public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+
+                }
+
+                @Override
+                public void onLoadingCancelled(String s, View view) {
+
+                }
+            });
+        }else{
+            ImageLoader.getInstance()
+                    .displayImage(Const.BACKEND_BASE_URL + rp.getRestaurant().getImageUrl(), imageView);
         }
     }
 

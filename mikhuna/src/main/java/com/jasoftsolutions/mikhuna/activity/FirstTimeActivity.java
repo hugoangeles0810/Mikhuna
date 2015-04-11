@@ -23,6 +23,7 @@ public class FirstTimeActivity extends BaseActivity implements ApplyActionListen
     private RestaurantListFilterFragment restaurantListFilterFragment;
 
     private RestaurantListFilter currentFilter;
+    private ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +31,12 @@ public class FirstTimeActivity extends BaseActivity implements ApplyActionListen
 
         setContentView(R.layout.activity_first_time);
 
-        final ImageView img = (ImageView) findViewById(R.id.img_new_functionality);
+        getSupportActionBar().hide();
+        img = (ImageView) findViewById(R.id.img_new_functionality);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                img.setVisibility(View.GONE);
+                hideImageOfNewFunctionality();
             }
         });
 
@@ -63,6 +65,15 @@ public class FirstTimeActivity extends BaseActivity implements ApplyActionListen
     }
 
     @Override
+    public void onBackPressed() {
+        if (img.getVisibility() == View.VISIBLE){
+            hideImageOfNewFunctionality();
+        }else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         restaurantListFilterFragment.computeFilter();
@@ -78,5 +89,11 @@ public class FirstTimeActivity extends BaseActivity implements ApplyActionListen
             ContextUtil.asyncSendGcmToBackend(FirstTimeActivity.this);
             finish();
         }
+    }
+
+    public void hideImageOfNewFunctionality(){
+        img.setVisibility(View.GONE);
+        getSupportActionBar().show();
+        findViewById(R.id.container).setVisibility(View.VISIBLE);
     }
 }

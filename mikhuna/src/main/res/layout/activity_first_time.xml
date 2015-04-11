@@ -11,14 +11,15 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:visibility="visible"
-        android:src="@drawable/splash"/>
+        android:src="@drawable/shake"/>
 
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:ignore="MergeRootFrame">
+        tools:ignore="MergeRootFrame"
+        android:visibility="gone">
 
     </FrameLayout>
 

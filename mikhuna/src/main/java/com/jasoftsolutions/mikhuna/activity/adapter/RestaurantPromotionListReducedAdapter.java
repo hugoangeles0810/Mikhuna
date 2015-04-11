@@ -52,7 +52,7 @@ public class RestaurantPromotionListReducedAdapter extends ArrayAdapter<Restaura
         }
 
 //        RestaurantViewUtil.displaySmallLogo(restaurantPromotion.getRestaurant(), holder.logoImageView);
-        RestaurantViewUtil.displayRestaurantImage(restaurantPromotion.getRestaurant(), holder.promotionImageView);
+        RestaurantViewUtil.displayPromotionImage(restaurantPromotion, holder.promotionImageView);
         holder.restaurantNameTextView.setText(restaurantPromotion.getRestaurant().getName());
         holder.titleTextView.setText(restaurantPromotion.getTitle());
         holder.descriptionTextView.setText(restaurantPromotion.getDescription());

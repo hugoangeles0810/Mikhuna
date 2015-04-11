@@ -217,7 +217,8 @@ public class SchemaChanges {
                             Schema.Restaurant.imageUrl + " text",
                     "alter table "+ Schema.Restaurant._tableName + " add " +
                             Schema.Restaurant.orientation + " integer",
-
+                    "alter table "+ Schema.RestaurantPromotion._tableName + " add " +
+                            Schema.RestaurantPromotion.photoUrl + " text",
             }
     };
 
@@ -277,7 +278,9 @@ public class SchemaChanges {
                     "alter table " + Schema.Restaurant._tableName + " drop " +
                             Schema.Restaurant.imageUrl,
                     "alter table " + Schema.Restaurant._tableName + " drop " +
-                            Schema.Restaurant.orientation
+                            Schema.Restaurant.orientation,
+                    "alter table "+ Schema.RestaurantPromotion._tableName + " drop " +
+                            Schema.RestaurantPromotion.photoUrl
             }
     };
 

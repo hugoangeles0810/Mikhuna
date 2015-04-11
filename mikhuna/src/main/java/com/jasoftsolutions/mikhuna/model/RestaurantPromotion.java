@@ -25,6 +25,9 @@ public class RestaurantPromotion extends AbstractModel {
     @SerializedName("d")
     private String description;
 
+    @SerializedName("p")
+    private String photoUrl;
+
     @SerializedName("w")
     private Integer weight;
 
@@ -75,5 +78,13 @@ public class RestaurantPromotion extends AbstractModel {
     }
     public void setWeight(Integer weight) {
         this.weight = weight;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }
