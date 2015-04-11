@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <component name="libraryTable">
   <library name="universal-image-loader-1.9.2-SNAPSHOT-with-sources">
     <CLASSES>
@@ -6,4 +7,14 @@
     <JAVADOC />
     <SOURCES />
   </library>
+=======
+<component name="libraryTable">
+  <library name="universal-image-loader-1.9.2-SNAPSHOT-with-sources">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/mikhuna/lib/universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+>>>>>>> 8b39aacdf61cc3948a1af96d3400e55bcf59038e
 </component>

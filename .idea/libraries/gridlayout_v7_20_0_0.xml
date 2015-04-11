@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <component name="libraryTable">
   <library name="gridlayout-v7-20.0.0">
     <CLASSES>
@@ -7,4 +8,15 @@
     <JAVADOC />
     <SOURCES />
   </library>
+=======
+<component name="libraryTable">
+  <library name="gridlayout-v7-20.0.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/mikhuna/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/20.0.0/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/mikhuna/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/20.0.0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+>>>>>>> 8b39aacdf61cc3948a1af96d3400e55bcf59038e
 </component>

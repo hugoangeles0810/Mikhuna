@@ -63,7 +63,7 @@ public final class Const {
     /**
      * Tiempo mínimo que debe permanecer visible la pantalla de bienvenida
      */
-    public static final long SPLASH_MIN_DELAY = 1500;
+    public static final long SPLASH_MIN_DELAY = 1000;
 
     /**
      * Máximo número de likes que muestra la vista

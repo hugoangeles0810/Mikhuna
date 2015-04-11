@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <component name="libraryTable">
   <library name="android-maps-utils-0.3.4">
     <CLASSES>
@@ -7,4 +8,15 @@
     <JAVADOC />
     <SOURCES />
   </library>
+=======
+<component name="libraryTable">
+  <library name="android-maps-utils-0.3.4">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/mikhuna/build/intermediates/exploded-aar/com.google.maps.android/android-maps-utils/0.3.4/res" />
+      <root url="jar://$PROJECT_DIR$/mikhuna/build/intermediates/exploded-aar/com.google.maps.android/android-maps-utils/0.3.4/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+>>>>>>> 8b39aacdf61cc3948a1af96d3400e55bcf59038e
 </component>

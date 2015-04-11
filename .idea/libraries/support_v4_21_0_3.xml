@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <component name="libraryTable">
   <library name="support-v4-21.0.3">
     <CLASSES>
@@ -10,4 +11,18 @@
       <root url="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-v4/21.0.3/support-v4-21.0.3-sources.jar!/" />
     </SOURCES>
   </library>
+=======
+<component name="libraryTable">
+  <library name="support-v4-21.0.3">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/mikhuna/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/mikhuna/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/mikhuna/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-v4/21.0.3/support-v4-21.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+>>>>>>> 8b39aacdf61cc3948a1af96d3400e55bcf59038e
 </component>
