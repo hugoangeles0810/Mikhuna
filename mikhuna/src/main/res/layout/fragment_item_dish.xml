@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            style="@style/restaurant_list_item_title"
+            style="@style/restaurant_list_item_title_black"
             android:textAppearance="?android:attr/textAppearance"
             android:textColor="@color/dish_name"
             android:text="Ceviche"/>

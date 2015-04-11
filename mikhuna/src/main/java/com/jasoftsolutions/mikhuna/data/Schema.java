@@ -84,8 +84,7 @@ public final class Schema {
            restaurantDishServerId = "restaurant_dish_server_id",
            name = "name",
            position = "position",
-           cost = "cost",
-           state = "state"
+           cost = "cost"
         ;
     }
 

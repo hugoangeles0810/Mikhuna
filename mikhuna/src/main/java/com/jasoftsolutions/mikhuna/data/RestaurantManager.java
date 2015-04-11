@@ -573,7 +573,7 @@ public class RestaurantManager {
                         Schema.RestaurantDish.description, Schema.RestaurantDish.position,
                         Schema.RestaurantDish.price, Schema.RestaurantDish.liked,
                         Schema.RestaurantDish.likeCount,
-                        Schema.RestaurantDishPresentation.state
+                        Schema.RestaurantDish.state
                 }, Schema.RestaurantDish.restaurantDishCategoryServerId + "=?" + " and " + Schema.RestaurantDish.state + "=?",
                 new String[] { String.valueOf(dishCategoryServerId), ACTIVE }, null, null,
                 Schema.RestaurantDish.position + ", " + Schema.RestaurantDish.name
@@ -608,10 +608,9 @@ public class RestaurantManager {
         Cursor cursor = db.query(Schema.RestaurantDishPresentation._tableName, new String[]{
                     Schema.RestaurantDishPresentation.id, Schema.RestaurantDishPresentation.serverId,
                     Schema.RestaurantDishPresentation.restaurantDishServerId, Schema.RestaurantDishPresentation.name,
-                    Schema.RestaurantDishPresentation.cost, Schema.RestaurantDishPresentation.position,
-                    Schema.RestaurantDishPresentation.state
-            }, Schema.RestaurantDishPresentation.restaurantDishServerId + "=?" + " and " + Schema.RestaurantDishPresentation.state + "=?",
-            new String[]{ String.valueOf(dishServerId), ACTIVE }, null, null,
+                    Schema.RestaurantDishPresentation.cost, Schema.RestaurantDishPresentation.position
+            }, Schema.RestaurantDishPresentation.restaurantDishServerId + "=?",
+            new String[]{ String.valueOf(dishServerId) }, null, null,
                 Schema.RestaurantDishPresentation.position + ", " + Schema.RestaurantDishPresentation.name
         );
 
@@ -626,7 +625,6 @@ public class RestaurantManager {
                 p.setName(cursor.getString(3));
                 p.setCost(cursor.getDouble(4));
                 p.setPosition(cursor.getInt(5));
-                p.setState(cursor.getInt(6));
                 presentations.add(p);
             }while(cursor.moveToNext());
         }
@@ -1004,7 +1002,6 @@ public class RestaurantManager {
             val.put(Schema.RestaurantDishPresentation.position, dp.getPosition());
             val.put(Schema.RestaurantDishPresentation.cost, dp.getCost());
             val.put(Schema.RestaurantDishPresentation.restaurantDishServerId, dp.getRestaurantDishServerId());
-            val.put(Schema.RestaurantDishPresentation.state, dp.getState());
 
             try {
                     db.insertOrThrow(Schema.RestaurantDishPresentation._tableName, null, val);

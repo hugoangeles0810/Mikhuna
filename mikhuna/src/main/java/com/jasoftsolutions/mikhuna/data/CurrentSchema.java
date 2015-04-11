@@ -176,9 +176,7 @@ public class CurrentSchema {
             "alter table "+ Schema.RestaurantDishCategory._tableName + " add " +
                     Schema.RestaurantDishCategory.state + " integer default 0",
             "alter table "+ Schema.RestaurantDish._tableName + " add " +
-                    Schema.RestaurantDish.state + " integer default 0",
-            "alter table "+ Schema.RestaurantDishPresentation._tableName + " add " +
-                    Schema.RestaurantDishPresentation.state + " integer default 0"
+                    Schema.RestaurantDish.state + " integer default 0"
     };
 
 }

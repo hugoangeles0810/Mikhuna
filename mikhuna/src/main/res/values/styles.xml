@@ -83,6 +83,10 @@
         <item name="android:textSize">17sp</item>
     </style>
 
+    <style name="restaurant_list_item_title_black" parent="restaurant_list_item_title">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="restaurant_list_item_description">
         <item name="android:textColor">#ffffffff</item>
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>

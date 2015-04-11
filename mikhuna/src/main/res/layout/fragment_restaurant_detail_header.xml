@@ -51,8 +51,7 @@
                 android:id="@+id/restaurant_detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/restaurant_list_item_title"
-                android:textColor="#000000"
+                style="@style/restaurant_list_item_title_black"
                 android:gravity="center_horizontal"
                 android:text="{Nombre del restaurant}"
                 />
