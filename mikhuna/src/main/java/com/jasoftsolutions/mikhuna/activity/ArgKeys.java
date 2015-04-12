@@ -15,6 +15,8 @@ public class ArgKeys {
     public static final String CITY = "city";
     public static final String MESSAGE = "message";
     public static final String EXTRAS = "extras";
+    public static final String PHOTO = "photo";
+    public static final String TITLE = "title";
 
     public static final String WITH_RETRY = "with_retry";
 

@@ -31,6 +31,7 @@ public class GCMIntentService extends IntentService {
     private static final String EXTRAS_ACTION = "action";
     private static final String EXTRAS_DESCRIPTION = "description";
     private static final String EXTRAS_RESTAURANT_ID = "rest_id";
+    private static final String EXTRAS_PHOTO = "photo";
 
     public GCMIntentService() {
         super(SERVICE_NAME);
@@ -69,6 +70,10 @@ public class GCMIntentService extends IntentService {
 
                     if (extras.containsKey(EXTRAS_DESCRIPTION)) {
                         options.putString(ArgKeys.MESSAGE, extras.getString(EXTRAS_DESCRIPTION));
+                    }
+
+                    if (extras.containsKey(EXTRAS_PHOTO)){
+                        options.putString(ArgKeys.PHOTO, extras.getString(EXTRAS_PHOTO));
                     }
 
                     String message = extras.getString(EXTRAS_MSG);

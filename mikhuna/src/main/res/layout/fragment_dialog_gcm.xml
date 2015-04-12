@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/dialog_gcm_photo"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:layout_gravity="top"
+        android:src="@drawable/type_1"
+        />
+
+    <TextView
+        android:id="@+id/dialog_gcm_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/default_listitem_negative_margin"
+        android:text="Description"
+        />
+
+
+    <View style="@style/default_horizontal_separator_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/button_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:text="@string/msg_ok"
+            android:padding="5dp"
+            android:textSize="20sp"
+            android:textColor="@color/default_windows_background"
+            android:background="@drawable/dialog_restaurant_button"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

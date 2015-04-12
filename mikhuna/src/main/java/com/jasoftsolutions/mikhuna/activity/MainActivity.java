@@ -12,6 +12,7 @@ import android.view.WindowManager;
 
 import com.jasoftsolutions.mikhuna.R;
 import com.jasoftsolutions.mikhuna.activity.fragment.dialog.Dialogs;
+import com.jasoftsolutions.mikhuna.activity.fragment.dialog.GCMDialogFragment;
 import com.jasoftsolutions.mikhuna.activity.preferences.RestaurantListFilterPreferences;
 import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
 import com.jasoftsolutions.mikhuna.data.RestaurantManager;
@@ -96,16 +97,19 @@ public class MainActivity extends BaseActivity {
                 }
             }
             if (data.containsKey(ArgKeys.MESSAGE)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(data.getString(ArgKeys.MESSAGE))
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.msg_ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                triggerQueue.completeOne();
-                            }
-                        });
-                builder.create().show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                builder.setMessage(data.getString(ArgKeys.MESSAGE))
+//                        .setCancelable(false)
+//                        .setPositiveButton(R.string.msg_ok, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                triggerQueue.completeOne();
+//                            }
+//                        });
+//                builder.create().show();
+                GCMDialogFragment dialog = GCMDialogFragment.newInstance(data);
+                dialog.setTriggerQueue(triggerQueue);
+                dialog.show(getSupportFragmentManager(), "tag");
             } else {
                 triggerQueue.completeOne();
             }
