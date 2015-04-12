@@ -30,6 +30,7 @@
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_mikhuna_main</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Mikhuna_main</item>
         <item name="android:actionOverflowButtonStyle">@style/OverFlow</item>
+        <item name="android:windowBackground">@color/background</item>
         
                 <!-- Light.DarkActionBar specific -->
         <item name="android:actionBarWidgetTheme">@style/Theme.Mikhuna_main.Widget</item>

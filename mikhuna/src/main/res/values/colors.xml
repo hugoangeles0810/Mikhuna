@@ -12,9 +12,8 @@
     <color name="presentation_name">#525252</color>
     <color name="background_restaurant_data">#ff444444</color>
     <color name="blue_material">#0091EA</color>
-
     <color name="black">#000000</color>
-
+    <color name="background">#FFE8E8E8</color>
     <color name="orange">#FF9900</color>
     <color name="green">#009900</color>
     <color name="blue">#000099</color>

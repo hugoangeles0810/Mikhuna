@@ -17,7 +17,7 @@ public class HeaderRoundedView extends View {
     private Paint p1;
     private RectF oval;
     private static final String COLOR = "#fffe5824";
-    private static final String COLOR_BACKGROUND = "#FFF2F2F2";
+    private static final String COLOR_BACKGROUND = "#FFE8E8E8";
 
     public HeaderRoundedView(Context context) {
         super(context);
