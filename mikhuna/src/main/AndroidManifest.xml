@@ -80,7 +80,7 @@
         <activity android:name=".activity.RegisterActivity"
             android:label="@string/activity_register_label"
             android:logo="@android:color/transparent"
-            android:icon="@android:color/transparent"
+            android:icon="@drawable/ic_launcher"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:parentActivityName=".activity.LoginActivity"
             android:screenOrientation="portrait">
@@ -95,7 +95,7 @@
             android:name=".activity.RestaurantDetailActivity"
             android:label="@string/title_activity_detail"
             android:logo="@android:color/transparent"
-            android:icon="@android:color/transparent"
+            android:icon="@drawable/ic_launcher"
             android:parentActivityName=".activity.RestaurantListActivity"
             android:screenOrientation="portrait">
 
@@ -140,7 +140,7 @@
             android:name=".activity.ProblemReportActivity"
             android:label="@string/title_activity_problem_report"
             android:logo="@android:color/transparent"
-            android:icon="@android:color/transparent"
+            android:icon="@drawable/ic_launcher"
             android:parentActivityName=".activity.RestaurantListActivity"
             android:screenOrientation="portrait">
 
@@ -158,7 +158,7 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_restaurant_carte"
             android:logo="@android:color/transparent"
-            android:icon="@android:color/transparent"
+            android:icon="@drawable/ic_launcher"
             android:parentActivityName=".activity.RestaurantDetailActivity"
             android:screenOrientation="portrait">
 
@@ -177,7 +177,7 @@
             android:name=".activity.MapActivity"
             android:label="@string/title_activity_map"
             android:logo="@android:color/transparent"
-            android:icon="@android:color/transparent"
+            android:icon="@drawable/ic_launcher"
             android:parentActivityName=".activity.RestaurantListActivity"
             android:screenOrientation="portrait">
 
@@ -191,7 +191,7 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_filter_map"
             android:logo="@android:color/transparent"
-            android:icon="@android:color/transparent"
+            android:icon="@drawable/ic_launcher"
             android:parentActivityName=".activity.MapActivity"
             android:screenOrientation="portrait">
             
