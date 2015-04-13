@@ -11,6 +11,8 @@
         android:id="@+id/category_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:groupIndicator="@drawable/list_view_group_indicator"
+        android:divider="@color/apptheme_color_stacked"
+        android:dividerHeight="1px"/>
 
 </FrameLayout>

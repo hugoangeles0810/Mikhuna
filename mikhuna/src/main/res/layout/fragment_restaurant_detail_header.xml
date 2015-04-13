@@ -31,7 +31,7 @@
             android:layout_gravity="center|bottom"
             android:src="@drawable/ic_launcher"
             android:contentDescription="@string/restaurant_logo_description"
-            android:background="@android:color/white"
+            android:background="@drawable/image_view_with_border"
             />
 
      </FrameLayout>
