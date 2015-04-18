@@ -11,7 +11,7 @@
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         android:layout_gravity="top"
-        android:src="@drawable/type_1"
+        android:src="@drawable/logo_web_small_shadow"
         />
 
     <TextView

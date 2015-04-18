@@ -98,7 +98,7 @@ public class RestaurantDishCategoryActivity extends BaseActivity implements
             ft.commit();
             rdcf.display(dishCategories);
         }catch (Exception e){
-            ExceptionUtil.handleException(e);
+            ExceptionUtil.ignoreException(e);
         }
     }
 

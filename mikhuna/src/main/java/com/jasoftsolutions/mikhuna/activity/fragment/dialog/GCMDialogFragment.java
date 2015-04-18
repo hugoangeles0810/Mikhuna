@@ -58,7 +58,9 @@ public class GCMDialogFragment extends DialogFragment {
 
             if (getArguments().containsKey(ArgKeys.RESTAURANT_ID)){
                 Restaurant restaurant = new RestaurantManager().getRestaurantByServerId(getArguments().getLong(ArgKeys.RESTAURANT_ID));
-                RestaurantViewUtil.displayRestaurantImage(restaurant, imageView);
+                if (restaurant != null){
+                    RestaurantViewUtil.displayRestaurantImage(restaurant, imageView);
+                }
             }
 
             if (getArguments().containsKey(ArgKeys.PHOTO)){
