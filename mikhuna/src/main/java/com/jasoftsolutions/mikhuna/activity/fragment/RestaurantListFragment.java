@@ -29,6 +29,8 @@ import com.jasoftsolutions.mikhuna.remote.RestaurantsUpdaterTask;
 import com.jasoftsolutions.mikhuna.util.AnalyticsConst;
 import com.jasoftsolutions.mikhuna.util.AnalyticsUtil;
 import com.jasoftsolutions.mikhuna.util.ExceptionUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 
 import java.util.List;
 
@@ -96,7 +98,7 @@ public class RestaurantListFragment extends Fragment {
                         AnalyticsConst.Action.VIEW_DETAIL_FROM_RESTAURANT_LIST, restaurant.getServerId().toString());
             }
         });
-        restaurantListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+        PauseOnScrollListener pauseListener = new PauseOnScrollListener(ImageLoader.getInstance(), false, false, new AbsListView.OnScrollListener() {
             private int lastVisibleItem = 0;
 
             @Override
@@ -115,6 +117,7 @@ public class RestaurantListFragment extends Fragment {
                 lastVisibleItem = firstVisibleItem;
             }
         });
+        restaurantListView.setOnScrollListener(pauseListener);
 
         emptyRestaurantListFrame = (FrameLayout)rootView.findViewById(R.id.empty_restaurant_list_frame);
         emptyRestaurantListMessage = (TextView)rootView.findViewById(R.id.empty_restaurant_list_message);

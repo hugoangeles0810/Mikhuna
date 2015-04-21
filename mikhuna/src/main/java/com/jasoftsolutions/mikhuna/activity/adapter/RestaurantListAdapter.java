@@ -14,52 +14,51 @@ import com.jasoftsolutions.mikhuna.activity.listener.CallButtonListener;
 import com.jasoftsolutions.mikhuna.activity.util.RestaurantViewUtil;
 import com.jasoftsolutions.mikhuna.data.RestaurantManager;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
-import com.jasoftsolutions.mikhuna.util.StringUtil;
 
 import java.util.List;
 
 public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
 
-	private List<Restaurant> data;
+    private List<Restaurant> data;
     private CallButtonListener callButtonListener;
 
     private RestaurantManager rm;
-	
-	public RestaurantListAdapter(Context context,
-			List<Restaurant> objects) {
-		super(context, R.layout.restaurant_listitem, objects);
-		data=objects;
+    private LayoutInflater mInflater;
+
+    public RestaurantListAdapter(Context context,
+                                 List<Restaurant> objects) {
+        super(context, R.layout.restaurant_listitem, objects);
+        data = objects;
         callButtonListener = new CallButtonListener();
         rm = new RestaurantManager();
-	}
+        mInflater = LayoutInflater.from(context);
+    }
 
 
-
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-        Restaurant restaurant=data.get(position);
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        Restaurant restaurant = data.get(position);
         rm.setRestaurantOpenOrClosed(restaurant);
 
-        View listItem=null;
-        ViewHolder holder=null;
+        View listItem = null;
+        ViewHolder holder = null;
 
-        if (convertView==null) {
-		    LayoutInflater inflater=LayoutInflater.from(getContext());
-            listItem = inflater.inflate(R.layout.restaurant_listitem, null);
+        if (convertView == null) {
+            listItem = mInflater.inflate(R.layout.restaurant_listitem, null);
 
-            holder=new ViewHolder();
-            holder.titleTextView=(TextView)listItem.findViewById(R.id.restaurant_list_item_title);
-            holder.descriptionTextView=(TextView)listItem.findViewById(R.id.restaurant_list_item_description);
+            holder = new ViewHolder();
+            holder.titleTextView = (TextView) listItem.findViewById(R.id.restaurant_list_item_title);
+            holder.descriptionTextView = (TextView) listItem.findViewById(R.id.restaurant_list_item_description);
 //            holder.minAmountTextViewLayout=listItem.findViewById(R.id.restaurant_list_item_min_amount_layout);
 //            holder.minAmountTextView=(TextView)listItem.findViewById(R.id.restaurant_list_item_min_amount);
 //            holder.phoneTextView=(TextView)listItem.findViewById(R.id.restaurant_list_item_phone);
 //            holder.logoImageView=(ImageView)listItem.findViewById(R.id.restaurant_list_item_logo);
-            holder.ratingBar=(RatingBar)listItem.findViewById(R.id.restaurant_list_item_rating);
+            holder.ratingBar = (RatingBar) listItem.findViewById(R.id.restaurant_list_item_rating);
 //            holder.callButtonImageView=(ImageView)listItem.findViewById(R.id.restaurant_list_item_call_action);
 //            holder.estimatedArrivalTimeTextViewLayout=listItem.findViewById(R.id.restaurant_list_item_estimated_arrival_time_layout);
 //            holder.estimatedArrivalTimeTextView=(TextView)listItem.findViewById(R.id.restaurant_list_item_estimated_arrival_time);
-            holder.isOpenTextView = (TextView)listItem.findViewById(R.id.restaurant_list_item_is_open);
-            holder.serviceTypeTextView = (TextView)listItem.findViewById(R.id.restaurant_list_item_service_type);
+            holder.isOpenTextView = (TextView) listItem.findViewById(R.id.restaurant_list_item_is_open);
+            holder.serviceTypeTextView = (TextView) listItem.findViewById(R.id.restaurant_list_item_service_type);
             holder.imageBanner = (ImageView) listItem.findViewById(R.id.restaurant_image_url);
 
             // Sólo es necesario una vez
@@ -68,8 +67,8 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
 //            listItem.setTag(R.id.tag_restaurant, restaurant);
             listItem.setTag(R.id.tag_view_holder, holder);
         } else {
-            listItem=convertView;
-            holder=(ViewHolder)listItem.getTag(R.id.tag_view_holder);
+            listItem = convertView;
+            holder = (ViewHolder) listItem.getTag(R.id.tag_view_holder);
         }
 
         holder.titleTextView.setText(restaurant.getName());
@@ -99,17 +98,17 @@ public class RestaurantListAdapter extends ArrayAdapter<Restaurant> {
         RestaurantViewUtil.showRestaurantServiceType(restaurant, holder.serviceTypeTextView);
 
         return listItem;
-	}
+    }
 
     private static class ViewHolder {
         public TextView titleTextView;
         public TextView descriptionTextView;
-        public ImageView logoImageView;
+//        public ImageView logoImageView;
         public RatingBar ratingBar;
-        public View minAmountTextViewLayout;
-        public TextView minAmountTextView;
-        public TextView estimatedArrivalTimeTextView;
-        public View estimatedArrivalTimeTextViewLayout;
+//        public View minAmountTextViewLayout;
+//        public TextView minAmountTextView;
+//        public TextView estimatedArrivalTimeTextView;
+//        public View estimatedArrivalTimeTextViewLayout;
 
         public TextView isOpenTextView;
         public TextView serviceTypeTextView;
