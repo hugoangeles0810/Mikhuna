@@ -4,11 +4,14 @@ import android.content.Context;
 import android.view.View;
 
 import com.jasoftsolutions.mikhuna.R;
+import com.jasoftsolutions.mikhuna.activity.MapActivity;
+import com.jasoftsolutions.mikhuna.activity.fragment.dialog.Dialogs;
 import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
 import com.jasoftsolutions.mikhuna.model.Location;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.util.AnalyticsConst;
 import com.jasoftsolutions.mikhuna.util.AnalyticsUtil;
+import com.jasoftsolutions.mikhuna.util.InternetUtil;
 import com.jasoftsolutions.mikhuna.util.MapsUtil;
 
 /**
@@ -27,6 +30,11 @@ public class MapsButtonListener implements View.OnClickListener {
         AnalyticsUtil.registerEvent(view.getContext(), AnalyticsConst.Category.DETAIL_RESTAURANT,
                 AnalyticsConst.Action.MAP_INTENT, restaurant.getServerId().toString());
 
-        MapsUtil.startMapsActivity(context, location);
+        if (InternetUtil.isInternetConnected(context)){
+            context.startActivity(MapActivity.getLauncherMapForDetailRestaurant(context, location));
+        } else {
+            Dialogs.dialogWithMessage(context, context.getString(R.string.no_internet_from_map_access)).show();
+        }
+
     }
 }

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -31,6 +32,7 @@ import com.jasoftsolutions.mikhuna.activity.listener.RestaurantMarkerListener;
 import com.jasoftsolutions.mikhuna.activity.preferences.RestaurantListFilterPreferences;
 import com.jasoftsolutions.mikhuna.activity.util.AuditHelper;
 import com.jasoftsolutions.mikhuna.domain.RestaurantListFilter;
+import com.jasoftsolutions.mikhuna.model.Location;
 import com.jasoftsolutions.mikhuna.model.Restaurant;
 import com.jasoftsolutions.mikhuna.model.RestaurantCategoryAssign;
 import com.jasoftsolutions.mikhuna.store.RestaurantStore;
@@ -52,6 +54,8 @@ public class MapActivity extends BaseActivity implements
     public static final String TAG = MapActivity.class.getSimpleName();
 
     public static final float DEFAULT_ZOOM  = 15;
+    public static final float DETAIL_ZOOM = 20;
+    public static final String LAT_LON = "latlon";
     private ArrayList<Restaurant> restaurants;
     private ClusterManager<Restaurant> restaurantsCluster;
     private GoogleMap map;
@@ -125,6 +129,11 @@ public class MapActivity extends BaseActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        if (id == android.R.id.home){
+            finish();
+            return true;
+        }
+
         if (id == R.id.action_refresh){
             requestRestaurantsOrRefresh();
             return true;
@@ -159,8 +168,17 @@ public class MapActivity extends BaseActivity implements
     }
 
     private void defaultCameraPositionAnimate(){
-        LatLng latLng = LocationUtil.getLastKnowLocation(this);
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM));
+        CameraUpdate cameraUpdate;
+        Intent intent = getIntent();
+        if (intent != null && intent.getSerializableExtra(LAT_LON) != null){
+            Location location = (Location)intent.getSerializableExtra(LAT_LON);
+            cameraUpdate = CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(location.getLatitude(), location.getLongitude()), DETAIL_ZOOM);
+        } else {
+            LatLng latLng = LocationUtil.getLastKnowLocation(this);
+            cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM);
+        }
+        map.animateCamera(cameraUpdate);
     }
 
 
@@ -266,6 +284,12 @@ public class MapActivity extends BaseActivity implements
                 ExceptionUtil.ignoreException(e);
             }
         }
+    }
+
+    public static Intent getLauncherMapForDetailRestaurant(Context context, Location location){
+        Intent intent = new Intent(context, MapActivity.class);
+        intent.putExtra(LAT_LON, location);
+        return intent;
     }
 
     // Marker Personalizado
